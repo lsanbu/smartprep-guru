@@ -30,7 +30,18 @@ import {
   X,
   ArrowRight,
   Play,
-  Sparkles
+  Sparkles,
+  Lightbulb,
+  Cpu,
+  Workflow,
+  MapPin,
+  Heart,
+  Code,
+  Briefcase,
+  Scale,
+  FileSearch,
+  Bot,
+  Cog
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -78,6 +89,22 @@ const Index = () => {
     }
   ];
 
+  const kdxIntelligenceProducts = [
+    { name: "XmPrepNEET", desc: "AI tutor for NEET with RAG, multilingual support" },
+    { name: "XmPrepCBSE", desc: "AI revision companion for Class 9-12" },
+    { name: "XmPrepUPSC", desc: "AI-powered civil services mentor" },
+    { name: "KDxITGym", desc: "Technical upskilling for students & freshers" },
+    { name: "KDxLaw", desc: "RAG-powered legal intelligence platform" },
+    { name: "KDxDocs", desc: "AI search for company SOPs & documentation" }
+  ];
+
+  const kdxAutomateProducts = [
+    { name: "KDxRobotize", desc: "No-code task agents for workflows" },
+    { name: "KDxWorkflow", desc: "Cross-platform automation solutions" },
+    { name: "KDxOps", desc: "Operations dashboard with AI insights" },
+    { name: "KDxHR", desc: "AI-first HR workflow automation" }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-green-50">
       {/* Header */}
@@ -92,7 +119,7 @@ const Index = () => {
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-green-500 bg-clip-text text-transparent">
                   XmPrepNEET
                 </h1>
-                <p className="text-xs text-gray-500">Powered by KDxAI</p>
+                <p className="text-xs text-gray-500">Powered by KDx<sup>AI</sup></p>
               </div>
             </Link>
 
@@ -236,6 +263,142 @@ const Index = () => {
         </div>
       </section>
 
+      {/* About KDxAI Section */}
+      <section id="about" className="py-20 px-4 bg-gradient-to-br from-gray-50 to-purple-50">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center mb-6">
+              <Brain className="w-12 h-12 text-purple-600 mr-4" />
+              <h2 className="text-4xl font-bold text-gray-800">
+                About KDx<sup className="text-green-600">AI</sup>
+              </h2>
+            </div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+              KDx<sup>AI</sup> (Kaaryaa Digitalx AI) is a visionary product studio dedicated to building intelligent, 
+              retrieval-augmented, and automation-first solutions for the real world.
+            </p>
+            <div className="bg-purple-100 border-l-4 border-purple-600 p-6 rounded-r-lg max-w-2xl mx-auto">
+              <p className="text-lg font-semibold text-purple-800 italic">
+                "Tasks Digitised. Knowledge Amplified."
+              </p>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 mb-16">
+            {/* KDxIntelligence */}
+            <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-xl">
+              <CardHeader className="bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-t-lg">
+                <div className="flex items-center space-x-3">
+                  <Lightbulb className="w-8 h-8" />
+                  <div>
+                    <CardTitle className="text-2xl">KDx<sup>Intelligence</sup></CardTitle>
+                    <CardDescription className="text-purple-100">
+                      Smarter Decisions from Your Data
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="p-6">
+                <p className="text-gray-600 mb-6">
+                  A suite of RAG-powered, AI-guided learning and knowledge agents that revolutionize 
+                  how students, professionals, and teams access and interact with information.
+                </p>
+                <div className="space-y-3">
+                  {kdxIntelligenceProducts.map((product, index) => (
+                    <div key={index} className="flex items-start space-x-3 p-3 bg-purple-50 rounded-lg">
+                      <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
+                      <div>
+                        <h4 className="font-semibold text-purple-800">{product.name}</h4>
+                        <p className="text-sm text-gray-600">{product.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* KDxAutomate */}
+            <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-xl">
+              <CardHeader className="bg-gradient-to-r from-green-600 to-green-700 text-white rounded-t-lg">
+                <div className="flex items-center space-x-3">
+                  <Workflow className="w-8 h-8" />
+                  <div>
+                    <CardTitle className="text-2xl">KDx<sup>Automate</sup></CardTitle>
+                    <CardDescription className="text-green-100">
+                      Do More by Doing Less
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="p-6">
+                <p className="text-gray-600 mb-6">
+                  Task-level AI agents and cross-platform automation solutions that help individuals 
+                  and teams eliminate repetitive effort and optimize operations.
+                </p>
+                <div className="space-y-3">
+                  {kdxAutomateProducts.map((product, index) => (
+                    <div key={index} className="flex items-start space-x-3 p-3 bg-green-50 rounded-lg">
+                      <div className="w-2 h-2 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
+                      <div>
+                        <h4 className="font-semibold text-green-800">{product.name}</h4>
+                        <p className="text-sm text-gray-600">{product.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Differentiation */}
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl mb-12">
+            <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+              Our Differentiation
+            </h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Database className="w-8 h-8 text-white" />
+                </div>
+                <h4 className="font-semibold text-gray-800 mb-2">RAG Architecture</h4>
+                <p className="text-sm text-gray-600">Reliable, contextual, source-backed intelligence</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-green-600 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Globe className="w-8 h-8 text-white" />
+                </div>
+                <h4 className="font-semibold text-gray-800 mb-2">Multilingual Support</h4>
+                <p className="text-sm text-gray-600">Tamil + English for real inclusion</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Heart className="w-8 h-8 text-white" />
+                </div>
+                <h4 className="font-semibold text-gray-800 mb-2">Freemium Access</h4>
+                <p className="text-sm text-gray-600">Built for Tier 2/3 learners and underserved users</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-green-600 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Code className="w-8 h-8 text-white" />
+                </div>
+                <h4 className="font-semibold text-gray-800 mb-2">Build in Public</h4>
+                <p className="text-sm text-gray-600">Transparent, purpose-driven, community-centric</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Location & Mission */}
+          <div className="text-center bg-gradient-to-r from-purple-600 to-green-500 text-white rounded-2xl p-8 shadow-xl">
+            <MapPin className="w-12 h-12 mx-auto mb-4" />
+            <h3 className="text-2xl font-bold mb-4">Based in Chennai. Built for the world.</h3>
+            <p className="text-lg text-purple-100 max-w-3xl mx-auto">
+              Whether it's preparing a NEET student in Madurai, assisting a lawyer in Delhi, or automating HR for a startup in Mumbai — 
+              <strong className="text-white"> KDx<sup>AI</sup> is quietly powering the future of intelligence and automation in India.</strong>
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 px-4 bg-gradient-to-r from-purple-600 to-green-500">
         <div className="container mx-auto text-center">
@@ -290,7 +453,7 @@ const Index = () => {
             <div>
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">About KDxAI</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">About KDx<sup>AI</sup></a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
               </ul>
@@ -298,7 +461,7 @@ const Index = () => {
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center">
             <p className="text-gray-400">
-              © 2025 KDxAI. All rights reserved. | Empowering NEET preparation across India.
+              © 2025 KDx<sup>AI</sup>. All rights reserved. | Empowering NEET preparation across India.
             </p>
           </div>
         </div>
