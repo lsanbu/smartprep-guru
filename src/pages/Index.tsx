@@ -1,12 +1,308 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { 
+  BookOpen, 
+  Users, 
+  BarChart3, 
+  Settings,
+  Brain,
+  Target,
+  TrendingUp,
+  Calendar,
+  FileText,
+  Shield,
+  Database,
+  Bell,
+  Building,
+  School,
+  GraduationCap,
+  Award,
+  Clock,
+  Globe,
+  MessageCircle,
+  Zap,
+  Star,
+  CheckCircle,
+  Menu,
+  X,
+  ArrowRight,
+  Play,
+  Sparkles
+} from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Index = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const features = [
+    {
+      icon: Brain,
+      title: "AI-Powered Learning",
+      description: "Personal NEET tutor available 24/7 with instant doubt clearing",
+      color: "from-purple-500 to-purple-600"
+    },
+    {
+      icon: Target,
+      title: "NEET Readiness Score",
+      description: "Real-time rank prediction based on your performance",
+      color: "from-green-500 to-green-600"
+    },
+    {
+      icon: BarChart3,
+      title: "Performance Analytics",
+      description: "Detailed insights into your strengths and weak areas",
+      color: "from-blue-500 to-blue-600"
+    },
+    {
+      icon: Users,
+      title: "Peer Benchmarking",
+      description: "Compare your progress with students across Tamil Nadu",
+      color: "from-orange-500 to-orange-600"
+    },
+    {
+      icon: FileText,
+      title: "Mock Tests",
+      description: "NEET-pattern tests with instant feedback and solutions",
+      color: "from-red-500 to-red-600"
+    },
+    {
+      icon: Sparkles,
+      title: "Gamified Learning",
+      description: "Earn points, badges, and compete with friends",
+      color: "from-pink-500 to-pink-600"
+    }
+  ];
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-green-50">
+      {/* Header */}
+      <header className="bg-white/80 backdrop-blur-md border-b border-purple-100 sticky top-0 z-50 shadow-sm">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <Link to="/" className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-green-500 rounded-xl flex items-center justify-center shadow-lg">
+                <BookOpen className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-green-500 bg-clip-text text-transparent">
+                  XmPrepNEET
+                </h1>
+                <p className="text-xs text-gray-500">Powered by KDxAI</p>
+              </div>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-8">
+              <a href="#features" className="text-gray-600 hover:text-purple-600 font-medium transition-colors">Features</a>
+              <a href="#about" className="text-gray-600 hover:text-purple-600 font-medium transition-colors">About</a>
+              <a href="#pricing" className="text-gray-600 hover:text-purple-600 font-medium transition-colors">Pricing</a>
+              <Button asChild className="bg-gradient-to-r from-purple-600 to-green-500 hover:from-purple-700 hover:to-green-600 text-white shadow-lg">
+                <Link to="/student">
+                  <GraduationCap className="w-4 h-4 mr-2" />
+                  Student Portal
+                </Link>
+              </Button>
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={toggleMenu}
+              className="md:hidden p-2 rounded-lg hover:bg-purple-50 transition-colors"
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+
+          {/* Mobile Navigation */}
+          {isMenuOpen && (
+            <div className="md:hidden mt-4 pb-4 border-t border-purple-100 pt-4">
+              <nav className="space-y-3">
+                <a href="#features" className="block px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">Features</a>
+                <a href="#about" className="block px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">About</a>
+                <a href="#pricing" className="block px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">Pricing</a>
+                <Button asChild className="w-full bg-gradient-to-r from-purple-600 to-green-500 hover:from-purple-700 hover:to-green-600 text-white">
+                  <Link to="/student" onClick={() => setIsMenuOpen(false)}>
+                    <GraduationCap className="w-4 h-4 mr-2" />
+                    Student Portal
+                  </Link>
+                </Button>
+              </nav>
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="relative py-20 px-4 overflow-hidden">
+        <div className="container mx-auto text-center relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <Badge className="mb-6 bg-purple-100 text-purple-700 hover:bg-purple-200 border-purple-200 text-sm px-4 py-2">
+              <Zap className="w-4 h-4 mr-2" />
+              AI-Powered NEET Preparation
+            </Badge>
+            
+            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-purple-600 via-green-500 to-purple-600 bg-clip-text text-transparent">
+                Crack NEET
+              </span>
+              <br />
+              <span className="text-gray-800">with AI Tutoring</span>
+            </h1>
+            
+            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+              Your personal AI tutor, real-time rank prediction, and comprehensive analytics. 
+              Join thousands of students already using XmPrepNEET to achieve their medical dreams.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <Button size="lg" asChild className="bg-gradient-to-r from-purple-600 to-green-500 hover:from-purple-700 hover:to-green-600 text-white px-8 py-4 text-lg shadow-xl">
+                <Link to="/student" className="flex items-center">
+                  <Play className="w-5 h-5 mr-2" />
+                  Start Learning Now
+                </Link>
+              </Button>
+              <Button size="lg" variant="outline" className="border-2 border-purple-200 text-purple-700 hover:bg-purple-50 px-8 py-4 text-lg">
+                <MessageCircle className="w-5 h-5 mr-2" />
+                Try AI Tutor Free
+              </Button>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-purple-600 mb-1">50K+</div>
+                <div className="text-sm text-gray-500">Active Students</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-green-600 mb-1">95%</div>
+                <div className="text-sm text-gray-500">Accuracy Rate</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-purple-600 mb-1">24/7</div>
+                <div className="text-sm text-gray-500">AI Support</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-green-600 mb-1">1M+</div>
+                <div className="text-sm text-gray-500">Questions Solved</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Background decoration */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-purple-200 rounded-full opacity-20 animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-32 h-32 bg-green-200 rounded-full opacity-20 animate-pulse delay-1000"></div>
+      </section>
+
+      {/* Features Grid */}
+      <section id="features" className="py-20 px-4 bg-white/50">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+              Why Students Love XmPrepNEET
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Advanced features designed specifically for NEET aspirants
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <Card key={index} className="group hover:shadow-2xl transition-all duration-300 border-0 bg-white/80 backdrop-blur-sm hover:-translate-y-2">
+                <CardHeader className="pb-4">
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                    <feature.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <CardTitle className="text-gray-800 group-hover:text-purple-600 transition-colors">
+                    {feature.title}
+                  </CardTitle>
+                  <CardDescription className="text-gray-600 leading-relaxed">
+                    {feature.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center text-purple-600 font-medium group-hover:translate-x-2 transition-transform duration-300">
+                    Learn more <ArrowRight className="w-4 h-4 ml-2" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-4 bg-gradient-to-r from-purple-600 to-green-500">
+        <div className="container mx-auto text-center">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-4xl font-bold text-white mb-6">
+              Ready to Start Your NEET Journey?
+            </h2>
+            <p className="text-xl text-purple-100 mb-8">
+              Join thousands of successful NEET aspirants who chose XmPrepNEET as their study partner
+            </p>
+            <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-50 px-8 py-4 text-lg shadow-xl">
+              <Link to="/student" className="flex items-center">
+                <GraduationCap className="w-5 h-5 mr-2" />
+                Enter Student Portal
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12 px-4">
+        <div className="container mx-auto">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center space-x-2 mb-4">
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-600 to-green-500 rounded-lg flex items-center justify-center">
+                  <BookOpen className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-xl font-bold">XmPrepNEET</span>
+              </div>
+              <p className="text-gray-400 leading-relaxed">
+                AI-powered NEET preparation platform for the next generation of medical professionals.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Platform</h4>
+              <ul className="space-y-2">
+                <li><Link to="/student" className="text-gray-400 hover:text-white transition-colors">Student Interface</Link></li>
+                <li><a href="#features" className="text-gray-400 hover:text-white transition-colors">Features</a></li>
+                <li><a href="#pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Support</h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Community</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Company</h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">About KDxAI</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
+            <p className="text-gray-400">
+              © 2025 KDxAI. All rights reserved. | Empowering NEET preparation across India.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

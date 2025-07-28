@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -25,7 +26,7 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
+					DEFAULT: 'hsl(265 93% 36%)', // Purple #6A0DAD for KDxAI branding
 					foreground: 'hsl(var(--primary-foreground))'
 				},
 				secondary: {
@@ -41,7 +42,7 @@ export default {
 					foreground: 'hsl(var(--muted-foreground))'
 				},
 				accent: {
-					DEFAULT: 'hsl(var(--accent))',
+					DEFAULT: 'hsl(73 100% 39%)', // Green #B2C600 for KDxAI branding
 					foreground: 'hsl(var(--accent-foreground))'
 				},
 				popover: {
