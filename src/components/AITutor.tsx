@@ -56,8 +56,8 @@ const AITutor = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // API Configuration - Updated with proper backend URL
-  const API_BASE_URL = 'http://localhost:5000'; // Flask backend URL
+  // Updated API Configuration
+  const API_BASE_URL = 'http://localhost:5000';
   const CHAT_ENDPOINT = `${API_BASE_URL}/chat/ask`;
 
   const quickQuestions = [
@@ -75,45 +75,87 @@ const AITutor = () => {
   ];
 
   const callAITutorAPI = async (question: string): Promise<string> => {
-    console.log('Calling Flask API with question:', question);
+    console.log('=== API Call Debug Info ===');
+    console.log('Question:', question);
     console.log('API Endpoint:', CHAT_ENDPOINT);
+    console.log('Request method: POST');
+    console.log('Content-Type: application/json');
     
     try {
+      // First, let's try to check if the server is running
+      console.log('Checking server connectivity...');
+      
       const response = await fetch(CHAT_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify({
           question: question
         })
       });
 
-      console.log('Response status:', response.status);
-      console.log('Response headers:', response.headers);
+      console.log('Response received:');
+      console.log('Status:', response.status);
+      console.log('Status Text:', response.statusText);
+      console.log('Headers:', Object.fromEntries(response.headers.entries()));
 
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('API Error Response:', errorText);
-        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+        let errorMessage = `HTTP ${response.status}: ${response.statusText}`;
+        
+        try {
+          const errorText = await response.text();
+          console.log('Error response body:', errorText);
+          
+          // Try to parse as JSON if possible
+          try {
+            const errorJson = JSON.parse(errorText);
+            errorMessage = errorJson.error || errorMessage;
+          } catch {
+            errorMessage = errorText || errorMessage;
+          }
+        } catch (textError) {
+          console.log('Could not read error response body:', textError);
+        }
+        
+        if (response.status === 404) {
+          throw new Error('API endpoint not found. Please check if the Flask server is running and the route is correctly registered.');
+        } else if (response.status === 500) {
+          throw new Error(`Server error: ${errorMessage}`);
+        } else if (response.status === 400) {
+          throw new Error(`Bad request: ${errorMessage}`);
+        } else {
+          throw new Error(errorMessage);
+        }
       }
 
       const data = await response.json();
-      console.log('API Response data:', data);
+      console.log('Success response data:', data);
       
       if (data.error) {
-        throw new Error(data.error);
+        throw new Error(`API Error: ${data.error}`);
       }
 
-      return data.answer || "I'm sorry, I couldn't generate a response. Please try again.";
-    } catch (error) {
-      console.error('AI Tutor API Error:', error);
+      return data.answer || "I received your question but couldn't generate a response. Please try again.";
       
-      // Check if it's a network error
-      if (error instanceof TypeError && error.message.includes('fetch')) {
-        throw new Error('Unable to connect to the server. Please check if the Flask backend is running on http://localhost:5000');
+    } catch (error) {
+      console.error('=== API Error Details ===');
+      console.error('Error type:', error instanceof Error ? error.constructor.name : typeof error);
+      console.error('Error message:', error instanceof Error ? error.message : String(error));
+      console.error('Full error:', error);
+      
+      if (error instanceof TypeError) {
+        if (error.message.includes('fetch')) {
+          throw new Error(`Network Error: Cannot connect to Flask server at ${API_BASE_URL}. Please ensure:
+1. Flask server is running on port 5000
+2. CORS is properly configured
+3. The /chat/ask endpoint is registered
+4. No firewall is blocking the connection`);
+        }
       }
       
+      // Re-throw the error to be handled by the calling function
       throw error;
     }
   };
@@ -145,7 +187,6 @@ const AITutor = () => {
     try {
       console.log('Sending message to AI Tutor:', questionText);
       
-      // Call the Flask API
       const aiResponse = await callAITutorAPI(questionText);
       
       const aiMessage: Message = {
@@ -157,20 +198,29 @@ const AITutor = () => {
       };
       
       setMessages(prev => [...prev, aiMessage]);
-      toast.success("AI Tutor responded!");
+      toast.success("AI Tutor responded successfully!");
+      
     } catch (error) {
       console.error('Failed to get AI response:', error);
       
-      const errorMessage: Message = {
+      let errorMessage = "I'm having trouble connecting to the server right now. ";
+      
+      if (error instanceof Error) {
+        errorMessage += error.message;
+      } else {
+        errorMessage += "An unknown error occurred. Please try again.";
+      }
+      
+      const aiErrorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: `I'm sorry, I'm having trouble connecting to the server right now. ${error instanceof Error ? error.message : 'Unknown error occurred'}`,
+        content: errorMessage,
         sender: 'ai',
         timestamp: new Date(),
         type: 'error'
       };
       
-      setMessages(prev => [...prev, errorMessage]);
-      toast.error("Failed to get AI response. Please try again.");
+      setMessages(prev => [...prev, aiErrorMessage]);
+      toast.error("Failed to get AI response. Please check the console for details.");
     } finally {
       setIsLoading(false);
     }
