@@ -26,7 +26,8 @@ import {
   BookOpen,
   Lightbulb,
   Target,
-  TrendingUp
+  TrendingUp,
+  AlertTriangle
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -36,7 +37,7 @@ interface Message {
   sender: 'user' | 'ai';
   timestamp: Date;
   image?: string;
-  type?: 'text' | 'image' | 'solution';
+  type?: 'text' | 'image' | 'solution' | 'error';
 }
 
 const AITutor = () => {
@@ -56,6 +57,10 @@ const AITutor = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // API Configuration
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const CHAT_ENDPOINT = `${API_BASE_URL}/chat/ask`;
+
   const quickQuestions = [
     { text: "Explain photosynthesis mechanism", subject: "Biology", icon: BookOpen },
     { text: "Solve this organic chemistry reaction", subject: "Chemistry", icon: Lightbulb },
@@ -70,8 +75,44 @@ const AITutor = () => {
     { topic: "Wave Optics", subject: "Physics", time: "3 days ago" },
   ];
 
+  const callAITutorAPI = async (question: string): Promise<string> => {
+    try {
+      const response = await fetch(CHAT_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          question: question
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      return data.answer || "I'm sorry, I couldn't generate a response. Please try again.";
+    } catch (error) {
+      console.error('AI Tutor API Error:', error);
+      throw error;
+    }
+  };
+
   const handleSendMessage = async () => {
     if (!inputMessage.trim() && !selectedImage) return;
+
+    let questionText = inputMessage.trim();
+    
+    // If there's an image, add context about it
+    if (selectedImage) {
+      questionText = `${questionText} [Image uploaded: ${selectedImage.name}]`;
+    }
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -87,29 +128,38 @@ const AITutor = () => {
     setSelectedImage(null);
     setIsLoading(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      const aiResponse: Message = {
+    try {
+      // Call the actual Flask API
+      const aiResponse = await callAITutorAPI(questionText);
+      
+      const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: generateAIResponse(userMessage.content, !!selectedImage),
+        content: aiResponse,
         sender: 'ai',
         timestamp: new Date(),
         type: 'solution'
       };
-      setMessages(prev => [...prev, aiResponse]);
-      setIsLoading(false);
+      
+      setMessages(prev => [...prev, aiMessage]);
       toast.success("AI Tutor responded!");
-    }, 1500);
+    } catch (error) {
+      console.error('Failed to get AI response:', error);
+      
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: `I'm sorry, I'm having trouble connecting to the server right now. Please check your internet connection and try again. Error: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        sender: 'ai',
+        timestamp: new Date(),
+        type: 'error'
+      };
+      
+      setMessages(prev => [...prev, errorMessage]);
+      toast.error("Failed to get AI response. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
 
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const generateAIResponse = (question: string, hasImage: boolean): string => {
-    if (hasImage) {
-      return "I can see the problem in your image! Let me break down the solution step by step:\n\n1. First, identify the given parameters\n2. Apply the relevant formula or concept\n3. Solve systematically\n4. Verify the answer\n\nThis appears to be related to [specific topic]. Here's the detailed explanation...\n\n💡 **Quick Tip**: Always double-check your units in physics problems!";
-    } else {
-      return `Great question about "${question}"! Let me explain this concept clearly:\n\n**Key Points:**\n• Fundamental principle explanation\n• Step-by-step approach\n• Common mistakes to avoid\n\n**Example:** Here's a similar problem to help you understand better...\n\n🎯 **Remember**: This concept often appears in NEET questions, so make sure you understand the underlying theory!`;
-    }
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -143,6 +193,28 @@ const AITutor = () => {
       hour: '2-digit', 
       minute: '2-digit' 
     });
+  };
+
+  const getMessageIcon = (type: string) => {
+    switch (type) {
+      case 'error':
+        return <AlertTriangle className="w-4 h-4 text-red-500" />;
+      case 'solution':
+        return <Lightbulb className="w-4 h-4 text-yellow-500" />;
+      default:
+        return <Bot className="w-4 h-4 text-white" />;
+    }
+  };
+
+  const getMessageBgColor = (type: string) => {
+    switch (type) {
+      case 'error':
+        return 'bg-red-50 border-red-200';
+      case 'solution':
+        return 'bg-green-50 border-green-200';
+      default:
+        return 'bg-gray-100';
+    }
   };
 
   return (
@@ -186,14 +258,14 @@ const AITutor = () => {
                   {message.sender === 'user' ? (
                     <User className="w-4 h-4 text-white" />
                   ) : (
-                    <Bot className="w-4 h-4 text-white" />
+                    getMessageIcon(message.type || 'text')
                   )}
                 </div>
                 
-                <div className={`p-3 rounded-2xl ${
+                <div className={`p-3 rounded-2xl border ${
                   message.sender === 'user'
                     ? 'bg-purple-600 text-white'
-                    : 'bg-gray-100 text-gray-800'
+                    : getMessageBgColor(message.type || 'text')
                 }`}>
                   {message.image && (
                     <img 
@@ -269,18 +341,21 @@ const AITutor = () => {
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder="Ask your NEET doubt here..."
                 className="pr-20 border-gray-300 focus:border-purple-400 focus:ring-purple-400"
-                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                onKeyPress={(e) => e.key === 'Enter' && !isLoading && handleSendMessage()}
+                disabled={isLoading}
               />
               <div className="absolute right-2 top-2 flex items-center space-x-1">
                 <button
                   onClick={() => fileInputRef.current?.click()}
                   className="p-1 hover:bg-gray-100 rounded"
+                  disabled={isLoading}
                 >
                   <Paperclip className="w-4 h-4 text-gray-500" />
                 </button>
                 <button
                   onClick={toggleRecording}
                   className={`p-1 rounded ${isRecording ? 'bg-red-100 text-red-600' : 'hover:bg-gray-100 text-gray-500'}`}
+                  disabled={isLoading}
                 >
                   {isRecording ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
                 </button>
@@ -291,7 +366,11 @@ const AITutor = () => {
               disabled={isLoading || (!inputMessage.trim() && !selectedImage)}
               className="bg-gradient-to-r from-purple-600 to-green-500 hover:from-purple-700 hover:to-green-600 text-white"
             >
-              <Send className="w-4 h-4" />
+              {isLoading ? (
+                <RefreshCw className="w-4 h-4 animate-spin" />
+              ) : (
+                <Send className="w-4 h-4" />
+              )}
             </Button>
           </div>
           
@@ -323,6 +402,7 @@ const AITutor = () => {
                   key={index}
                   onClick={() => handleQuickQuestion(question.text)}
                   className="w-full p-3 text-left bg-gray-50 hover:bg-purple-50 rounded-lg transition-colors"
+                  disabled={isLoading}
                 >
                   <div className="flex items-center space-x-2 mb-1">
                     <question.icon className="w-4 h-4 text-purple-600" />
