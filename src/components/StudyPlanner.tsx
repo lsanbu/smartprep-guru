@@ -301,7 +301,7 @@ const StudyPlanner = () => {
                           </div>
                           <div className="flex items-center space-x-2 text-sm text-gray-600">
                             <span>{formatDuration(session.duration)}</span>
-                            <Badge className={getPriorityColor(session.priority)} size="sm">
+                            <Badge className={getPriorityColor(session.priority)}>
                               {session.priority}
                             </Badge>
                           </div>

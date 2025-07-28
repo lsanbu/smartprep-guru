@@ -66,7 +66,7 @@ const MockTests = () => {
       duration: 60,
       questions: 45,
       difficulty: 'hard',
-      status: 'available'
+      status: 'upcoming'
     },
     {
       id: '3',
@@ -77,7 +77,7 @@ const MockTests = () => {
       duration: 45,
       questions: 30,
       difficulty: 'medium',
-      status: 'available'
+      status: 'upcoming'
     },
     {
       id: '4',
@@ -125,7 +125,7 @@ const MockTests = () => {
     { test: 'Biology Mock', score: 47, rank: 123, percentile: 95.8, date: '1 week ago' }
   ];
 
-  const upcomingTests = mockTests.filter(test => test.status === 'upcoming' || test.status === 'available');
+  const upcomingTests = mockTests.filter(test => test.status === 'upcoming');
   const completedTests = mockTests.filter(test => test.status === 'completed');
 
   const startTest = (testId: string) => {
