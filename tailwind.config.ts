@@ -48,7 +48,7 @@ export default {
 					foreground: 'hsl(var(--muted-foreground))'
 				},
 				accent: {
-					DEFAULT: 'hsl(73 100% 39%)', // Green #B2C600 for KDxAI branding
+					DEFAULT: 'hsl(73 76% 39%)', // Green #B2C600 for KDxAI branding
 					foreground: 'hsl(var(--accent-foreground))'
 				},
 				popover: {
@@ -70,7 +70,7 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				'brand-purple': 'hsl(265 93% 36%)', // #6A0DAD
-				'brand-green': 'hsl(73 100% 39%)', // #B2C600
+				'brand-green': 'hsl(73 76% 39%)', // #B2C600
 				'brand-dark-gray': 'hsl(0 0% 20%)', // #333333
 				'brand-light-gray': 'hsl(0 0% 53%)', // #888888
 			},
