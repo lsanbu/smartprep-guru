@@ -64,7 +64,7 @@ const Student = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-green-50 font-poppins">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md border-b border-purple-100 shadow-sm">
         <div className="px-6 py-4">
@@ -74,17 +74,20 @@ const Student = () => {
                 <BookOpen className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-green-500 bg-clip-text text-transparent">
+                <h1 className="text-xl font-bold font-brand-primary bg-gradient-to-r from-purple-600 to-green-500 bg-clip-text text-transparent">
                   XmPrepNEET Student
                 </h1>
-                <p className="text-sm text-gray-500">Welcome back, {userName}!</p>
+                <p className="text-xs font-brand-tagline text-brand-light-gray">
+                  Tasks Digitised. Knowledge Amplified.
+                </p>
+                <p className="text-sm text-gray-500 mt-1">Welcome back, {userName}!</p>
               </div>
             </div>
 
             <div className="flex items-center space-x-4">
               <div className="hidden md:flex items-center space-x-2 bg-green-100 text-green-700 px-3 py-1 rounded-full">
                 <Zap className="w-4 h-4" />
-                <span className="text-sm font-medium">{currentStreak} day streak</span>
+                <span className="text-sm font-medium font-poppins">{currentStreak} day streak</span>
               </div>
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="w-5 h-5" />
@@ -106,24 +109,24 @@ const Student = () => {
               <button
                 key={item.id}
                 onClick={() => handleTabChange(item.id)}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 font-medium font-poppins ${
                   activeTab === item.id
                     ? 'bg-gradient-to-r from-purple-600 to-green-500 text-white shadow-lg'
                     : 'text-gray-600 hover:bg-purple-50 hover:text-purple-600'
                 }`}
               >
                 <item.icon className="w-5 h-5" />
-                <span className="font-medium">{item.label}</span>
+                <span>{item.label}</span>
               </button>
             ))}
           </nav>
 
           <div className="mt-8 p-4 bg-gradient-to-br from-purple-100 to-green-100 rounded-xl">
-            <h4 className="font-semibold text-gray-800 mb-2">Quick Tip</h4>
-            <p className="text-sm text-gray-600 mb-3">
+            <h4 className="font-semibold font-brand-primary text-gray-800 mb-2">Quick Tip</h4>
+            <p className="text-sm text-gray-600 mb-3 font-poppins">
               Use the AI tutor to clear doubts instantly with image support!
             </p>
-            <Button size="sm" className="w-full bg-purple-600 hover:bg-purple-700 text-white">
+            <Button size="sm" className="w-full bg-purple-600 hover:bg-purple-700 text-white font-poppins">
               Try Now
             </Button>
           </div>

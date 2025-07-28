@@ -3,6 +3,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import KDxAI Brand Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
 /* KDxAI Brand Colors - Purple and Green Theme */
 
 @layer base {
@@ -93,7 +96,16 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-poppins;
+  }
+
+  /* KDxAI Brand Typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-brand-primary;
+  }
+
+  .brand-tagline {
+    @apply font-brand-tagline;
   }
 }
 
@@ -129,7 +141,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar with KDxAI brand colors */
 ::-webkit-scrollbar {
   width: 6px;
 }

@@ -19,6 +19,12 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'poppins': ['Poppins', 'sans-serif'],
+				'montserrat': ['Montserrat', 'sans-serif'],
+				'brand-primary': ['Poppins', 'sans-serif'],
+				'brand-tagline': ['Poppins', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -62,7 +68,11 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				'brand-purple': 'hsl(265 93% 36%)', // #6A0DAD
+				'brand-green': 'hsl(73 100% 39%)', // #B2C600
+				'brand-dark-gray': 'hsl(0 0% 20%)', // #333333
+				'brand-light-gray': 'hsl(0 0% 53%)', // #888888
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
