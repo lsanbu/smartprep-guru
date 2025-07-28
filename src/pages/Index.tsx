@@ -1,473 +1,175 @@
-
-import { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { 
-  BookOpen, 
-  Users, 
-  BarChart3, 
-  Settings,
-  Brain,
-  Target,
-  TrendingUp,
-  Calendar,
-  FileText,
-  Shield,
-  Database,
-  Bell,
-  Building,
-  School,
-  GraduationCap,
-  Award,
-  Clock,
-  Globe,
-  MessageCircle,
-  Zap,
-  Star,
-  CheckCircle,
-  Menu,
-  X,
-  ArrowRight,
-  Play,
-  Sparkles,
-  Lightbulb,
-  Cpu,
-  Workflow,
-  MapPin,
-  Heart,
-  Code,
-  Briefcase,
-  Scale,
-  FileSearch,
-  Bot,
-  Cog
-} from "lucide-react";
-import { Link } from "react-router-dom";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@/components/ui/accordion"
+import { Sparkles, Zap } from "lucide-react";
 
-const Index = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+export default function Index() {
+	return (
+		<div className="container mx-auto py-10">
+			<section className="mb-16 text-center">
+				<h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+					Welcome to <span className="text-brand-purple">KDx</span>AI
+				</h1>
+				<p className="text-lg text-brand-light-gray mb-8">
+					Empowering the Next Generation of AI Innovators
+				</p>
+				<Button size="lg">
+					Get Started <Sparkles className="ml-2 animate-pulse" />
+				</Button>
+			</section>
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+			<section className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-16">
+				{/* Mentorship Program Card */}
+				<Card className="glass-effect hover:shadow-lg transition-shadow duration-300">
+					<CardHeader>
+						<CardTitle className="text-xl">Mentorship Program</CardTitle>
+						<CardDescription>
+							Connect with industry experts and gain invaluable insights.
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<p className="text-gray-600">
+							Our mentorship program pairs you with seasoned AI professionals
+							who can guide you through your learning journey.
+						</p>
+					</CardContent>
+					<CardFooter>
+						<Button variant="secondary">Learn More</Button>
+					</CardFooter>
+				</Card>
 
-  const features = [
-    {
-      icon: Brain,
-      title: "AI-Powered Learning",
-      description: "Personal NEET tutor available 24/7 with instant doubt clearing",
-      color: "from-purple-500 to-purple-600"
-    },
-    {
-      icon: Target,
-      title: "NEET Readiness Score",
-      description: "Real-time rank prediction based on your performance",
-      color: "from-green-500 to-green-600"
-    },
-    {
-      icon: BarChart3,
-      title: "Performance Analytics",
-      description: "Detailed insights into your strengths and weak areas",
-      color: "from-blue-500 to-blue-600"
-    },
-    {
-      icon: Users,
-      title: "Peer Benchmarking",
-      description: "Compare your progress with students across Tamil Nadu",
-      color: "from-orange-500 to-orange-600"
-    },
-    {
-      icon: FileText,
-      title: "Mock Tests",
-      description: "NEET-pattern tests with instant feedback and solutions",
-      color: "from-red-500 to-red-600"
-    },
-    {
-      icon: Sparkles,
-      title: "Gamified Learning",
-      description: "Earn points, badges, and compete with friends",
-      color: "from-pink-500 to-pink-600"
-    }
-  ];
+				{/* AI Education Card */}
+				<Card className="glass-effect hover:shadow-lg transition-shadow duration-300">
+					<CardHeader>
+						<CardTitle className="text-xl">AI Education</CardTitle>
+						<CardDescription>
+							Access curated courses and workshops to master AI concepts.
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<p className="text-gray-600">
+							From beginner-friendly introductions to advanced topics, our
+							educational resources cover a wide range of AI subjects.
+						</p>
+					</CardContent>
+					<CardFooter>
+						<Button variant="secondary">Explore Courses</Button>
+					</CardFooter>
+				</Card>
 
-  const kdxIntelligenceProducts = [
-    { name: "XmPrepNEET", desc: "AI tutor for NEET with RAG, multilingual support" },
-    { name: "XmPrepCBSE", desc: "AI revision companion for Class 9-12" },
-    { name: "XmPrepUPSC", desc: "AI-powered civil services mentor" },
-    { name: "KDxITGym", desc: "Technical upskilling for students & freshers" },
-    { name: "KDxLaw", desc: "RAG-powered legal intelligence platform" },
-    { name: "KDxDocs", desc: "AI search for company SOPs & documentation" }
-  ];
+				{/* Community & Events Card */}
+				<Card className="glass-effect hover:shadow-lg transition-shadow duration-300">
+					<CardHeader>
+						<CardTitle className="text-xl">Community & Events</CardTitle>
+						<CardDescription>
+							Join a vibrant community of AI enthusiasts and attend exclusive
+							events.
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<p className="text-gray-600">
+							Network with like-minded individuals, participate in discussions,
+							and attend workshops and conferences.
+						</p>
+					</CardContent>
+					<CardFooter>
+						<Button variant="secondary">Join the Community</Button>
+					</CardFooter>
+				</Card>
+			</section>
 
-  const kdxAutomateProducts = [
-    { name: "KDxRobotize", desc: "No-code task agents for workflows" },
-    { name: "KDxWorkflow", desc: "Cross-platform automation solutions" },
-    { name: "KDxOps", desc: "Operations dashboard with AI insights" },
-    { name: "KDxHR", desc: "AI-first HR workflow automation" }
-  ];
+			{/* KDxAutomate Section */}
+			<div className="bg-gradient-to-br from-accent/10 to-accent/5 rounded-xl p-8 border border-accent/20">
+				<div className="flex items-center gap-3 mb-6">
+					<div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center">
+						<Zap className="w-6 h-6 text-white" />
+					</div>
+					<div>
+						<h3 className="text-2xl font-bold text-accent">KDxAutomate</h3>
+						<p className="text-accent/80 font-medium">Do More by Doing Less</p>
+					</div>
+				</div>
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-green-50">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-purple-100 sticky top-0 z-50 shadow-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-green-500 rounded-xl flex items-center justify-center shadow-lg">
-                <BookOpen className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-green-500 bg-clip-text text-transparent">
-                  XmPrepNEET
-                </h1>
-                <p className="text-xs text-gray-500">Powered by KDx<sup>AI</sup></p>
-              </div>
-            </Link>
+				<p className="text-gray-600 mb-6">
+					KDxAutomate powers <strong>task-level AI agents and cross-platform automation</strong>, helping individuals and teams eliminate repetitive effort and optimize operations.
+				</p>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-gray-600 hover:text-purple-600 font-medium transition-colors">Features</a>
-              <a href="#about" className="text-gray-600 hover:text-purple-600 font-medium transition-colors">About</a>
-              <a href="#pricing" className="text-gray-600 hover:text-purple-600 font-medium transition-colors">Pricing</a>
-              <Button asChild className="bg-gradient-to-r from-purple-600 to-green-500 hover:from-purple-700 hover:to-green-600 text-white shadow-lg">
-                <Link to="/student">
-                  <GraduationCap className="w-4 h-4 mr-2" />
-                  Student Portal
-                </Link>
-              </Button>
-            </nav>
+				<div className="grid md:grid-cols-2 gap-4">
+					<div className="bg-white/70 p-4 rounded-lg border border-accent/10">
+						<h4 className="font-semibold text-accent mb-2">KDxRobotize</h4>
+						<p className="text-sm text-gray-600">No-code task agents for emails, document sorting, and file ops</p>
+					</div>
+					<div className="bg-white/70 p-4 rounded-lg border border-accent/10">
+						<h4 className="font-semibold text-accent mb-2">KDxWorkflow</h4>
+						<p className="text-sm text-gray-600">Cross-platform automation (e.g., CRM → Sheets → WhatsApp)</p>
+					</div>
+					<div className="bg-white/70 p-4 rounded-lg border border-accent/10">
+						<h4 className="font-semibold text-accent mb-2">KDxOps</h4>
+						<p className="text-sm text-gray-600">Ops dashboard with alerts, reports, and checklists</p>
+					</div>
+					<div className="bg-white/70 p-4 rounded-lg border border-accent/10">
+						<h4 className="font-semibold text-accent mb-2">KDxHR</h4>
+						<p className="text-sm text-gray-600">AI-first HR workflow automation — onboarding, leave, timesheets, etc.</p>
+					</div>
+				</div>
+			</div>
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={toggleMenu}
-              className="md:hidden p-2 rounded-lg hover:bg-purple-50 transition-colors"
-            >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
+			<section className="mt-20">
+				<h2 className="text-3xl font-semibold text-center mb-8">
+					Frequently Asked Questions
+				</h2>
+				<Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
+					<AccordionItem value="item-1">
+						<AccordionTrigger>What is KDxAI?</AccordionTrigger>
+						<AccordionContent>
+							KDxAI is an initiative focused on empowering individuals through AI
+							education, mentorship, and community engagement.
+						</AccordionContent>
+					</AccordionItem>
+					<AccordionItem value="item-2">
+						<AccordionTrigger>How can I join the mentorship program?</AccordionTrigger>
+						<AccordionContent>
+							To join the mentorship program, please fill out the application form
+							on our website. We review applications on a rolling basis.
+						</AccordionContent>
+					</AccordionItem>
+					<AccordionItem value="item-3">
+						<AccordionTrigger>Are the courses free?</AccordionTrigger>
+						<AccordionContent>
+							We offer a mix of free and premium courses. Check our course catalog
+							for details on pricing.
+						</AccordionContent>
+					</AccordionItem>
+				</Accordion>
+			</section>
 
-          {/* Mobile Navigation */}
-          {isMenuOpen && (
-            <div className="md:hidden mt-4 pb-4 border-t border-purple-100 pt-4">
-              <nav className="space-y-3">
-                <a href="#features" className="block px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">Features</a>
-                <a href="#about" className="block px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">About</a>
-                <a href="#pricing" className="block px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">Pricing</a>
-                <Button asChild className="w-full bg-gradient-to-r from-purple-600 to-green-500 hover:from-purple-700 hover:to-green-600 text-white">
-                  <Link to="/student" onClick={() => setIsMenuOpen(false)}>
-                    <GraduationCap className="w-4 h-4 mr-2" />
-                    Student Portal
-                  </Link>
-                </Button>
-              </nav>
-            </div>
-          )}
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <section className="relative py-20 px-4 overflow-hidden">
-        <div className="container mx-auto text-center relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <Badge className="mb-6 bg-purple-100 text-purple-700 hover:bg-purple-200 border-purple-200 text-sm px-4 py-2">
-              <Zap className="w-4 h-4 mr-2" />
-              AI-Powered NEET Preparation
-            </Badge>
-            
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-purple-600 via-green-500 to-purple-600 bg-clip-text text-transparent">
-                Crack NEET
-              </span>
-              <br />
-              <span className="text-gray-800">with AI Tutoring</span>
-            </h1>
-            
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Your personal AI tutor, real-time rank prediction, and comprehensive analytics. 
-              Join thousands of students already using XmPrepNEET to achieve their medical dreams.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button size="lg" asChild className="bg-gradient-to-r from-purple-600 to-green-500 hover:from-purple-700 hover:to-green-600 text-white px-8 py-4 text-lg shadow-xl">
-                <Link to="/student" className="flex items-center">
-                  <Play className="w-5 h-5 mr-2" />
-                  Start Learning Now
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" className="border-2 border-purple-200 text-purple-700 hover:bg-purple-50 px-8 py-4 text-lg">
-                <MessageCircle className="w-5 h-5 mr-2" />
-                Try AI Tutor Free
-              </Button>
-            </div>
-
-            {/* Quick Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-purple-600 mb-1">50K+</div>
-                <div className="text-sm text-gray-500">Active Students</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-green-600 mb-1">95%</div>
-                <div className="text-sm text-gray-500">Accuracy Rate</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-purple-600 mb-1">24/7</div>
-                <div className="text-sm text-gray-500">AI Support</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-green-600 mb-1">1M+</div>
-                <div className="text-sm text-gray-500">Questions Solved</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Background decoration */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-purple-200 rounded-full opacity-20 animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-32 h-32 bg-green-200 rounded-full opacity-20 animate-pulse delay-1000"></div>
-      </section>
-
-      {/* Features Grid */}
-      <section id="features" className="py-20 px-4 bg-white/50">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">
-              Why Students Love XmPrepNEET
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Advanced features designed specifically for NEET aspirants
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Card key={index} className="group hover:shadow-2xl transition-all duration-300 border-0 bg-white/80 backdrop-blur-sm hover:-translate-y-2">
-                <CardHeader className="pb-4">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <feature.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <CardTitle className="text-gray-800 group-hover:text-purple-600 transition-colors">
-                    {feature.title}
-                  </CardTitle>
-                  <CardDescription className="text-gray-600 leading-relaxed">
-                    {feature.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center text-purple-600 font-medium group-hover:translate-x-2 transition-transform duration-300">
-                    Learn more <ArrowRight className="w-4 h-4 ml-2" />
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* About KDxAI Section */}
-      <section id="about" className="py-20 px-4 bg-gradient-to-br from-gray-50 to-purple-50">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center mb-6">
-              <Brain className="w-12 h-12 text-purple-600 mr-4" />
-              <h2 className="text-4xl font-bold text-gray-800">
-                About KDx<sup className="text-green-600">AI</sup>
-              </h2>
-            </div>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              KDx<sup>AI</sup> (Kaaryaa Digitalx AI) is a visionary product studio dedicated to building intelligent, 
-              retrieval-augmented, and automation-first solutions for the real world.
-            </p>
-            <div className="bg-purple-100 border-l-4 border-purple-600 p-6 rounded-r-lg max-w-2xl mx-auto">
-              <p className="text-lg font-semibold text-purple-800 italic">
-                "Tasks Digitised. Knowledge Amplified."
-              </p>
-            </div>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 mb-16">
-            {/* KDxIntelligence */}
-            <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-xl">
-              <CardHeader className="bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-t-lg">
-                <div className="flex items-center space-x-3">
-                  <Lightbulb className="w-8 h-8" />
-                  <div>
-                    <CardTitle className="text-2xl">KDx<sup>Intelligence</sup></CardTitle>
-                    <CardDescription className="text-purple-100">
-                      Smarter Decisions from Your Data
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6">
-                <p className="text-gray-600 mb-6">
-                  A suite of RAG-powered, AI-guided learning and knowledge agents that revolutionize 
-                  how students, professionals, and teams access and interact with information.
-                </p>
-                <div className="space-y-3">
-                  {kdxIntelligenceProducts.map((product, index) => (
-                    <div key={index} className="flex items-start space-x-3 p-3 bg-purple-50 rounded-lg">
-                      <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <h4 className="font-semibold text-purple-800">{product.name}</h4>
-                        <p className="text-sm text-gray-600">{product.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* KDxAutomate */}
-            <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-xl">
-              <CardHeader className="bg-gradient-to-r from-green-600 to-green-700 text-white rounded-t-lg">
-                <div className="flex items-center space-x-3">
-                  <Workflow className="w-8 h-8" />
-                  <div>
-                    <CardTitle className="text-2xl">KDx<sup>Automate</sup></CardTitle>
-                    <CardDescription className="text-green-100">
-                      Do More by Doing Less
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6">
-                <p className="text-gray-600 mb-6">
-                  Task-level AI agents and cross-platform automation solutions that help individuals 
-                  and teams eliminate repetitive effort and optimize operations.
-                </p>
-                <div className="space-y-3">
-                  {kdxAutomateProducts.map((product, index) => (
-                    <div key={index} className="flex items-start space-x-3 p-3 bg-green-50 rounded-lg">
-                      <div className="w-2 h-2 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
-                      <div>
-                        <h4 className="font-semibold text-green-800">{product.name}</h4>
-                        <p className="text-sm text-gray-600">{product.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Differentiation */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl mb-12">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-              Our Differentiation
-            </h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Database className="w-8 h-8 text-white" />
-                </div>
-                <h4 className="font-semibold text-gray-800 mb-2">RAG Architecture</h4>
-                <p className="text-sm text-gray-600">Reliable, contextual, source-backed intelligence</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-green-600 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Globe className="w-8 h-8 text-white" />
-                </div>
-                <h4 className="font-semibold text-gray-800 mb-2">Multilingual Support</h4>
-                <p className="text-sm text-gray-600">Tamil + English for real inclusion</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Heart className="w-8 h-8 text-white" />
-                </div>
-                <h4 className="font-semibold text-gray-800 mb-2">Freemium Access</h4>
-                <p className="text-sm text-gray-600">Built for Tier 2/3 learners and underserved users</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-green-600 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Code className="w-8 h-8 text-white" />
-                </div>
-                <h4 className="font-semibold text-gray-800 mb-2">Build in Public</h4>
-                <p className="text-sm text-gray-600">Transparent, purpose-driven, community-centric</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Location & Mission */}
-          <div className="text-center bg-gradient-to-r from-purple-600 to-green-500 text-white rounded-2xl p-8 shadow-xl">
-            <MapPin className="w-12 h-12 mx-auto mb-4" />
-            <h3 className="text-2xl font-bold mb-4">Based in Chennai. Built for the world.</h3>
-            <p className="text-lg text-purple-100 max-w-3xl mx-auto">
-              Whether it's preparing a NEET student in Madurai, assisting a lawyer in Delhi, or automating HR for a startup in Mumbai — 
-              <strong className="text-white"> KDx<sup>AI</sup> is quietly powering the future of intelligence and automation in India.</strong>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-purple-600 to-green-500">
-        <div className="container mx-auto text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold text-white mb-6">
-              Ready to Start Your NEET Journey?
-            </h2>
-            <p className="text-xl text-purple-100 mb-8">
-              Join thousands of successful NEET aspirants who chose XmPrepNEET as their study partner
-            </p>
-            <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-50 px-8 py-4 text-lg shadow-xl">
-              <Link to="/student" className="flex items-center">
-                <GraduationCap className="w-5 h-5 mr-2" />
-                Enter Student Portal
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4">
-        <div className="container mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-purple-600 to-green-500 rounded-lg flex items-center justify-center">
-                  <BookOpen className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-bold">XmPrepNEET</span>
-              </div>
-              <p className="text-gray-400 leading-relaxed">
-                AI-powered NEET preparation platform for the next generation of medical professionals.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Platform</h4>
-              <ul className="space-y-2">
-                <li><Link to="/student" className="text-gray-400 hover:text-white transition-colors">Student Interface</Link></li>
-                <li><a href="#features" className="text-gray-400 hover:text-white transition-colors">Features</a></li>
-                <li><a href="#pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Community</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Company</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">About KDx<sup>AI</sup></a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-            <p className="text-gray-400">
-              © 2025 KDx<sup>AI</sup>. All rights reserved. | Empowering NEET preparation across India.
-            </p>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-};
-
-export default Index;
+			<section className="mt-20 text-center">
+				<h2 className="text-3xl font-semibold mb-8">Stay Updated</h2>
+				<p className="text-brand-light-gray mb-4">
+					Subscribe to our newsletter for the latest news, events, and
+					resources.
+				</p>
+				<div className="flex justify-center">
+					<div className="w-full md:w-2/3 lg:w-1/2 flex flex-col md:flex-row gap-2">
+						<Input type="email" placeholder="Enter your email" />
+						<Button>Subscribe</Button>
+					</div>
+				</div>
+			</section>
+		</div>
+	);
+}
