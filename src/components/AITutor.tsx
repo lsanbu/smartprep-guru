@@ -58,7 +58,7 @@ const AITutor = () => {
 
   // Updated API Configuration
   const API_BASE_URL = 'http://localhost:5000';
-  const CHAT_ENDPOINT = `${API_BASE_URL}/chat/ask`;
+  const CHAT_ENDPOINT = `${API_BASE_URL}/api/chat/ask`;
 
   const quickQuestions = [
     { text: "Explain photosynthesis mechanism", subject: "Biology", icon: BookOpen },
