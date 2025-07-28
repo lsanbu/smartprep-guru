@@ -1,4 +1,3 @@
-
 import { useState, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -44,7 +43,7 @@ const AITutor = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      content: "Hi Arjun! I'm XmPrepNEETGuru, your personal AI tutor. I'm here to help you with any NEET-related doubts. You can ask me questions in text or upload images of problems you're stuck on. How can I help you today?",
+      content: "Hi! I'm XmPrepNEETGuru, your personal AI tutor. I'm here to help you with any NEET-related doubts. You can ask me questions in text or upload images of problems you're stuck on. How can I help you today?",
       sender: 'ai',
       timestamp: new Date(),
       type: 'text'
@@ -57,8 +56,8 @@ const AITutor = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // API Configuration
-  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  // API Configuration - Updated with proper backend URL
+  const API_BASE_URL = 'http://localhost:5000'; // Flask backend URL
   const CHAT_ENDPOINT = `${API_BASE_URL}/chat/ask`;
 
   const quickQuestions = [
@@ -76,6 +75,9 @@ const AITutor = () => {
   ];
 
   const callAITutorAPI = async (question: string): Promise<string> => {
+    console.log('Calling Flask API with question:', question);
+    console.log('API Endpoint:', CHAT_ENDPOINT);
+    
     try {
       const response = await fetch(CHAT_ENDPOINT, {
         method: 'POST',
@@ -87,11 +89,17 @@ const AITutor = () => {
         })
       });
 
+      console.log('Response status:', response.status);
+      console.log('Response headers:', response.headers);
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        console.error('API Error Response:', errorText);
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
       }
 
       const data = await response.json();
+      console.log('API Response data:', data);
       
       if (data.error) {
         throw new Error(data.error);
@@ -100,6 +108,12 @@ const AITutor = () => {
       return data.answer || "I'm sorry, I couldn't generate a response. Please try again.";
     } catch (error) {
       console.error('AI Tutor API Error:', error);
+      
+      // Check if it's a network error
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        throw new Error('Unable to connect to the server. Please check if the Flask backend is running on http://localhost:5000');
+      }
+      
       throw error;
     }
   };
@@ -129,7 +143,9 @@ const AITutor = () => {
     setIsLoading(true);
 
     try {
-      // Call the actual Flask API
+      console.log('Sending message to AI Tutor:', questionText);
+      
+      // Call the Flask API
       const aiResponse = await callAITutorAPI(questionText);
       
       const aiMessage: Message = {
@@ -147,7 +163,7 @@ const AITutor = () => {
       
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: `I'm sorry, I'm having trouble connecting to the server right now. Please check your internet connection and try again. Error: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        content: `I'm sorry, I'm having trouble connecting to the server right now. ${error instanceof Error ? error.message : 'Unknown error occurred'}`,
         sender: 'ai',
         timestamp: new Date(),
         type: 'error'
