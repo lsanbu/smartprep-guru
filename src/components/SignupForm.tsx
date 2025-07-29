@@ -82,7 +82,7 @@ const SignupForm = () => {
     console.log('Starting signup process with data:', { ...data, password: '[REDACTED]', confirmPassword: '[REDACTED]' });
 
     try {
-      // Sign up the user with email redirect
+      // First, sign up the user
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
@@ -94,7 +94,6 @@ const SignupForm = () => {
       if (authError) {
         console.error('Auth error:', authError);
         
-        // Handle specific error cases
         if (authError.message.includes('User already registered')) {
           toast.error("This email is already registered. Please try logging in instead.");
         } else {
@@ -109,63 +108,73 @@ const SignupForm = () => {
         return;
       }
 
-      console.log('User signup response:', authData);
-      console.log('User ID:', authData.user.id);
+      console.log('User signup successful:', authData.user.id);
+      
+      // Wait for the database trigger to create the initial profile
+      await new Promise(resolve => setTimeout(resolve, 3000));
 
-      // Wait a moment for any database triggers to complete
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Now sign in the user to update their profile (this gives us proper auth context)
+      const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+        email: data.email,
+        password: data.password,
+      });
 
-      // Try to insert the profile directly (using upsert to handle both new and existing cases)
-      const profileData = {
-        id: authData.user.id,
-        student_name: data.studentName,
-        father_mother_name: data.fatherMotherName,
-        contact_number: data.contactNumber,
-        alternate_contact_number: data.alternateContactNumber || null,
-        class_studying: data.classStudying,
-        school_name: data.schoolName,
-        school_place: data.schoolPlace,
-        state: data.state as any,
-        district: data.district,
-        referral_source: data.referralSource as any,
-        referral_details: data.referralDetails,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
-
-      console.log('Attempting to upsert profile with data:', profileData);
-
-      const { data: profileResult, error: profileError } = await supabase
-        .from('profiles')
-        .upsert(profileData, { 
-          onConflict: 'id',
-          ignoreDuplicates: false 
-        })
-        .select();
-
-      if (profileError) {
-        console.error('Profile upsert error:', profileError);
-        console.error('Profile error details:', JSON.stringify(profileError, null, 2));
-        toast.error(`Profile setup failed: ${profileError.message}`);
+      if (signInError) {
+        console.error('Sign in error after signup:', signInError);
+        toast.error("Account created but couldn't sign you in. Please try logging in manually.");
+        form.reset();
         return;
       }
 
-      console.log('Profile upsert successful:', profileResult);
+      console.log('Signed in successfully after signup');
 
-      // Verify the profile was created/updated
-      const { data: verifyProfile, error: verifyError } = await supabase
+      // Wait a moment to ensure the session is established
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Now update the profile with the form data (user is authenticated)
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({
+          student_name: data.studentName,
+          father_mother_name: data.fatherMotherName,
+          contact_number: data.contactNumber,
+          alternate_contact_number: data.alternateContactNumber || null,
+          class_studying: data.classStudying,
+          school_name: data.schoolName,
+          school_place: data.schoolPlace,
+          state: data.state as any,
+          district: data.district,
+          referral_source: data.referralSource as any,
+          referral_details: data.referralDetails,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', authData.user.id);
+
+      if (updateError) {
+        console.error('Profile update error:', updateError);
+        toast.error(`Profile setup failed: ${updateError.message}`);
+        return;
+      }
+
+      console.log('Profile updated successfully');
+
+      // Verify the profile was updated
+      const { data: profile, error: fetchError } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', authData.user.id)
         .single();
 
-      if (verifyError) {
-        console.error('Error verifying profile:', verifyError);
-        toast.error(`Profile verification failed: ${verifyError.message}`);
+      if (fetchError) {
+        console.error('Error fetching updated profile:', fetchError);
+        toast.error("Profile update verification failed");
         return;
       }
 
-      console.log('Profile verification successful:', verifyProfile);
+      console.log('Profile verification successful:', profile);
+      
+      // Sign out the user since they need to verify their email first
+      await supabase.auth.signOut();
       
       toast.success("🎉 Account created successfully! Please check your email to verify your account before logging in.");
       
