@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -82,7 +81,14 @@ const SignupForm = () => {
     console.log('Starting signup process with data:', { ...data, password: '[REDACTED]', confirmPassword: '[REDACTED]' });
 
     try {
-      // First, sign up the user
+      // First check if user already exists
+      const { data: existingUser } = await supabase.auth.getUser();
+      if (existingUser.user) {
+        console.log('User already logged in, signing out first');
+        await supabase.auth.signOut();
+      }
+
+      // Try to sign up the user
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
@@ -91,15 +97,76 @@ const SignupForm = () => {
         },
       });
 
+      console.log('Signup response:', { authData, authError });
+
       if (authError) {
         console.error('Auth error:', authError);
         
         if (authError.message.includes('User already registered')) {
-          toast.error("This email is already registered. Please try logging in instead.");
+          // User already exists, try to sign them in and update their profile
+          console.log('User already exists, attempting to sign in and update profile');
+          
+          const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+            email: data.email,
+            password: data.password,
+          });
+
+          if (signInError) {
+            console.error('Sign in error:', signInError);
+            toast.error("This email is already registered but the password doesn't match. Please try logging in with the correct password.");
+            return;
+          }
+
+          if (!signInData.user) {
+            console.error('No user returned from sign in');
+            toast.error("Sign in failed: No user data returned");
+            return;
+          }
+
+          console.log('User signed in successfully:', signInData.user.id);
+          
+          // Wait a moment for session to be established
+          await new Promise(resolve => setTimeout(resolve, 1000));
+
+          // Update the existing profile with new data
+          console.log('Updating existing profile for user:', signInData.user.id);
+          
+          const { error: updateError } = await supabase
+            .from('profiles')
+            .update({
+              student_name: data.studentName,
+              father_mother_name: data.fatherMotherName,
+              contact_number: data.contactNumber,
+              alternate_contact_number: data.alternateContactNumber || null,
+              class_studying: data.classStudying,
+              school_name: data.schoolName,
+              school_place: data.schoolPlace,
+              state: data.state as any,
+              district: data.district,
+              referral_source: data.referralSource as any,
+              referral_details: data.referralDetails,
+              updated_at: new Date().toISOString(),
+            })
+            .eq('id', signInData.user.id);
+
+          if (updateError) {
+            console.error('Profile update error:', updateError);
+            toast.error(`Profile update failed: ${updateError.message}`);
+            return;
+          }
+
+          console.log('Profile updated successfully');
+          
+          // Sign out the user
+          await supabase.auth.signOut();
+          
+          toast.success("🎉 Profile updated successfully! You can now log in with your credentials.");
+          form.reset();
+          return;
         } else {
           toast.error(`Signup failed: ${authError.message}`);
+          return;
         }
-        return;
       }
 
       if (!authData.user) {
@@ -108,12 +175,30 @@ const SignupForm = () => {
         return;
       }
 
-      console.log('User signup successful:', authData.user.id);
+      console.log('New user signup successful:', authData.user.id);
       
-      // Wait for the database trigger to create the initial profile
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      // For new users, the trigger should handle initial profile creation
+      // Wait for the trigger to complete
+      await new Promise(resolve => setTimeout(resolve, 2000));
 
-      // Now sign in the user to update their profile (this gives us proper auth context)
+      // Check if profile was created by trigger
+      const { data: triggerProfile, error: triggerError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', authData.user.id)
+        .single();
+
+      if (triggerError && triggerError.code !== 'PGRST116') {
+        console.error('Error checking for trigger-created profile:', triggerError);
+      }
+
+      console.log('Trigger-created profile check:', { triggerProfile, triggerError });
+
+      if (!triggerProfile) {
+        console.log('No profile created by trigger, will create manually after sign in');
+      }
+
+      // Sign in the user to establish authentication context
       const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
@@ -121,7 +206,7 @@ const SignupForm = () => {
 
       if (signInError) {
         console.error('Sign in error after signup:', signInError);
-        toast.error("Account created but couldn't sign you in. Please try logging in manually.");
+        toast.error("Account created but couldn't sign you in. Please check your email for verification and try logging in manually.");
         form.reset();
         return;
       }
@@ -131,10 +216,13 @@ const SignupForm = () => {
       // Wait a moment to ensure the session is established
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      // Now update the profile with the form data (user is authenticated)
-      const { error: updateError } = await supabase
+      // Now update/create the profile with the form data
+      console.log('Upserting profile data for user:', authData.user.id);
+      
+      const { error: upsertError } = await supabase
         .from('profiles')
-        .update({
+        .upsert({
+          id: authData.user.id,
           student_name: data.studentName,
           father_mother_name: data.fatherMotherName,
           contact_number: data.contactNumber,
@@ -147,18 +235,17 @@ const SignupForm = () => {
           referral_source: data.referralSource as any,
           referral_details: data.referralDetails,
           updated_at: new Date().toISOString(),
-        })
-        .eq('id', authData.user.id);
+        });
 
-      if (updateError) {
-        console.error('Profile update error:', updateError);
-        toast.error(`Profile setup failed: ${updateError.message}`);
+      if (upsertError) {
+        console.error('Profile upsert error:', upsertError);
+        toast.error(`Profile setup failed: ${upsertError.message}`);
         return;
       }
 
-      console.log('Profile updated successfully');
+      console.log('Profile upserted successfully');
 
-      // Verify the profile was updated
+      // Verify the profile was created/updated
       const { data: profile, error: fetchError } = await supabase
         .from('profiles')
         .select('*')
