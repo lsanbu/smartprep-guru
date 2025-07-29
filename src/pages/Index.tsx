@@ -52,6 +52,17 @@ const Index = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleAboutDropdown = () => setIsAboutDropdownOpen(!isAboutDropdownOpen);
 
+  const handleDropdownLinkClick = (href: string) => {
+    setIsAboutDropdownOpen(false);
+    // Small delay to ensure dropdown closes before scrolling
+    setTimeout(() => {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   const features = [
     {
       icon: Brain,
@@ -139,20 +150,18 @@ const Index = () => {
                 </button>
                 {isAboutDropdownOpen && (
                   <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                    <a 
-                      href="#about-xmprepneet" 
-                      className="block px-4 py-2 text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition-colors"
-                      onClick={() => setIsAboutDropdownOpen(false)}
+                    <button 
+                      onClick={() => handleDropdownLinkClick('#about-xmprepneet')}
+                      className="block w-full text-left px-4 py-2 text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition-colors"
                     >
                       About XmPrepNEET
-                    </a>
-                    <a 
-                      href="#about-kdxai" 
-                      className="block px-4 py-2 text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition-colors"
-                      onClick={() => setIsAboutDropdownOpen(false)}
+                    </button>
+                    <button 
+                      onClick={() => handleDropdownLinkClick('#about-kdxai')}
+                      className="block w-full text-left px-4 py-2 text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition-colors"
                     >
                       About KDx<sup>AI</sup>
-                    </a>
+                    </button>
                   </div>
                 )}
               </div>
@@ -352,8 +361,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* About KDxAI Section - Hidden from main flow, only accessible via direct link */}
-      <section id="about-kdxai" className="py-20 px-4 bg-gradient-to-br from-gray-50 to-purple-50 hidden">
+      {/* About KDxAI Section - Now visible */}
+      <section id="about-kdxai" className="py-20 px-4 bg-gradient-to-br from-gray-50 to-purple-50">
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <div className="flex items-center justify-center mb-6">
