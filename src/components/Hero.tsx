@@ -8,7 +8,7 @@ const Hero = () => {
   const handleGetStarted = () => {
     toast.success("🎉 Welcome to XmPrep! Let's begin your NEET journey!");
     setTimeout(() => {
-      window.location.href = '/student';
+      window.location.href = '/signup';
     }, 1000);
   };
 
@@ -35,6 +35,13 @@ const Hero = () => {
           <p className="text-xl md:text-2xl font-brand-tagline text-brand-light-gray mb-4">
             Tasks Digitised. Knowledge Amplified.
           </p>
+
+          {/* Beta Notice moved up */}
+          <div className="mb-8 p-4 bg-amber-50 border border-amber-200 rounded-lg max-w-2xl mx-auto">
+            <p className="text-amber-800 font-medium font-poppins">
+              🎉 <strong>Beta Launch Special:</strong> AI Tutor access completely FREE for early users!
+            </p>
+          </div>
 
           {/* Description */}
           <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto font-poppins">
@@ -76,13 +83,6 @@ const Hero = () => {
               <BookOpen className="w-5 h-5 mr-2" />
               Student Portal
             </Button>
-          </div>
-
-          {/* Beta Notice */}
-          <div className="mt-8 p-4 bg-amber-50 border border-amber-200 rounded-lg max-w-2xl mx-auto">
-            <p className="text-amber-800 font-medium font-poppins">
-              🎉 <strong>Beta Launch Special:</strong> AI Tutor access completely FREE for early users!
-            </p>
           </div>
         </div>
       </div>

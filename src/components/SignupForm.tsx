@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -85,12 +84,25 @@ const SignupForm = () => {
       // Clean up any existing session first
       await supabase.auth.signOut();
       
-      // Sign up the user
+      // Sign up the user with user metadata
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
         options: {
           emailRedirectTo: `${window.location.origin}/student`,
+          data: {
+            student_name: data.studentName,
+            father_mother_name: data.fatherMotherName,
+            contact_number: data.contactNumber,
+            alternate_contact_number: data.alternateContactNumber || null,
+            class_studying: data.classStudying,
+            school_name: data.schoolName,
+            school_place: data.schoolPlace,
+            state: data.state,
+            district: data.district,
+            referral_source: data.referralSource,
+            referral_details: data.referralDetails,
+          }
         },
       });
 
@@ -116,72 +128,6 @@ const SignupForm = () => {
 
       console.log('User signed up successfully:', authData.user.id);
       
-      // Wait for the trigger to potentially create the profile
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      // Check if profile exists (created by trigger)
-      const { data: existingProfile, error: profileCheckError } = await supabase
-        .from('profiles')
-        .select('id')
-        .eq('id', authData.user.id)
-        .maybeSingle();
-
-      console.log('Profile check result:', { existingProfile, profileCheckError });
-
-      if (!existingProfile) {
-        console.log('No profile found, will create one after sign-in');
-      }
-
-      // Sign in the user to establish authentication context
-      const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
-        email: data.email,
-        password: data.password,
-      });
-
-      if (signInError) {
-        console.error('Sign in error after signup:', signInError);
-        toast.success("🎉 Account created successfully! Please check your email to verify your account before logging in.");
-        form.reset();
-        return;
-      }
-
-      console.log('User signed in successfully after signup');
-
-      // Wait for session to be established
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Update/create the profile with form data
-      console.log('Updating profile with form data for user:', authData.user.id);
-      
-      const { error: upsertError } = await supabase
-        .from('profiles')
-        .upsert({
-          id: authData.user.id,
-          student_name: data.studentName,
-          father_mother_name: data.fatherMotherName,
-          contact_number: data.contactNumber,
-          alternate_contact_number: data.alternateContactNumber || null,
-          class_studying: data.classStudying,
-          school_name: data.schoolName,
-          school_place: data.schoolPlace,
-          state: data.state as any,
-          district: data.district,
-          referral_source: data.referralSource as any,
-          referral_details: data.referralDetails,
-          updated_at: new Date().toISOString(),
-        });
-
-      if (upsertError) {
-        console.error('Profile upsert error:', upsertError);
-        toast.error(`Profile setup failed: ${upsertError.message}`);
-        return;
-      }
-
-      console.log('Profile updated successfully');
-
-      // Sign out the user since they need to verify their email
-      await supabase.auth.signOut();
-      
       toast.success("🎉 Account created successfully! Please check your email to verify your account before logging in.");
       form.reset();
 
@@ -191,6 +137,10 @@ const SignupForm = () => {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -209,11 +159,63 @@ const SignupForm = () => {
             <CardDescription className="text-lg text-brand-light-gray font-poppins mt-2">
               Create your account to start your NEET preparation journey
             </CardDescription>
+            
+            {/* Beta Notice moved up */}
+            <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+              <p className="text-amber-800 font-medium font-poppins">
+                🎉 <strong>Beta Launch Special:</strong> AI Tutor access completely FREE for early users!
+              </p>
+            </div>
           </CardHeader>
 
           <CardContent className="px-8 pb-8">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                {/* Personal Information - moved to top */}
+                <div className="grid md:grid-cols-2 gap-6 p-6 bg-blue-50 rounded-xl">
+                  <h3 className="md:col-span-2 text-lg font-semibold text-brand-purple mb-4 flex items-center">
+                    <Users className="w-5 h-5 mr-2" />
+                    Personal Information
+                  </h3>
+                  
+                  <FormField
+                    control={form.control}
+                    name="studentName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-brand-dark-gray font-medium">Student Name</FormLabel>
+                        <FormControl>
+                          <Input 
+                            {...field} 
+                            placeholder="Enter your full name"
+                            className="border-brand-purple/30 focus:border-brand-purple"
+                            onClick={scrollToTop}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="fatherMotherName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-brand-dark-gray font-medium">Father/Mother Name</FormLabel>
+                        <FormControl>
+                          <Input 
+                            {...field} 
+                            placeholder="Enter parent's full name"
+                            className="border-brand-purple/30 focus:border-brand-purple"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
                 {/* Account Information */}
                 <div className="grid md:grid-cols-2 gap-6 p-6 bg-gray-50 rounded-xl">
                   <h3 className="md:col-span-2 text-lg font-semibold text-brand-purple mb-4 flex items-center">
@@ -270,50 +272,6 @@ const SignupForm = () => {
                             {...field} 
                             type="password" 
                             placeholder="Re-enter your password"
-                            className="border-brand-purple/30 focus:border-brand-purple"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                {/* Personal Information */}
-                <div className="grid md:grid-cols-2 gap-6 p-6 bg-blue-50 rounded-xl">
-                  <h3 className="md:col-span-2 text-lg font-semibold text-brand-purple mb-4 flex items-center">
-                    <Users className="w-5 h-5 mr-2" />
-                    Personal Information
-                  </h3>
-                  
-                  <FormField
-                    control={form.control}
-                    name="studentName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-brand-dark-gray font-medium">Student Name</FormLabel>
-                        <FormControl>
-                          <Input 
-                            {...field} 
-                            placeholder="Enter your full name"
-                            className="border-brand-purple/30 focus:border-brand-purple"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="fatherMotherName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-brand-dark-gray font-medium">Father/Mother Name</FormLabel>
-                        <FormControl>
-                          <Input 
-                            {...field} 
-                            placeholder="Enter parent's full name"
                             className="border-brand-purple/30 focus:border-brand-purple"
                           />
                         </FormControl>
