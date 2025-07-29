@@ -22,12 +22,12 @@ const indianStates = [
   'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal',
   'Andaman and Nicobar Islands', 'Chandigarh', 'Dadra and Nagar Haveli and Daman and Diu',
   'Delhi', 'Jammu and Kashmir', 'Ladakh', 'Lakshadweep', 'Puducherry'
-];
+] as const;
 
 const referralSources = [
   'Social Media', 'Google Search', 'Friend/Family Reference', 'School Teacher',
   'Coaching Institute', 'YouTube', 'Educational Website', 'Advertisement', 'Other'
-];
+] as const;
 
 const signupSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -40,9 +40,9 @@ const signupSchema = z.object({
   classStudying: z.string().min(1, "Please select your class"),
   schoolName: z.string().min(2, "School name must be at least 2 characters"),
   schoolPlace: z.string().min(2, "School place must be at least 2 characters"),
-  state: z.string().min(1, "Please select your state"),
+  state: z.enum(indianStates, { errorMap: () => ({ message: "Please select your state" }) }),
   district: z.string().min(2, "District name must be at least 2 characters"),
-  referralSource: z.string().min(1, "Please select how you heard about us"),
+  referralSource: z.enum(referralSources, { errorMap: () => ({ message: "Please select how you heard about us" }) }),
   referralDetails: z.string().min(2, "Please provide specific details about your referral source"),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
@@ -70,9 +70,9 @@ const SignupForm = () => {
       classStudying: "",
       schoolName: "",
       schoolPlace: "",
-      state: "",
+      state: undefined,
       district: "",
-      referralSource: "",
+      referralSource: undefined,
       referralDetails: "",
     },
   });
@@ -82,10 +82,13 @@ const SignupForm = () => {
     console.log('Starting signup process with data:', { ...data, password: '[REDACTED]', confirmPassword: '[REDACTED]' });
 
     try {
-      // Sign up the user
+      // Sign up the user with email redirect
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/student`,
+        },
       });
 
       if (authError) {
@@ -130,15 +133,10 @@ const SignupForm = () => {
 
       console.log('Profile updated successfully');
       
-      toast.success("🎉 Account created successfully! Please check your email to verify your account.");
+      toast.success("🎉 Account created successfully! Please check your email to verify your account before logging in.");
       
       // Reset form
       form.reset();
-      
-      // Redirect to student portal after a short delay
-      setTimeout(() => {
-        window.location.href = '/student';
-      }, 2000);
 
     } catch (error) {
       console.error('Unexpected error during signup:', error);
