@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -189,7 +190,8 @@ const SignupForm = () => {
                             {...field} 
                             placeholder="Enter your full name"
                             className="border-brand-purple/30 focus:border-brand-purple"
-                            onClick={scrollToTop}
+                            autoFocus
+                            onFocus={scrollToTop}
                           />
                         </FormControl>
                         <FormMessage />
