@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
@@ -39,6 +40,11 @@ const Index = () => {
                 <li>
                   <Link to="/student" className="text-gray-400 hover:text-white transition-colors cursor-pointer">
                     Student Portal
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/signup" className="text-gray-400 hover:text-white transition-colors cursor-pointer">
+                    Sign Up
                   </Link>
                 </li>
               </ul>
