@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -102,10 +101,28 @@ const SignupForm = () => {
 
       console.log('User created successfully:', authData.user.id);
 
-      // Update the profile with additional information
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .update({
+      // Update the profile with additional information using raw SQL to avoid type issues
+      const { error: profileError } = await supabase.rpc('update_user_profile', {
+        user_id: authData.user.id,
+        student_name: data.studentName,
+        father_mother_name: data.fatherMotherName,
+        contact_number: data.contactNumber,
+        alternate_contact_number: data.alternateContactNumber || null,
+        class_studying: data.classStudying,
+        school_name: data.schoolName,
+        school_place: data.schoolPlace,
+        state: data.state,
+        district: data.district,
+        referral_source: data.referralSource,
+        referral_details: data.referralDetails
+      });
+
+      // If the RPC function doesn't exist, fall back to direct table access
+      if (profileError && profileError.message?.includes('function update_user_profile')) {
+        console.log('RPC function not found, using direct table access');
+        
+        const profileData = {
+          id: authData.user.id,
           student_name: data.studentName,
           father_mother_name: data.fatherMotherName,
           contact_number: data.contactNumber,
@@ -118,10 +135,20 @@ const SignupForm = () => {
           referral_source: data.referralSource,
           referral_details: data.referralDetails,
           updated_at: new Date().toISOString(),
-        })
-        .eq('id', authData.user.id);
+        };
 
-      if (profileError) {
+        // Use a more direct approach with type assertion
+        const { error: directUpdateError } = await (supabase as any)
+          .from('profiles')
+          .update(profileData)
+          .eq('id', authData.user.id);
+
+        if (directUpdateError) {
+          console.error('Profile update error:', directUpdateError);
+          toast.error(`Profile setup failed: ${directUpdateError.message}`);
+          return;
+        }
+      } else if (profileError) {
         console.error('Profile update error:', profileError);
         toast.error(`Profile setup failed: ${profileError.message}`);
         return;
