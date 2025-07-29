@@ -84,25 +84,29 @@ const SignupForm = () => {
       // Clean up any existing session first
       await supabase.auth.signOut();
       
+      const userMetadata = {
+        student_name: data.studentName,
+        father_mother_name: data.fatherMotherName,
+        contact_number: data.contactNumber,
+        alternate_contact_number: data.alternateContactNumber || null,
+        class_studying: data.classStudying,
+        school_name: data.schoolName,
+        school_place: data.schoolPlace,
+        state: data.state,
+        district: data.district,
+        referral_source: data.referralSource,
+        referral_details: data.referralDetails,
+      };
+
+      console.log('User metadata being sent:', userMetadata);
+      
       // Sign up the user with user metadata
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
         options: {
           emailRedirectTo: `${window.location.origin}/student`,
-          data: {
-            student_name: data.studentName,
-            father_mother_name: data.fatherMotherName,
-            contact_number: data.contactNumber,
-            alternate_contact_number: data.alternateContactNumber || null,
-            class_studying: data.classStudying,
-            school_name: data.schoolName,
-            school_place: data.schoolPlace,
-            state: data.state,
-            district: data.district,
-            referral_source: data.referralSource,
-            referral_details: data.referralDetails,
-          }
+          data: userMetadata
         },
       });
 
@@ -129,8 +133,27 @@ const SignupForm = () => {
       console.log('User signed up successfully:', authData.user.id);
       console.log('User metadata sent:', authData.user.user_metadata);
 
-      // The database trigger will automatically create the profile
-      console.log('Profile will be created automatically by database trigger');
+      // Wait a moment for the trigger to execute, then check if profile was created
+      setTimeout(async () => {
+        try {
+          const { data: profile, error: profileCheckError } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', authData.user.id)
+            .single();
+
+          if (profileCheckError) {
+            console.error('Error checking profile:', profileCheckError);
+            console.log('Profile was not created by trigger. Manual intervention may be needed.');
+          } else {
+            console.log('Profile successfully created by trigger:', profile);
+          }
+        } catch (checkError) {
+          console.error('Error during profile verification:', checkError);
+        }
+      }, 2000);
+
+      console.log('Profile should be created automatically by database trigger');
       
       toast.success("🎉 Account created successfully! Please check your email to verify your account before logging in.");
       form.reset();
