@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -130,35 +129,8 @@ const SignupForm = () => {
       console.log('User signed up successfully:', authData.user.id);
       console.log('User metadata sent:', authData.user.user_metadata);
 
-      // If email confirmation is disabled, manually insert profile data
-      if (authData.user && !authData.user.email_confirmed_at) {
-        console.log('Email confirmation disabled, manually creating profile...');
-        
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .upsert({
-            id: authData.user.id,
-            student_name: data.studentName,
-            father_mother_name: data.fatherMotherName,
-            contact_number: data.contactNumber,
-            alternate_contact_number: data.alternateContactNumber || null,
-            class_studying: data.classStudying,
-            school_name: data.schoolName,
-            school_place: data.schoolPlace,
-            state: data.state,
-            district: data.district,
-            referral_source: data.referralSource,
-            referral_details: data.referralDetails,
-          });
-
-        if (profileError) {
-          console.error('Profile creation error:', profileError);
-          toast.error(`Profile creation failed: ${profileError.message}`);
-          return;
-        }
-
-        console.log('Profile created manually');
-      }
+      // The database trigger will automatically create the profile
+      console.log('Profile will be created automatically by database trigger');
       
       toast.success("🎉 Account created successfully! Please check your email to verify your account before logging in.");
       form.reset();
