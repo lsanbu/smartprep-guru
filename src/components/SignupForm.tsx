@@ -105,8 +105,25 @@ const SignupForm = () => {
 
       console.log('User created successfully:', authData.user.id);
 
+      // Wait a bit for the trigger to create the profile
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Check if profile exists first
+      const { data: existingProfile, error: checkError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', authData.user.id)
+        .single();
+
+      if (checkError && checkError.code !== 'PGRST116') {
+        console.error('Error checking existing profile:', checkError);
+        toast.error(`Profile check failed: ${checkError.message}`);
+        return;
+      }
+
+      console.log('Existing profile check:', existingProfile);
+
       // Update the profile with the actual form data
-      // The trigger already created an empty profile, so we update it
       const { error: profileError } = await supabase
         .from('profiles')
         .update({
@@ -132,6 +149,19 @@ const SignupForm = () => {
       }
 
       console.log('Profile updated successfully');
+
+      // Verify the update by fetching the profile again
+      const { data: updatedProfile, error: verifyError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', authData.user.id)
+        .single();
+
+      if (verifyError) {
+        console.error('Error verifying profile update:', verifyError);
+      } else {
+        console.log('Updated profile verification:', updatedProfile);
+      }
       
       toast.success("🎉 Account created successfully! Please check your email to verify your account before logging in.");
       
