@@ -14,10 +14,28 @@ import {
   MessageCircle, 
   Star,
   Trophy,
-  Zap
+  Zap,
+  Rocket,
+  Lightning,
+  Crown,
+  Gift,
+  PlayCircle
 } from "lucide-react";
+import { toast } from "sonner";
 
 const Pricing = () => {
+  const handleStudentPortalClick = () => {
+    window.location.href = '/student';
+  };
+
+  const handleBetaSignup = () => {
+    toast.success("🎉 Welcome to the Beta! AI Tutor access unlocked for free!");
+    // Simulate signup process
+    setTimeout(() => {
+      window.location.href = '/student';
+    }, 1500);
+  };
+
   const pricingTiers = [
     {
       name: "Ignite",
@@ -28,6 +46,8 @@ const Pricing = () => {
       bgColor: "bg-blue-50",
       borderColor: "border-blue-200",
       buttonColor: "bg-blue-600 hover:bg-blue-700",
+      icon: Rocket,
+      iconColor: "text-blue-600",
       features: [
         "AI Tutor (text/image/voice input)",
         "NCERT RAG access",
@@ -45,6 +65,8 @@ const Pricing = () => {
       bgColor: "bg-purple-50",
       borderColor: "border-purple-200",
       buttonColor: "bg-brand-purple hover:bg-brand-purple/90",
+      icon: Lightning,
+      iconColor: "text-brand-purple",
       popular: true,
       features: [
         "All Ignite features",
@@ -63,6 +85,8 @@ const Pricing = () => {
       bgColor: "bg-green-50",
       borderColor: "border-green-200",
       buttonColor: "bg-brand-green hover:bg-brand-green/90",
+      icon: Crown,
+      iconColor: "text-brand-green",
       features: [
         "All Accelerate features",
         "College Predictor Tool (NEET-based)",
@@ -96,6 +120,59 @@ const Pricing = () => {
           </Badge>
         </div>
 
+        {/* Beta Launch Offer */}
+        <div className="mb-12">
+          <Card className="border-2 border-amber-300 bg-gradient-to-r from-amber-50 to-orange-50 shadow-xl">
+            <CardHeader className="text-center pb-4">
+              <div className="flex items-center justify-center space-x-3 mb-4">
+                <Gift className="w-8 h-8 text-amber-600" />
+                <Badge className="bg-amber-500 text-white px-4 py-2 text-lg">
+                  🎉 BETA LAUNCH SPECIAL
+                </Badge>
+              </div>
+              <CardTitle className="text-2xl font-bold text-amber-800">
+                Free AI Tutor Access for Early Users!
+              </CardTitle>
+              <CardDescription className="text-lg text-amber-700 mt-2">
+                Be among the first to experience our revolutionary AI tutoring. Just sign up and start learning for FREE!
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center space-y-4">
+              <div className="flex justify-center space-x-6 mb-6">
+                <div className="flex items-center space-x-2">
+                  <Brain className="w-5 h-5 text-amber-600" />
+                  <span className="text-amber-800 font-medium">Full AI Tutor Access</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <BookOpen className="w-5 h-5 text-amber-600" />
+                  <span className="text-amber-800 font-medium">NCERT Content</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Target className="w-5 h-5 text-amber-600" />
+                  <span className="text-amber-800 font-medium">Progress Tracking</span>
+                </div>
+              </div>
+              <div className="flex justify-center space-x-4">
+                <Button 
+                  onClick={handleBetaSignup}
+                  className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-3 text-lg shadow-lg"
+                >
+                  <Gift className="w-5 h-5 mr-2" />
+                  Claim Free Beta Access
+                </Button>
+                <Button 
+                  variant="outline"
+                  onClick={handleStudentPortalClick}
+                  className="border-amber-500 text-amber-700 hover:bg-amber-50 px-6 py-3 text-lg"
+                >
+                  <PlayCircle className="w-5 h-5 mr-2" />
+                  Try Student Portal
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           {pricingTiers.map((tier) => (
@@ -110,6 +187,11 @@ const Pricing = () => {
               )}
               
               <CardHeader className="text-center pb-4">
+                <div className="flex items-center justify-center mb-4">
+                  <div className={`w-16 h-16 rounded-full ${tier.bgColor} border-2 ${tier.borderColor} flex items-center justify-center`}>
+                    <tier.icon className={`w-8 h-8 ${tier.iconColor}`} />
+                  </div>
+                </div>
                 <CardTitle className={`text-2xl font-bold ${tier.color}`}>
                   {tier.name}
                 </CardTitle>
