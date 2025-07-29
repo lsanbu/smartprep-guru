@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -78,7 +79,8 @@ const SignupForm = () => {
 
   const onSubmit = async (data: SignupFormData) => {
     setIsSubmitting(true);
-    console.log('Starting signup process with data:', { ...data, password: '[REDACTED]', confirmPassword: '[REDACTED]' });
+    console.log('=== SIGNUP DEBUG START ===');
+    console.log('Form data received:', { ...data, password: '[REDACTED]', confirmPassword: '[REDACTED]' });
 
     try {
       // Clean up any existing session first
@@ -98,7 +100,9 @@ const SignupForm = () => {
         referral_details: data.referralDetails,
       };
 
-      console.log('User metadata being sent:', userMetadata);
+      console.log('🔵 Metadata being sent to Supabase:', userMetadata);
+      console.log('🔵 State value being sent:', data.state);
+      console.log('🔵 Referral source being sent:', data.referralSource);
       
       // Sign up the user with user metadata
       const { data: authData, error: authError } = await supabase.auth.signUp({
@@ -110,10 +114,17 @@ const SignupForm = () => {
         },
       });
 
-      console.log('Signup response:', { authData, authError });
+      console.log('🟢 Signup API response:', { 
+        user: authData.user ? {
+          id: authData.user.id,
+          email: authData.user.email,
+          user_metadata: authData.user.user_metadata
+        } : null,
+        error: authError 
+      });
 
       if (authError) {
-        console.error('Auth error:', authError);
+        console.error('🔴 Auth error:', authError);
         
         if (authError.message.includes('User already registered')) {
           toast.error("This email is already registered. Please use the login page to sign in.");
@@ -125,17 +136,19 @@ const SignupForm = () => {
       }
 
       if (!authData.user) {
-        console.error('No user returned from signup');
+        console.error('🔴 No user returned from signup');
         toast.error("Signup failed: No user data returned");
         return;
       }
 
-      console.log('User signed up successfully:', authData.user.id);
-      console.log('User metadata sent:', authData.user.user_metadata);
+      console.log('🟢 User signed up successfully:', authData.user.id);
+      console.log('🟢 User metadata stored:', authData.user.user_metadata);
 
-      // Wait a moment for the trigger to execute, then check if profile was created
+      // Wait 3 seconds for the trigger to execute, then check if profile was created
+      console.log('⏳ Waiting 3 seconds for trigger to execute...');
       setTimeout(async () => {
         try {
+          console.log('🔍 Checking if profile was created...');
           const { data: profile, error: profileCheckError } = await supabase
             .from('profiles')
             .select('*')
@@ -143,23 +156,24 @@ const SignupForm = () => {
             .single();
 
           if (profileCheckError) {
-            console.error('Error checking profile:', profileCheckError);
-            console.log('Profile was not created by trigger. Manual intervention may be needed.');
+            console.error('🔴 Error checking profile:', profileCheckError);
+            console.log('❌ Profile was not created by trigger. Manual intervention may be needed.');
           } else {
-            console.log('Profile successfully created by trigger:', profile);
+            console.log('✅ Profile successfully created by trigger:', profile);
+            console.log('✅ Profile state value:', profile.state);
+            console.log('✅ Profile referral_source value:', profile.referral_source);
           }
         } catch (checkError) {
-          console.error('Error during profile verification:', checkError);
+          console.error('🔴 Error during profile verification:', checkError);
         }
-      }, 2000);
-
-      console.log('Profile should be created automatically by database trigger');
+        console.log('=== SIGNUP DEBUG END ===');
+      }, 3000);
       
       toast.success("🎉 Account created successfully! Please check your email to verify your account before logging in.");
       form.reset();
 
     } catch (error) {
-      console.error('Unexpected error during signup:', error);
+      console.error('🔴 Unexpected error during signup:', error);
       toast.error("An unexpected error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
