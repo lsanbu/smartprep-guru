@@ -1,5 +1,6 @@
-
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { 
   Brain, 
   BookOpen, 
@@ -12,8 +13,12 @@ import {
   Zap,
   FileText,
   BarChart3,
-  Smartphone
+  Smartphone,
+  Gift,
+  PlayCircle,
+  UserPlus
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Features = () => {
   const features = [
@@ -78,6 +83,60 @@ const Features = () => {
   return (
     <section id="features" className="py-20 px-4 bg-gray-50">
       <div className="container mx-auto">
+        {/* Beta Launch Offer */}
+        <div className="mb-16">
+          <Card className="border-2 border-amber-300 bg-gradient-to-r from-amber-50 to-orange-50 shadow-xl">
+            <CardHeader className="text-center pb-4">
+              <div className="flex items-center justify-center space-x-3 mb-4">
+                <Gift className="w-8 h-8 text-amber-600" />
+                <Badge className="bg-amber-500 text-white px-4 py-2 text-lg">
+                  🎉 BETA LAUNCH SPECIAL
+                </Badge>
+              </div>
+              <CardTitle className="text-2xl font-bold text-amber-800">
+                Free AI Tutor Access for Early Users!
+              </CardTitle>
+              <CardDescription className="text-lg text-amber-700 mt-2">
+                Be among the first to experience our revolutionary AI tutoring. Just sign up and start learning for FREE!
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center space-y-4">
+              <div className="flex justify-center space-x-6 mb-6">
+                <div className="flex items-center space-x-2">
+                  <Brain className="w-5 h-5 text-amber-600" />
+                  <span className="text-amber-800 font-medium">Full AI Tutor Access</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <BookOpen className="w-5 h-5 text-amber-600" />
+                  <span className="text-amber-800 font-medium">NCERT Content</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Target className="w-5 h-5 text-amber-600" />
+                  <span className="text-amber-800 font-medium">Progress Tracking</span>
+                </div>
+              </div>
+              <div className="flex justify-center space-x-4">
+                <Link to="/signup">
+                  <Button 
+                    className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-3 text-lg shadow-lg"
+                  >
+                    <UserPlus className="w-5 h-5 mr-2" />
+                    Sign Up for Free Beta
+                  </Button>
+                </Link>
+                <Button 
+                  variant="outline"
+                  onClick={() => window.location.href = '/student'}
+                  className="border-amber-500 text-amber-700 hover:bg-amber-50 px-6 py-3 text-lg"
+                >
+                  <PlayCircle className="w-5 h-5 mr-2" />
+                  Try Student Portal
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold font-brand-primary text-brand-dark-gray mb-4">
             Powerful Features for NEET Success

@@ -15,10 +15,7 @@ import {
   Trophy,
   Zap,
   Rocket,
-  Crown,
-  Gift,
-  PlayCircle,
-  UserPlus
+  Crown
 } from "lucide-react";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
@@ -35,8 +32,6 @@ const Pricing = () => {
   const pricingTiers = [
     {
       name: "Ignite",
-      price: "₹199",
-      period: "per student/year",
       hours: "30 hours",
       color: "text-blue-600",
       bgColor: "bg-blue-50",
@@ -54,8 +49,6 @@ const Pricing = () => {
     },
     {
       name: "Accelerate",
-      price: "₹799",
-      period: "per student/year",
       hours: "90 hours",
       color: "text-brand-purple",
       bgColor: "bg-purple-50",
@@ -74,8 +67,6 @@ const Pricing = () => {
     },
     {
       name: "Achieve",
-      price: "₹1,499",
-      period: "per student/year",
       hours: "300 hours",
       color: "text-brand-green",
       bgColor: "bg-green-50",
@@ -116,60 +107,6 @@ const Pricing = () => {
           </Badge>
         </div>
 
-        {/* Beta Launch Offer */}
-        <div className="mb-12">
-          <Card className="border-2 border-amber-300 bg-gradient-to-r from-amber-50 to-orange-50 shadow-xl">
-            <CardHeader className="text-center pb-4">
-              <div className="flex items-center justify-center space-x-3 mb-4">
-                <Gift className="w-8 h-8 text-amber-600" />
-                <Badge className="bg-amber-500 text-white px-4 py-2 text-lg">
-                  🎉 BETA LAUNCH SPECIAL
-                </Badge>
-              </div>
-              <CardTitle className="text-2xl font-bold text-amber-800">
-                Free AI Tutor Access for Early Users!
-              </CardTitle>
-              <CardDescription className="text-lg text-amber-700 mt-2">
-                Be among the first to experience our revolutionary AI tutoring. Just sign up and start learning for FREE!
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="text-center space-y-4">
-              <div className="flex justify-center space-x-6 mb-6">
-                <div className="flex items-center space-x-2">
-                  <Brain className="w-5 h-5 text-amber-600" />
-                  <span className="text-amber-800 font-medium">Full AI Tutor Access</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <BookOpen className="w-5 h-5 text-amber-600" />
-                  <span className="text-amber-800 font-medium">NCERT Content</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Target className="w-5 h-5 text-amber-600" />
-                  <span className="text-amber-800 font-medium">Progress Tracking</span>
-                </div>
-              </div>
-              <div className="flex justify-center space-x-4">
-                <Link to="/signup">
-                  <Button 
-                    className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-3 text-lg shadow-lg"
-                  >
-                    <UserPlus className="w-5 h-5 mr-2" />
-                    Sign Up for Free Beta
-                  </Button>
-                </Link>
-                <Button 
-                  variant="outline"
-                  onClick={handleStudentPortalClick}
-                  className="border-amber-500 text-amber-700 hover:bg-amber-50 px-6 py-3 text-lg"
-                >
-                  <PlayCircle className="w-5 h-5 mr-2" />
-                  Try Student Portal
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           {pricingTiers.map((tier) => (
@@ -192,11 +129,7 @@ const Pricing = () => {
                 <CardTitle className={`text-2xl font-bold ${tier.color}`}>
                   {tier.name}
                 </CardTitle>
-                <div className="mt-4">
-                  <span className="text-4xl font-bold text-gray-900">{tier.price}</span>
-                  <span className="text-gray-600 ml-2">{tier.period}</span>
-                </div>
-                <div className="flex items-center justify-center mt-3">
+                <div className="flex items-center justify-center mt-6">
                   <Clock className={`w-4 h-4 mr-2 ${tier.color}`} />
                   <span className={`font-semibold ${tier.color}`}>{tier.hours}/year</span>
                 </div>
