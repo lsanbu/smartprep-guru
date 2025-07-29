@@ -16,7 +16,6 @@ import {
   Trophy,
   Zap,
   Rocket,
-  Lightning,
   Crown,
   Gift,
   PlayCircle
@@ -65,7 +64,7 @@ const Pricing = () => {
       bgColor: "bg-purple-50",
       borderColor: "border-purple-200",
       buttonColor: "bg-brand-purple hover:bg-brand-purple/90",
-      icon: Lightning,
+      icon: Zap,
       iconColor: "text-brand-purple",
       popular: true,
       features: [
