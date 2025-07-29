@@ -144,60 +144,86 @@ const SignupForm = () => {
       console.log('🟢 User signed up successfully:', authData.user.id);
       console.log('🟢 User metadata stored:', authData.user.user_metadata);
 
-      // Wait 5 seconds for the trigger to execute (increased from 3 seconds)
-      console.log('⏳ Waiting 5 seconds for trigger to execute...');
-      setTimeout(async () => {
-        try {
-          console.log('🔍 Checking if profile was created...');
-          // Use maybeSingle() instead of single() to avoid the 406 error
-          const { data: profile, error: profileCheckError } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', authData.user.id)
-            .maybeSingle();
+      // Wait for the trigger and check if profile was created
+      console.log('⏳ Waiting 3 seconds for trigger to execute...');
+      await new Promise(resolve => setTimeout(resolve, 3000));
 
-          if (profileCheckError) {
-            console.error('🔴 Error checking profile:', profileCheckError);
-            console.log('❌ Profile was not created by trigger. Checking logs...');
-          } else if (!profile) {
-            console.log('❌ Profile was not found - trigger may have failed');
-            
-            // Let's try to create the profile manually as a fallback
-            console.log('🔧 Attempting manual profile creation...');
-            const { data: manualProfile, error: manualError } = await supabase
-              .from('profiles')
-              .insert({
-                id: authData.user.id,
-                student_name: data.studentName,
-                father_mother_name: data.fatherMotherName,
-                contact_number: data.contactNumber,
-                alternate_contact_number: data.alternateContactNumber || null,
-                class_studying: data.classStudying,
-                school_name: data.schoolName,
-                school_place: data.schoolPlace,
-                state: data.state,
-                district: data.district,
-                referral_source: data.referralSource,
-                referral_details: data.referralDetails,
-              })
-              .select()
-              .single();
+      try {
+        console.log('🔍 Checking if profile was created...');
+        const { data: profile, error: profileCheckError } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', authData.user.id)
+          .maybeSingle();
 
-            if (manualError) {
-              console.error('🔴 Manual profile creation failed:', manualError);
-            } else {
-              console.log('✅ Manual profile created successfully:', manualProfile);
-            }
-          } else {
-            console.log('✅ Profile successfully created by trigger:', profile);
-            console.log('✅ Profile state value:', profile.state);
-            console.log('✅ Profile referral_source value:', profile.referral_source);
-          }
-        } catch (checkError) {
-          console.error('🔴 Error during profile verification:', checkError);
+        if (profileCheckError) {
+          console.error('🔴 Error checking profile:', profileCheckError);
+          console.log('❌ Profile check failed. Attempting manual creation...');
+        } else if (!profile) {
+          console.log('❌ Profile was not found - trigger may have failed');
+        } else {
+          console.log('✅ Profile successfully created by trigger:', profile);
+          console.log('✅ Profile state value:', profile.state);
+          console.log('✅ Profile referral_source value:', profile.referral_source);
+          
+          // Success! The trigger worked
+          toast.success("🎉 Account created successfully! Please check your email to verify your account before logging in.");
+          form.reset();
+          console.log('=== SIGNUP DEBUG END ===');
+          return;
         }
-        console.log('=== SIGNUP DEBUG END ===');
-      }, 5000); // Increased wait time to 5 seconds
+
+        // If we get here, the trigger failed - try manual creation
+        // First, sign the user in so RLS policies work
+        console.log('🔐 Signing in user for manual profile creation...');
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+          email: data.email,
+          password: data.password,
+        });
+
+        if (signInError) {
+          console.error('🔴 Error signing in user:', signInError);
+          toast.error("Account created but profile setup failed. Please contact support.");
+          return;
+        }
+
+        console.log('🔧 Attempting manual profile creation...');
+        const { data: manualProfile, error: manualError } = await supabase
+          .from('profiles')
+          .insert({
+            id: authData.user.id,
+            student_name: data.studentName,
+            father_mother_name: data.fatherMotherName,
+            contact_number: data.contactNumber,
+            alternate_contact_number: data.alternateContactNumber || null,
+            class_studying: data.classStudying,
+            school_name: data.schoolName,
+            school_place: data.schoolPlace,
+            state: data.state,
+            district: data.district,
+            referral_source: data.referralSource,
+            referral_details: data.referralDetails,
+          })
+          .select()
+          .single();
+
+        if (manualError) {
+          console.error('🔴 Manual profile creation failed:', manualError);
+          toast.error("Account created but profile setup failed. Please contact support.");
+          return;
+        } else {
+          console.log('✅ Manual profile created successfully:', manualProfile);
+          console.log('✅ Manual profile state value:', manualProfile.state);
+          console.log('✅ Manual profile referral_source value:', manualProfile.referral_source);
+          
+          // Sign out the user so they need to verify their email
+          await supabase.auth.signOut();
+        }
+        
+      } catch (checkError) {
+        console.error('🔴 Error during profile verification:', checkError);
+        toast.error("Account created but profile setup may have failed. Please contact support if you encounter issues.");
+      }
       
       toast.success("🎉 Account created successfully! Please check your email to verify your account before logging in.");
       form.reset();
@@ -207,6 +233,7 @@ const SignupForm = () => {
       toast.error("An unexpected error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
+      console.log('=== SIGNUP DEBUG END ===');
     }
   };
 
