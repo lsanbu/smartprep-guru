@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -45,6 +46,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Contact from '../components/Contact';
+import Pricing from '../components/Pricing';
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -131,7 +133,7 @@ const Index = () => {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-brand-purple">
-                  XmPrepNEET
+                  XmPrep<sup className="text-sm">NEET</sup>
                 </h1>
                 <p className="text-xs text-gray-500">Powered by KDx<sup>AI</sup></p>
               </div>
@@ -155,7 +157,7 @@ const Index = () => {
                       onClick={() => handleDropdownLinkClick('#about-xmprepneet')}
                       className="block w-full text-left px-4 py-2 text-gray-700 hover:text-brand-purple hover:bg-gray-50 transition-colors"
                     >
-                      About XmPrepNEET
+                      About XmPrep<sup>NEET</sup>
                     </button>
                     <button 
                       onClick={() => handleDropdownLinkClick('#about-kdxai')}
@@ -190,7 +192,7 @@ const Index = () => {
             <div className="md:hidden mt-4 pb-4 border-t border-gray-100 pt-4">
               <nav className="space-y-3">
                 <a href="#features" className="block px-4 py-2 text-gray-700 hover:text-brand-purple font-medium transition-colors">Features</a>
-                <a href="#about-xmprepneet" className="block px-4 py-2 text-gray-700 hover:text-brand-purple font-medium transition-colors">About XmPrepNEET</a>
+                <a href="#about-xmprepneet" className="block px-4 py-2 text-gray-700 hover:text-brand-purple font-medium transition-colors">About XmPrep<sup>NEET</sup></a>
                 <a href="#about-kdxai" className="block px-4 py-2 text-gray-700 hover:text-brand-purple font-medium transition-colors">About KDx<sup>AI</sup></a>
                 <a href="#pricing" className="block px-4 py-2 text-gray-700 hover:text-brand-purple font-medium transition-colors">Pricing</a>
                 <Button asChild className="w-full bg-brand-purple hover:bg-brand-purple/90 text-white">
@@ -224,7 +226,7 @@ const Index = () => {
             
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
               Your personal AI tutor, real-time rank prediction, and comprehensive analytics. 
-              Join thousands of students already using XmPrepNEET to achieve their medical dreams.
+              Join thousands of students already using XmPrep<sup>NEET</sup> to achieve their medical dreams.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -272,7 +274,7 @@ const Index = () => {
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-brand-purple mb-4">
-              Why Students Love XmPrepNEET
+              Why Students Love XmPrep<sup className="text-2xl">NEET</sup>
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Advanced features designed specifically for NEET aspirants
@@ -304,12 +306,15 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <Pricing />
+
       {/* About XmPrepNEET Section */}
       <section id="about-xmprepneet" className="py-20 px-4 bg-white">
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-brand-purple mb-4">
-              About XmPrepNEET
+              About XmPrep<sup className="text-2xl">NEET</sup>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Your intelligent companion for NEET preparation, powered by advanced AI technology
@@ -320,9 +325,9 @@ const Index = () => {
             <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg mb-8">
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
-                  <h3 className="text-2xl font-bold text-brand-purple mb-4">What is XmPrepNEET?</h3>
+                  <h3 className="text-2xl font-bold text-brand-purple mb-4">What is XmPrep<sup>NEET</sup>?</h3>
                   <p className="text-gray-600 leading-relaxed mb-4">
-                    XmPrepNEET is an AI-powered learning platform specifically designed for NEET aspirants. 
+                    XmPrep<sup>NEET</sup> is an AI-powered learning platform specifically designed for NEET aspirants. 
                     It combines cutting-edge artificial intelligence with comprehensive NEET preparation 
                     resources to provide personalized tutoring, real-time performance tracking, and 
                     intelligent study planning.
@@ -509,7 +514,7 @@ const Index = () => {
               Ready to Start Your NEET Journey?
             </h2>
             <p className="text-xl text-gray-200 mb-8">
-              Join thousands of successful NEET aspirants who chose XmPrepNEET as their study partner
+              Join thousands of successful NEET aspirants who chose XmPrep<sup>NEET</sup> as their study partner
             </p>
             <Button size="lg" className="bg-white text-brand-purple hover:bg-gray-50 px-8 py-4 text-lg shadow-xl">
               <Link to="/student" className="flex items-center">
@@ -530,7 +535,7 @@ const Index = () => {
                 <div className="w-8 h-8 bg-gradient-to-br from-brand-purple to-brand-green rounded-lg flex items-center justify-center">
                   <BookOpen className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-xl font-bold">XmPrepNEET</span>
+                <span className="text-xl font-bold">XmPrep<sup className="text-sm">NEET</sup></span>
               </div>
               <p className="text-gray-400 leading-relaxed">
                 AI-powered NEET preparation platform for the next generation of medical professionals.
@@ -547,7 +552,7 @@ const Index = () => {
             <div>
               <h4 className="font-semibold mb-4">About</h4>
               <ul className="space-y-2">
-                <li><a href="#about-xmprepneet" className="text-gray-400 hover:text-white transition-colors">About XmPrepNEET</a></li>
+                <li><a href="#about-xmprepneet" className="text-gray-400 hover:text-white transition-colors">About XmPrep<sup>NEET</sup></a></li>
                 <li><a href="#about-kdxai" className="text-gray-400 hover:text-white transition-colors">About KDx<sup>AI</sup></a></li>
                 <li><a href="#contact" className="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
               </ul>

@@ -75,7 +75,7 @@ const Student = () => {
               </div>
               <div>
                 <h1 className="text-xl font-bold font-brand-primary bg-gradient-to-r from-purple-600 to-green-500 bg-clip-text text-transparent">
-                  XmPrepNEET Student
+                  XmPrep<sup className="text-sm">NEET</sup> Student<sup className="text-xs">Portal</sup>
                 </h1>
                 <p className="text-xs font-brand-tagline text-brand-light-gray">
                   Tasks Digitised. Knowledge Amplified.
@@ -85,6 +85,15 @@ const Student = () => {
             </div>
 
             <div className="flex items-center space-x-4">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="hidden md:flex items-center space-x-2 border-purple-200 text-purple-700 hover:bg-purple-50"
+                onClick={() => window.location.href = '/'}
+              >
+                <Home className="w-4 h-4" />
+                <span>XmPrep<sup className="text-xs">NEET</sup></span>
+              </Button>
               <div className="hidden md:flex items-center space-x-2 bg-green-100 text-green-700 px-3 py-1 rounded-full">
                 <Zap className="w-4 h-4" />
                 <span className="text-sm font-medium font-poppins">{currentStreak} day streak</span>
@@ -120,6 +129,19 @@ const Student = () => {
               </button>
             ))}
           </nav>
+
+          {/* Mobile Home Button */}
+          <div className="mt-4 md:hidden">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="w-full flex items-center space-x-2 border-purple-200 text-purple-700 hover:bg-purple-50"
+              onClick={() => window.location.href = '/'}
+            >
+              <Home className="w-4 h-4" />
+              <span>Back to XmPrep<sup className="text-xs">NEET</sup></span>
+            </Button>
+          </div>
 
           <div className="mt-8 p-4 bg-gradient-to-br from-purple-100 to-green-100 rounded-xl">
             <h4 className="font-semibold font-brand-primary text-gray-800 mb-2">Quick Tip</h4>
