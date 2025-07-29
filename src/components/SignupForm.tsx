@@ -144,7 +144,51 @@ const SignupForm = () => {
       console.log('🟢 User signed up successfully:', authData.user.id);
       console.log('🟢 User metadata stored:', authData.user.user_metadata);
 
-      // Success message - let the trigger handle profile creation
+      // Now sign in the user to create the profile with proper RLS context
+      console.log('🔐 Signing in user to create profile...');
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: data.email,
+        password: data.password,
+      });
+
+      if (signInError) {
+        console.error('🔴 Error signing in user for profile creation:', signInError);
+        toast.error("Account created but profile setup failed. Please try signing in manually.");
+        return;
+      }
+
+      // Create the profile directly
+      console.log('🔧 Creating user profile...');
+      const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .insert({
+          id: authData.user.id,
+          student_name: data.studentName,
+          father_mother_name: data.fatherMotherName,
+          contact_number: data.contactNumber,
+          alternate_contact_number: data.alternateContactNumber || null,
+          class_studying: data.classStudying,
+          school_name: data.schoolName,
+          school_place: data.schoolPlace,
+          state: data.state,
+          district: data.district,
+          referral_source: data.referralSource,
+          referral_details: data.referralDetails,
+        })
+        .select()
+        .single();
+
+      if (profileError) {
+        console.error('🔴 Profile creation failed:', profileError);
+        toast.error("Account created but profile setup failed. Please contact support.");
+        return;
+      }
+
+      console.log('✅ Profile created successfully:', profileData);
+
+      // Sign out so user needs to verify email
+      await supabase.auth.signOut();
+
       toast.success("🎉 Account created successfully! Please check your email to verify your account before logging in.");
       form.reset();
 
