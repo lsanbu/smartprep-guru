@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -41,14 +40,17 @@ import {
   Scale,
   FileSearch,
   Bot,
-  Cog
+  Cog,
+  ChevronDown
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleAboutDropdown = () => setIsAboutDropdownOpen(!isAboutDropdownOpen);
 
   const features = [
     {
@@ -126,7 +128,35 @@ const Index = () => {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               <a href="#features" className="text-gray-600 hover:text-purple-600 font-medium transition-colors">Features</a>
-              <a href="#about" className="text-gray-600 hover:text-purple-600 font-medium transition-colors">About</a>
+              
+              {/* About Dropdown */}
+              <div className="relative">
+                <button 
+                  onClick={toggleAboutDropdown}
+                  className="flex items-center text-gray-600 hover:text-purple-600 font-medium transition-colors"
+                >
+                  About <ChevronDown className="w-4 h-4 ml-1" />
+                </button>
+                {isAboutDropdownOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                    <a 
+                      href="#about-xmprepneet" 
+                      className="block px-4 py-2 text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition-colors"
+                      onClick={() => setIsAboutDropdownOpen(false)}
+                    >
+                      About XmPrepNEET
+                    </a>
+                    <a 
+                      href="#about-kdxai" 
+                      className="block px-4 py-2 text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition-colors"
+                      onClick={() => setIsAboutDropdownOpen(false)}
+                    >
+                      About KDx<sup>AI</sup>
+                    </a>
+                  </div>
+                )}
+              </div>
+              
               <a href="#pricing" className="text-gray-600 hover:text-purple-600 font-medium transition-colors">Pricing</a>
               <Button asChild className="bg-gradient-to-r from-purple-600 to-green-500 hover:from-purple-700 hover:to-green-600 text-white shadow-lg">
                 <Link to="/student">
@@ -150,7 +180,8 @@ const Index = () => {
             <div className="md:hidden mt-4 pb-4 border-t border-purple-100 pt-4">
               <nav className="space-y-3">
                 <a href="#features" className="block px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">Features</a>
-                <a href="#about" className="block px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">About</a>
+                <a href="#about-xmprepneet" className="block px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">About XmPrepNEET</a>
+                <a href="#about-kdxai" className="block px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">About KDx<sup>AI</sup></a>
                 <a href="#pricing" className="block px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">Pricing</a>
                 <Button asChild className="w-full bg-gradient-to-r from-purple-600 to-green-500 hover:from-purple-700 hover:to-green-600 text-white">
                   <Link to="/student" onClick={() => setIsMenuOpen(false)}>
@@ -263,8 +294,66 @@ const Index = () => {
         </div>
       </section>
 
+      {/* About XmPrepNEET Section */}
+      <section id="about-xmprepneet" className="py-20 px-4 bg-white/50">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+              About XmPrepNEET
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Your intelligent companion for NEET preparation, powered by advanced AI technology
+            </p>
+          </div>
+          
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl mb-8">
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4">What is XmPrepNEET?</h3>
+                  <p className="text-gray-600 leading-relaxed mb-4">
+                    XmPrepNEET is an AI-powered learning platform specifically designed for NEET aspirants. 
+                    It combines cutting-edge artificial intelligence with comprehensive NEET preparation 
+                    resources to provide personalized tutoring, real-time performance tracking, and 
+                    intelligent study planning.
+                  </p>
+                  <p className="text-gray-600 leading-relaxed">
+                    Our platform offers 24/7 AI tutoring, instant doubt resolution, mock tests with 
+                    detailed analytics, and peer benchmarking to help students achieve their medical dreams.
+                  </p>
+                </div>
+                <div className="text-center">
+                  <div className="w-32 h-32 bg-gradient-to-br from-purple-600 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <GraduationCap className="w-16 h-16 text-white" />
+                  </div>
+                  <p className="text-sm text-gray-500">Empowering NEET Aspirants</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg text-center">
+                <Brain className="w-12 h-12 text-purple-600 mx-auto mb-4" />
+                <h4 className="font-semibold text-gray-800 mb-2">AI-Powered Learning</h4>
+                <p className="text-sm text-gray-600">Personalized tutoring with intelligent content delivery</p>
+              </div>
+              <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg text-center">
+                <Target className="w-12 h-12 text-green-600 mx-auto mb-4" />
+                <h4 className="font-semibold text-gray-800 mb-2">NEET-Focused</h4>
+                <p className="text-sm text-gray-600">Curriculum aligned with NEET exam patterns</p>
+              </div>
+              <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg text-center">
+                <BarChart3 className="w-12 h-12 text-purple-600 mx-auto mb-4" />
+                <h4 className="font-semibold text-gray-800 mb-2">Performance Analytics</h4>
+                <p className="text-sm text-gray-600">Real-time insights and rank predictions</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* About KDxAI Section */}
-      <section id="about" className="py-20 px-4 bg-gradient-to-br from-gray-50 to-purple-50">
+      <section id="about-kdxai" className="py-20 px-4 bg-gradient-to-br from-gray-50 to-purple-50">
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <div className="flex items-center justify-center mb-6">
@@ -443,17 +532,17 @@ const Index = () => {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Support</h4>
+              <h4 className="font-semibold mb-4">About</h4>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
+                <li><a href="#about-xmprepneet" className="text-gray-400 hover:text-white transition-colors">About XmPrepNEET</a></li>
+                <li><a href="#about-kdxai" className="text-gray-400 hover:text-white transition-colors">About KDx<sup>AI</sup></a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Community</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Company</h4>
+              <h4 className="font-semibold mb-4">Support</h4>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">About KDx<sup>AI</sup></a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
               </ul>
