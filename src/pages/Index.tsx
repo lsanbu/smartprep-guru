@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -45,6 +44,7 @@ import {
   ChevronDown
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import Contact from '../components/Contact';
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -497,6 +497,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Contact Section */}
+      <Contact />
 
       {/* CTA Section */}
       <section className="py-20 px-4 bg-gradient-to-r from-brand-purple to-brand-green">
