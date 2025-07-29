@@ -144,20 +144,50 @@ const SignupForm = () => {
       console.log('🟢 User signed up successfully:', authData.user.id);
       console.log('🟢 User metadata stored:', authData.user.user_metadata);
 
-      // Wait 3 seconds for the trigger to execute, then check if profile was created
-      console.log('⏳ Waiting 3 seconds for trigger to execute...');
+      // Wait 5 seconds for the trigger to execute (increased from 3 seconds)
+      console.log('⏳ Waiting 5 seconds for trigger to execute...');
       setTimeout(async () => {
         try {
           console.log('🔍 Checking if profile was created...');
+          // Use maybeSingle() instead of single() to avoid the 406 error
           const { data: profile, error: profileCheckError } = await supabase
             .from('profiles')
             .select('*')
             .eq('id', authData.user.id)
-            .single();
+            .maybeSingle();
 
           if (profileCheckError) {
             console.error('🔴 Error checking profile:', profileCheckError);
-            console.log('❌ Profile was not created by trigger. Manual intervention may be needed.');
+            console.log('❌ Profile was not created by trigger. Checking logs...');
+          } else if (!profile) {
+            console.log('❌ Profile was not found - trigger may have failed');
+            
+            // Let's try to create the profile manually as a fallback
+            console.log('🔧 Attempting manual profile creation...');
+            const { data: manualProfile, error: manualError } = await supabase
+              .from('profiles')
+              .insert({
+                id: authData.user.id,
+                student_name: data.studentName,
+                father_mother_name: data.fatherMotherName,
+                contact_number: data.contactNumber,
+                alternate_contact_number: data.alternateContactNumber || null,
+                class_studying: data.classStudying,
+                school_name: data.schoolName,
+                school_place: data.schoolPlace,
+                state: data.state,
+                district: data.district,
+                referral_source: data.referralSource,
+                referral_details: data.referralDetails,
+              })
+              .select()
+              .single();
+
+            if (manualError) {
+              console.error('🔴 Manual profile creation failed:', manualError);
+            } else {
+              console.log('✅ Manual profile created successfully:', manualProfile);
+            }
           } else {
             console.log('✅ Profile successfully created by trigger:', profile);
             console.log('✅ Profile state value:', profile.state);
@@ -167,7 +197,7 @@ const SignupForm = () => {
           console.error('🔴 Error during profile verification:', checkError);
         }
         console.log('=== SIGNUP DEBUG END ===');
-      }, 3000);
+      }, 5000); // Increased wait time to 5 seconds
       
       toast.success("🎉 Account created successfully! Please check your email to verify your account before logging in.");
       form.reset();
