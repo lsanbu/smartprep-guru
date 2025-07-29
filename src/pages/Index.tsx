@@ -47,10 +47,8 @@ import { Link } from "react-router-dom";
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const toggleAboutDropdown = () => setIsAboutDropdownOpen(!isAboutDropdownOpen);
 
   const features = [
     {
@@ -128,35 +126,7 @@ const Index = () => {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               <a href="#features" className="text-gray-600 hover:text-purple-600 font-medium transition-colors">Features</a>
-              
-              {/* About Dropdown */}
-              <div className="relative">
-                <button 
-                  onClick={toggleAboutDropdown}
-                  className="flex items-center text-gray-600 hover:text-purple-600 font-medium transition-colors"
-                >
-                  About <ChevronDown className="w-4 h-4 ml-1" />
-                </button>
-                {isAboutDropdownOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                    <a 
-                      href="#about-xmprepneet" 
-                      className="block px-4 py-2 text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition-colors"
-                      onClick={() => setIsAboutDropdownOpen(false)}
-                    >
-                      About XmPrepNEET
-                    </a>
-                    <a 
-                      href="#about-kdxai" 
-                      className="block px-4 py-2 text-gray-600 hover:text-purple-600 hover:bg-purple-50 transition-colors"
-                      onClick={() => setIsAboutDropdownOpen(false)}
-                    >
-                      About KDx<sup>AI</sup>
-                    </a>
-                  </div>
-                )}
-              </div>
-              
+              <a href="#about-xmprepneet" className="text-gray-600 hover:text-purple-600 font-medium transition-colors">About</a>
               <a href="#pricing" className="text-gray-600 hover:text-purple-600 font-medium transition-colors">Pricing</a>
               <Button asChild className="bg-gradient-to-r from-purple-600 to-green-500 hover:from-purple-700 hover:to-green-600 text-white shadow-lg">
                 <Link to="/student">
@@ -180,8 +150,7 @@ const Index = () => {
             <div className="md:hidden mt-4 pb-4 border-t border-purple-100 pt-4">
               <nav className="space-y-3">
                 <a href="#features" className="block px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">Features</a>
-                <a href="#about-xmprepneet" className="block px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">About XmPrepNEET</a>
-                <a href="#about-kdxai" className="block px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">About KDx<sup>AI</sup></a>
+                <a href="#about-xmprepneet" className="block px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">About</a>
                 <a href="#pricing" className="block px-4 py-2 text-gray-600 hover:text-purple-600 font-medium transition-colors">Pricing</a>
                 <Button asChild className="w-full bg-gradient-to-r from-purple-600 to-green-500 hover:from-purple-700 hover:to-green-600 text-white">
                   <Link to="/student" onClick={() => setIsMenuOpen(false)}>
