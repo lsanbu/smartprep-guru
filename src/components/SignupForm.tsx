@@ -93,7 +93,13 @@ const SignupForm = () => {
 
       if (authError) {
         console.error('Auth error:', authError);
-        toast.error(`Signup failed: ${authError.message}`);
+        
+        // Handle specific error cases
+        if (authError.message.includes('User already registered')) {
+          toast.error("This email is already registered. Please try logging in instead.");
+        } else {
+          toast.error(`Signup failed: ${authError.message}`);
+        }
         return;
       }
 
@@ -103,65 +109,63 @@ const SignupForm = () => {
         return;
       }
 
-      console.log('User created successfully:', authData.user.id);
+      console.log('User signup response:', authData);
+      console.log('User ID:', authData.user.id);
 
-      // Wait a bit for the trigger to create the profile
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Wait a moment for any database triggers to complete
+      await new Promise(resolve => setTimeout(resolve, 2000));
 
-      // Check if profile exists first
-      const { data: existingProfile, error: checkError } = await supabase
+      // Try to insert the profile directly (using upsert to handle both new and existing cases)
+      const profileData = {
+        id: authData.user.id,
+        student_name: data.studentName,
+        father_mother_name: data.fatherMotherName,
+        contact_number: data.contactNumber,
+        alternate_contact_number: data.alternateContactNumber || null,
+        class_studying: data.classStudying,
+        school_name: data.schoolName,
+        school_place: data.schoolPlace,
+        state: data.state as any,
+        district: data.district,
+        referral_source: data.referralSource as any,
+        referral_details: data.referralDetails,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
+
+      console.log('Attempting to upsert profile with data:', profileData);
+
+      const { data: profileResult, error: profileError } = await supabase
         .from('profiles')
-        .select('*')
-        .eq('id', authData.user.id)
-        .single();
-
-      if (checkError && checkError.code !== 'PGRST116') {
-        console.error('Error checking existing profile:', checkError);
-        toast.error(`Profile check failed: ${checkError.message}`);
-        return;
-      }
-
-      console.log('Existing profile check:', existingProfile);
-
-      // Update the profile with the actual form data
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .update({
-          student_name: data.studentName,
-          father_mother_name: data.fatherMotherName,
-          contact_number: data.contactNumber,
-          alternate_contact_number: data.alternateContactNumber || null,
-          class_studying: data.classStudying,
-          school_name: data.schoolName,
-          school_place: data.schoolPlace,
-          state: data.state,
-          district: data.district,
-          referral_source: data.referralSource,
-          referral_details: data.referralDetails,
-          updated_at: new Date().toISOString(),
+        .upsert(profileData, { 
+          onConflict: 'id',
+          ignoreDuplicates: false 
         })
-        .eq('id', authData.user.id);
+        .select();
 
       if (profileError) {
-        console.error('Profile update error:', profileError);
+        console.error('Profile upsert error:', profileError);
+        console.error('Profile error details:', JSON.stringify(profileError, null, 2));
         toast.error(`Profile setup failed: ${profileError.message}`);
         return;
       }
 
-      console.log('Profile updated successfully');
+      console.log('Profile upsert successful:', profileResult);
 
-      // Verify the update by fetching the profile again
-      const { data: updatedProfile, error: verifyError } = await supabase
+      // Verify the profile was created/updated
+      const { data: verifyProfile, error: verifyError } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', authData.user.id)
         .single();
 
       if (verifyError) {
-        console.error('Error verifying profile update:', verifyError);
-      } else {
-        console.log('Updated profile verification:', updatedProfile);
+        console.error('Error verifying profile:', verifyError);
+        toast.error(`Profile verification failed: ${verifyError.message}`);
+        return;
       }
+
+      console.log('Profile verification successful:', verifyProfile);
       
       toast.success("🎉 Account created successfully! Please check your email to verify your account before logging in.");
       
