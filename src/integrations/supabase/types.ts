@@ -14,7 +14,138 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      page_analytics: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_chargeable: boolean | null
+          last_visited: string | null
+          page_url: string
+          time_spent_minutes: number | null
+          user_id: string | null
+          visit_count: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_chargeable?: boolean | null
+          last_visited?: string | null
+          page_url: string
+          time_spent_minutes?: number | null
+          user_id?: string | null
+          visit_count?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_chargeable?: boolean | null
+          last_visited?: string | null
+          page_url?: string
+          time_spent_minutes?: number | null
+          user_id?: string | null
+          visit_count?: number | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          alternate_contact_number: string | null
+          class_studying: string
+          contact_number: string
+          created_at: string | null
+          district: string
+          father_mother_name: string
+          id: string
+          referral_details: string
+          referral_source: Database["public"]["Enums"]["referral_source"]
+          school_name: string
+          school_place: string
+          state: Database["public"]["Enums"]["indian_state"]
+          student_name: string
+          updated_at: string | null
+        }
+        Insert: {
+          alternate_contact_number?: string | null
+          class_studying: string
+          contact_number: string
+          created_at?: string | null
+          district: string
+          father_mother_name: string
+          id: string
+          referral_details: string
+          referral_source: Database["public"]["Enums"]["referral_source"]
+          school_name: string
+          school_place: string
+          state: Database["public"]["Enums"]["indian_state"]
+          student_name: string
+          updated_at?: string | null
+        }
+        Update: {
+          alternate_contact_number?: string | null
+          class_studying?: string
+          contact_number?: string
+          created_at?: string | null
+          district?: string
+          father_mother_name?: string
+          id?: string
+          referral_details?: string
+          referral_source?: Database["public"]["Enums"]["referral_source"]
+          school_name?: string
+          school_place?: string
+          state?: Database["public"]["Enums"]["indian_state"]
+          student_name?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      url_configurations: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          is_chargeable: boolean | null
+          url_pattern: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_chargeable?: boolean | null
+          url_pattern: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_chargeable?: boolean | null
+          url_pattern?: string
+        }
+        Relationships: []
+      }
+      user_pricing_suggestions: {
+        Row: {
+          created_at: string | null
+          id: string
+          plan_type: Database["public"]["Enums"]["pricing_plan"]
+          suggested_price: number | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          plan_type: Database["public"]["Enums"]["pricing_plan"]
+          suggested_price?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          plan_type?: Database["public"]["Enums"]["pricing_plan"]
+          suggested_price?: number | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +154,58 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      indian_state:
+        | "Andhra Pradesh"
+        | "Arunachal Pradesh"
+        | "Assam"
+        | "Bihar"
+        | "Chhattisgarh"
+        | "Goa"
+        | "Gujarat"
+        | "Haryana"
+        | "Himachal Pradesh"
+        | "Jharkhand"
+        | "Karnataka"
+        | "Kerala"
+        | "Madhya Pradesh"
+        | "Maharashtra"
+        | "Manipur"
+        | "Meghalaya"
+        | "Mizoram"
+        | "Nagaland"
+        | "Odisha"
+        | "Punjab"
+        | "Rajasthan"
+        | "Sikkim"
+        | "Tamil Nadu"
+        | "Telangana"
+        | "Tripura"
+        | "Uttar Pradesh"
+        | "Uttarakhand"
+        | "West Bengal"
+        | "Andaman and Nicobar Islands"
+        | "Chandigarh"
+        | "Dadra and Nagar Haveli and Daman and Diu"
+        | "Delhi"
+        | "Jammu and Kashmir"
+        | "Ladakh"
+        | "Lakshadweep"
+        | "Puducherry"
+      pricing_plan:
+        | "Basic Plan"
+        | "Standard Plan"
+        | "Premium Plan"
+        | "Ultimate Plan"
+      referral_source:
+        | "Social Media"
+        | "Google Search"
+        | "Friend/Family Reference"
+        | "School Teacher"
+        | "Coaching Institute"
+        | "YouTube"
+        | "Educational Website"
+        | "Advertisement"
+        | "Other"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +332,62 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      indian_state: [
+        "Andhra Pradesh",
+        "Arunachal Pradesh",
+        "Assam",
+        "Bihar",
+        "Chhattisgarh",
+        "Goa",
+        "Gujarat",
+        "Haryana",
+        "Himachal Pradesh",
+        "Jharkhand",
+        "Karnataka",
+        "Kerala",
+        "Madhya Pradesh",
+        "Maharashtra",
+        "Manipur",
+        "Meghalaya",
+        "Mizoram",
+        "Nagaland",
+        "Odisha",
+        "Punjab",
+        "Rajasthan",
+        "Sikkim",
+        "Tamil Nadu",
+        "Telangana",
+        "Tripura",
+        "Uttar Pradesh",
+        "Uttarakhand",
+        "West Bengal",
+        "Andaman and Nicobar Islands",
+        "Chandigarh",
+        "Dadra and Nagar Haveli and Daman and Diu",
+        "Delhi",
+        "Jammu and Kashmir",
+        "Ladakh",
+        "Lakshadweep",
+        "Puducherry",
+      ],
+      pricing_plan: [
+        "Basic Plan",
+        "Standard Plan",
+        "Premium Plan",
+        "Ultimate Plan",
+      ],
+      referral_source: [
+        "Social Media",
+        "Google Search",
+        "Friend/Family Reference",
+        "School Teacher",
+        "Coaching Institute",
+        "YouTube",
+        "Educational Website",
+        "Advertisement",
+        "Other",
+      ],
+    },
   },
 } as const

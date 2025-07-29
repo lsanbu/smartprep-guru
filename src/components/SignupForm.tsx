@@ -102,27 +102,24 @@ const SignupForm = () => {
 
       console.log('User created successfully:', authData.user.id);
 
-      // Update the profile with additional information using direct table access
-      const profileData = {
-        id: authData.user.id,
-        student_name: data.studentName,
-        father_mother_name: data.fatherMotherName,
-        contact_number: data.contactNumber,
-        alternate_contact_number: data.alternateContactNumber || null,
-        class_studying: data.classStudying,
-        school_name: data.schoolName,
-        school_place: data.schoolPlace,
-        state: data.state,
-        district: data.district,
-        referral_source: data.referralSource,
-        referral_details: data.referralDetails,
-        updated_at: new Date().toISOString(),
-      };
-
-      // Use type assertion to work with the profiles table
-      const { error: profileError } = await (supabase as any)
+      // Update the profile with the actual form data
+      // The trigger already created an empty profile, so we update it
+      const { error: profileError } = await supabase
         .from('profiles')
-        .update(profileData)
+        .update({
+          student_name: data.studentName,
+          father_mother_name: data.fatherMotherName,
+          contact_number: data.contactNumber,
+          alternate_contact_number: data.alternateContactNumber || null,
+          class_studying: data.classStudying,
+          school_name: data.schoolName,
+          school_place: data.schoolPlace,
+          state: data.state,
+          district: data.district,
+          referral_source: data.referralSource,
+          referral_details: data.referralDetails,
+          updated_at: new Date().toISOString(),
+        })
         .eq('id', authData.user.id);
 
       if (profileError) {
