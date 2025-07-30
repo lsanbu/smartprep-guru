@@ -171,10 +171,11 @@ Student Answer: ${userAnswer}
 
 Please provide:
 1. A score out of 5
-2. Detailed feedback on the student's answer
-3. What was good and what could be improved
+2. Detailed feedback addressed directly to the student using "you" instead of "the student"
+3. What you did well and what you could improve
+4. Use encouraging and supportive tone
 
-Format your response as: Score: X out of 5. Feedback: [detailed feedback here]`
+Format your response as: Score: X out of 5. Feedback: [detailed feedback here using "you" to address the student directly]`
         })
       });
 
