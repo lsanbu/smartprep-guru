@@ -153,10 +153,10 @@ const AITutor = () => {
     const userMessage = {
       id: Date.now().toString(),
       content: inputMessage,
-      sender: 'user' as const,
+      sender: 'user',
       timestamp: new Date(),
       image: selectedImage ? URL.createObjectURL(selectedImage) : undefined,
-      type: (selectedImage ? 'image' : 'text') as const
+      type: (selectedImage ? 'image' : 'text')
     };
 
     addMessage(userMessage);
@@ -172,9 +172,9 @@ const AITutor = () => {
       const aiMessage = {
         id: (Date.now() + 1).toString(),
         content: aiResponse,
-        sender: 'ai' as const,
+        sender: 'ai',
         timestamp: new Date(),
-        type: 'solution' as const
+        type: 'solution'
       };
       
       addMessage(aiMessage);
@@ -194,9 +194,9 @@ const AITutor = () => {
       const aiErrorMessage = {
         id: (Date.now() + 1).toString(),
         content: errorMessage,
-        sender: 'ai' as const,
+        sender: 'ai',
         timestamp: new Date(),
-        type: 'error' as const
+        type: 'error'
       };
       
       addMessage(aiErrorMessage);
