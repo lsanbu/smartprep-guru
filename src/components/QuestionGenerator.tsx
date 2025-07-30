@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -44,6 +43,7 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
   const [showResult, setShowResult] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [practiceMode, setPracticeMode] = useState<boolean>(false);
+  const [validationFeedback, setValidationFeedback] = useState<string>('');
 
   const subjects = [
     { id: 'all', name: 'All Subjects', icon: GraduationCap, color: 'text-purple-600' },
@@ -125,11 +125,29 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
 
   const validateAnswer = async () => {
     if (!currentQuestion) return;
-    if (questionType === 'mcq' && !selectedOption) {
-      toast.error("Please select an option first.");
+    
+    if (questionType === 'mcq') {
+      // Handle MCQ validation on frontend
+      if (!selectedOption) {
+        toast.error("Please select an option first.");
+        return;
+      }
+      
+      const correct = selectedOption === currentQuestion.correctAnswer;
+      setIsCorrect(correct);
+      setShowResult(true);
+      setValidationFeedback(''); // No additional feedback needed for MCQ
+      
+      // Add result to chat
+      const resultMessage = `${correct ? '✅' : '❌'} **${correct ? 'Correct!' : 'Incorrect'}**\n\n**Correct Answer:** ${currentQuestion.correctAnswer}\n\n**Explanation:** ${currentQuestion.explanation}`;
+      onAddToChat(resultMessage, 'result');
+      
+      toast.success(correct ? "Correct! Well done!" : "Keep practicing! Check the explanation.");
       return;
     }
-    if (questionType === 'explanation' && !userAnswer.trim()) {
+    
+    // Handle explanation validation via backend API
+    if (!userAnswer.trim()) {
       toast.error("Please provide your answer first.");
       return;
     }
@@ -137,8 +155,6 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
     setIsLoading(true);
 
     try {
-      const studentAnswer = questionType === 'mcq' ? selectedOption : userAnswer;
-      
       const response = await fetch(VALIDATE_ANSWER_ENDPOINT, {
         method: 'POST',
         headers: {
@@ -146,7 +162,7 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
         },
         body: JSON.stringify({
           question: currentQuestion.question,
-          studentAnswer,
+          studentAnswer: userAnswer,
           correctAnswer: currentQuestion.correctAnswer,
           explanation: currentQuestion.explanation,
           type: questionType
@@ -159,13 +175,14 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
 
       const data = await response.json();
       setIsCorrect(data.isCorrect);
+      setValidationFeedback(data.feedback || '');
       setShowResult(true);
       
       // Add result to chat
-      const resultMessage = `${data.isCorrect ? '✅' : '❌'} **${data.isCorrect ? 'Correct!' : 'Incorrect'}**\n\n**Correct Answer:** ${currentQuestion.correctAnswer}\n\n**Explanation:** ${currentQuestion.explanation}${data.feedback ? `\n\n**Feedback:** ${data.feedback}` : ''}`;
+      const resultMessage = `${data.isCorrect ? '✅' : '❌'} **${data.isCorrect ? 'Correct!' : 'Needs Improvement'}**\n\n**Expected Answer:** ${currentQuestion.correctAnswer}\n\n**Your Answer:** ${userAnswer}\n\n**Explanation:** ${currentQuestion.explanation}${data.feedback ? `\n\n**Feedback:** ${data.feedback}` : ''}`;
       onAddToChat(resultMessage, 'result');
       
-      toast.success(data.isCorrect ? "Correct! Well done!" : "Keep practicing! Check the explanation.");
+      toast.success(data.isCorrect ? "Great answer! Well done!" : "Good attempt! Check the feedback for improvement.");
 
     } catch (error) {
       console.error('Error validating answer:', error);
@@ -408,19 +425,39 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
                   <h4 className={`font-bold text-lg ${
                     isCorrect ? 'text-green-700' : 'text-red-700'
                   }`}>
-                    {isCorrect ? 'Correct!' : 'Incorrect'}
+                    {questionType === 'mcq' 
+                      ? (isCorrect ? 'Correct!' : 'Incorrect') 
+                      : (isCorrect ? 'Great Answer!' : 'Needs Improvement')
+                    }
                   </h4>
                 </div>
                 
                 <div className="space-y-2">
                   <div>
-                    <span className="font-medium text-gray-700">Correct Answer: </span>
+                    <span className="font-medium text-gray-700">
+                      {questionType === 'mcq' ? 'Correct Answer: ' : 'Expected Answer: '}
+                    </span>
                     <span className="text-gray-800">{currentQuestion.correctAnswer}</span>
                   </div>
+                  
+                  {questionType === 'explanation' && userAnswer && (
+                    <div>
+                      <span className="font-medium text-gray-700">Your Answer: </span>
+                      <p className="text-gray-800 mt-1">{userAnswer}</p>
+                    </div>
+                  )}
+                  
                   <div>
                     <span className="font-medium text-gray-700">Explanation: </span>
                     <p className="text-gray-800 mt-1">{currentQuestion.explanation}</p>
                   </div>
+                  
+                  {validationFeedback && (
+                    <div>
+                      <span className="font-medium text-gray-700">Feedback: </span>
+                      <p className="text-gray-800 mt-1">{validationFeedback}</p>
+                    </div>
+                  )}
                 </div>
 
                 <Button 
