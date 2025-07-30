@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -161,11 +162,8 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          question: currentQuestion.question,
-          studentAnswer: userAnswer,
-          correctAnswer: currentQuestion.correctAnswer,
-          explanation: currentQuestion.explanation,
-          type: questionType
+          user_answer: userAnswer,
+          model_answer: currentQuestion.correctAnswer
         })
       });
 
@@ -174,15 +172,21 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
       }
 
       const data = await response.json();
-      setIsCorrect(data.isCorrect);
+      
+      // Parse the score from the response (assuming it's in format "X out of 5")
+      const scoreMatch = data.score?.match(/(\d+)/);
+      const score = scoreMatch ? parseInt(scoreMatch[1]) : 0;
+      const isGoodScore = score >= 3; // Consider 3/5 and above as correct
+      
+      setIsCorrect(isGoodScore);
       setValidationFeedback(data.feedback || '');
       setShowResult(true);
       
       // Add result to chat
-      const resultMessage = `${data.isCorrect ? '✅' : '❌'} **${data.isCorrect ? 'Correct!' : 'Needs Improvement'}**\n\n**Expected Answer:** ${currentQuestion.correctAnswer}\n\n**Your Answer:** ${userAnswer}\n\n**Explanation:** ${currentQuestion.explanation}${data.feedback ? `\n\n**Feedback:** ${data.feedback}` : ''}`;
+      const resultMessage = `${isGoodScore ? '✅' : '❌'} **${isGoodScore ? 'Good Answer!' : 'Needs Improvement'}**\n\n**Score:** ${data.score}\n\n**Expected Answer:** ${currentQuestion.correctAnswer}\n\n**Your Answer:** ${userAnswer}\n\n**Explanation:** ${currentQuestion.explanation}${data.feedback ? `\n\n**Feedback:** ${data.feedback}` : ''}`;
       onAddToChat(resultMessage, 'result');
       
-      toast.success(data.isCorrect ? "Great answer! Well done!" : "Good attempt! Check the feedback for improvement.");
+      toast.success(isGoodScore ? "Great answer! Well done!" : "Good attempt! Check the feedback for improvement.");
 
     } catch (error) {
       console.error('Error validating answer:', error);
