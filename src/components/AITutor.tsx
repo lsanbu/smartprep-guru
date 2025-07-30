@@ -1,5 +1,5 @@
 
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,30 +24,22 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import QuickQuestions from "./QuickQuestions";
-
-interface Message {
-  id: string;
-  content: string;
-  sender: 'user' | 'ai';
-  timestamp: Date;
-  image?: string;
-  type?: 'text' | 'image' | 'solution' | 'error';
-}
+import { useAITutorContext } from "../contexts/AITutorContext";
 
 const AITutor = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      content: "Hi! I'm XmPrepNEETGuru, your personal AI tutor. I'm here to help you with any NEET-related doubts. You can ask me questions in text or upload images of problems you're stuck on. How can I help you today?",
-      sender: 'ai',
-      timestamp: new Date(),
-      type: 'text'
-    }
-  ]);
-  const [inputMessage, setInputMessage] = useState('');
-  const [isRecording, setIsRecording] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    messages,
+    addMessage,
+    inputMessage,
+    setInputMessage,
+    isRecording,
+    setIsRecording,
+    selectedImage,
+    setSelectedImage,
+    isLoading,
+    setIsLoading
+  } = useAITutorContext();
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -158,16 +150,16 @@ const AITutor = () => {
       questionText = `${questionText} [Image uploaded: ${selectedImage.name}]`;
     }
 
-    const userMessage: Message = {
+    const userMessage = {
       id: Date.now().toString(),
       content: inputMessage,
-      sender: 'user',
+      sender: 'user' as const,
       timestamp: new Date(),
       image: selectedImage ? URL.createObjectURL(selectedImage) : undefined,
-      type: selectedImage ? 'image' : 'text'
+      type: (selectedImage ? 'image' : 'text') as const
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    addMessage(userMessage);
     setInputMessage('');
     setSelectedImage(null);
     setIsLoading(true);
@@ -177,15 +169,15 @@ const AITutor = () => {
       
       const aiResponse = await callAITutorAPI(questionText);
       
-      const aiMessage: Message = {
+      const aiMessage = {
         id: (Date.now() + 1).toString(),
         content: aiResponse,
-        sender: 'ai',
+        sender: 'ai' as const,
         timestamp: new Date(),
-        type: 'solution'
+        type: 'solution' as const
       };
       
-      setMessages(prev => [...prev, aiMessage]);
+      addMessage(aiMessage);
       toast.success("AI Tutor responded successfully!");
       
     } catch (error) {
@@ -199,15 +191,15 @@ const AITutor = () => {
         errorMessage += "An unknown error occurred. Please try again.";
       }
       
-      const aiErrorMessage: Message = {
+      const aiErrorMessage = {
         id: (Date.now() + 1).toString(),
         content: errorMessage,
-        sender: 'ai',
+        sender: 'ai' as const,
         timestamp: new Date(),
-        type: 'error'
+        type: 'error' as const
       };
       
-      setMessages(prev => [...prev, aiErrorMessage]);
+      addMessage(aiErrorMessage);
       toast.error("Failed to get AI response. Please check the console for details.");
     } finally {
       setIsLoading(false);
