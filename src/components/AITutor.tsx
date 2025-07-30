@@ -25,6 +25,7 @@ import {
 import { toast } from "sonner";
 import QuickQuestions from "./QuickQuestions";
 import { useAITutorContext } from "../contexts/AITutorContext";
+import type { Message } from "../hooks/useAITutorState";
 
 const AITutor = () => {
   const {
@@ -150,13 +151,13 @@ const AITutor = () => {
       questionText = `${questionText} [Image uploaded: ${selectedImage.name}]`;
     }
 
-    const userMessage = {
+    const userMessage: Message = {
       id: Date.now().toString(),
       content: inputMessage,
       sender: 'user',
       timestamp: new Date(),
       image: selectedImage ? URL.createObjectURL(selectedImage) : undefined,
-      type: (selectedImage ? 'image' : 'text')
+      type: selectedImage ? 'image' : 'text'
     };
 
     addMessage(userMessage);
@@ -169,7 +170,7 @@ const AITutor = () => {
       
       const aiResponse = await callAITutorAPI(questionText);
       
-      const aiMessage = {
+      const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         content: aiResponse,
         sender: 'ai',
@@ -191,7 +192,7 @@ const AITutor = () => {
         errorMessage += "An unknown error occurred. Please try again.";
       }
       
-      const aiErrorMessage = {
+      const aiErrorMessage: Message = {
         id: (Date.now() + 1).toString(),
         content: errorMessage,
         sender: 'ai',
