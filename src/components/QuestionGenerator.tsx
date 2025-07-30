@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -61,7 +60,6 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
 
   const API_BASE_URL = 'http://localhost:5000';
   const GENERATE_QUESTION_ENDPOINT = `${API_BASE_URL}/api/chat/generate-question`;
-  const VALIDATE_ANSWER_ENDPOINT = `${API_BASE_URL}/api/chat/validate-answer`;
 
   const generateQuestion = async () => {
     setIsLoading(true);
@@ -147,7 +145,7 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
       return;
     }
     
-    // Handle explanation validation via backend API
+    // Handle explanation validation via direct function call
     if (!userAnswer.trim()) {
       toast.error("Please provide your answer first.");
       return;
@@ -156,14 +154,27 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
     setIsLoading(true);
 
     try {
-      const response = await fetch(VALIDATE_ANSWER_ENDPOINT, {
+      // Call the Flask server's process_query endpoint directly for validation
+      const response = await fetch(`${API_BASE_URL}/api/chat/ask`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          user_answer: userAnswer,
-          model_answer: currentQuestion.correctAnswer
+          question: `Please evaluate this student answer for the following question:
+
+Question: ${currentQuestion.question}
+
+Expected Answer: ${currentQuestion.correctAnswer}
+
+Student Answer: ${userAnswer}
+
+Please provide:
+1. A score out of 5
+2. Detailed feedback on the student's answer
+3. What was good and what could be improved
+
+Format your response as: Score: X out of 5. Feedback: [detailed feedback here]`
         })
       });
 
@@ -172,18 +183,22 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
       }
 
       const data = await response.json();
+      const aiResponse = data.answer || data.response || "Unable to validate answer";
       
-      // Parse the score from the response (assuming it's in format "X out of 5")
-      const scoreMatch = data.score?.match(/(\d+)/);
+      // Parse the score and feedback from AI response
+      const scoreMatch = aiResponse.match(/Score:\s*(\d+)\s*out\s*of\s*5/i);
+      const feedbackMatch = aiResponse.match(/Feedback:\s*(.+)/is);
+      
       const score = scoreMatch ? parseInt(scoreMatch[1]) : 0;
+      const feedback = feedbackMatch ? feedbackMatch[1].trim() : aiResponse;
       const isGoodScore = score >= 3; // Consider 3/5 and above as correct
       
       setIsCorrect(isGoodScore);
-      setValidationFeedback(data.feedback || '');
+      setValidationFeedback(feedback);
       setShowResult(true);
       
       // Add result to chat
-      const resultMessage = `${isGoodScore ? '✅' : '❌'} **${isGoodScore ? 'Good Answer!' : 'Needs Improvement'}**\n\n**Score:** ${data.score}\n\n**Expected Answer:** ${currentQuestion.correctAnswer}\n\n**Your Answer:** ${userAnswer}\n\n**Explanation:** ${currentQuestion.explanation}${data.feedback ? `\n\n**Feedback:** ${data.feedback}` : ''}`;
+      const resultMessage = `${isGoodScore ? '✅' : '❌'} **${isGoodScore ? 'Good Answer!' : 'Needs Improvement'}**\n\n**Score:** ${score} out of 5\n\n**Expected Answer:** ${currentQuestion.correctAnswer}\n\n**Your Answer:** ${userAnswer}\n\n**Explanation:** ${currentQuestion.explanation}\n\n**Feedback:** ${feedback}`;
       onAddToChat(resultMessage, 'result');
       
       toast.success(isGoodScore ? "Great answer! Well done!" : "Good attempt! Check the feedback for improvement.");
