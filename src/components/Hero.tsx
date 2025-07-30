@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Brain, Target, BookOpen, Users, Star } from "lucide-react";
@@ -28,7 +27,7 @@ const Hero = () => {
             <div className="text-white space-y-8">
               <div>
                 <h1 className="text-5xl lg:text-6xl font-bold font-brand-primary leading-tight mb-6">
-                  Master NEET with{' '}
+                  Crack NEET with{' '}
                   <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
                     AI-Powered
                   </span>{' '}

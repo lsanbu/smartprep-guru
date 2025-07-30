@@ -1,3 +1,4 @@
+
 import { useState, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,25 +11,19 @@ import {
   Paperclip, 
   Mic, 
   MicOff, 
-  Zap, 
   MessageCircle,
   User,
   Bot,
-  Camera,
-  Upload,
   X,
   ThumbsUp,
   ThumbsDown,
   Copy,
   RefreshCw,
   Clock,
-  BookOpen,
-  Lightbulb,
-  Target,
-  TrendingUp,
   AlertTriangle
 } from "lucide-react";
 import { toast } from "sonner";
+import QuickQuestions from "./QuickQuestions";
 
 interface Message {
   id: string;
@@ -59,13 +54,6 @@ const AITutor = () => {
   // Updated API Configuration
   const API_BASE_URL = 'http://localhost:5000';
   const CHAT_ENDPOINT = `${API_BASE_URL}/api/chat/ask`;
-
-  const quickQuestions = [
-    { text: "Explain photosynthesis mechanism", subject: "Biology", icon: BookOpen },
-    { text: "Solve this organic chemistry reaction", subject: "Chemistry", icon: Lightbulb },
-    { text: "Help with projectile motion", subject: "Physics", icon: Target },
-    { text: "Practice stoichiometry problems", subject: "Chemistry", icon: TrendingUp },
-  ];
 
   const recentTopics = [
     { topic: "Thermodynamics", subject: "Physics", time: "2 hours ago" },
@@ -266,7 +254,7 @@ const AITutor = () => {
       case 'error':
         return <AlertTriangle className="w-4 h-4 text-red-500" />;
       case 'solution':
-        return <Lightbulb className="w-4 h-4 text-yellow-500" />;
+        return <Brain className="w-4 h-4 text-yellow-500" />;
       default:
         return <Bot className="w-4 h-4 text-white" />;
     }
@@ -452,36 +440,11 @@ const AITutor = () => {
 
       {/* Sidebar */}
       <div className="w-80 space-y-4">
-        {/* Quick Questions */}
-        <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-purple-600">
-              <Zap className="w-5 h-5" />
-              <span>Quick Questions</span>
-            </CardTitle>
-            <CardDescription>Popular NEET topics to get started</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              {quickQuestions.map((question, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleQuickQuestion(question.text)}
-                  className="w-full p-3 text-left bg-gray-50 hover:bg-purple-50 rounded-lg transition-colors"
-                  disabled={isLoading}
-                >
-                  <div className="flex items-center space-x-2 mb-1">
-                    <question.icon className="w-4 h-4 text-purple-600" />
-                    <Badge variant="outline" className="text-xs">
-                      {question.subject}
-                    </Badge>
-                  </div>
-                  <div className="text-sm text-gray-700">{question.text}</div>
-                </button>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        {/* Enhanced Quick Questions */}
+        <QuickQuestions 
+          onQuestionSelect={handleQuickQuestion}
+          isLoading={isLoading}
+        />
 
         {/* Recent Topics */}
         <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
