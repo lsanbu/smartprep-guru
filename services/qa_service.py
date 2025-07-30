@@ -1,4 +1,3 @@
-
 import os
 import re
 import logging
@@ -224,10 +223,10 @@ Evaluate based on:
 - Use of keywords
 
 Return result in JSON format:
-{{{{
+{{
   "score": "out of 5",
   "feedback": "Detailed comments..."
-}}}}
+}}
     """.strip()
 
     from langchain_core.prompts import ChatPromptTemplate
