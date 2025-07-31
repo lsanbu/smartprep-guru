@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import { flaskApi } from '@/services/flaskApi';
 import { toast } from 'sonner';
 
 export interface MockTest {
@@ -79,27 +80,25 @@ export const useMockTests = () => {
     return data as Question[];
   };
 
-  // Generate new mock test using Flask API integration
+  // Generate new mock test using Flask API directly
   const generateMockTest = useMutation({
     mutationFn: async (params: {
       testName: string;
       testType?: string;
       subjects?: string[];
     }) => {
-      // Call the updated Supabase edge function
-      const { data, error } = await supabase.functions.invoke('generate-mock-test', {
-        body: params
-      });
+      // Call Flask API directly
+      const response = await flaskApi.generateMockTest(
+        params.testName,
+        params.testType || 'full_mock',
+        params.subjects || ['Physics', 'Chemistry', 'Biology']
+      );
 
-      if (error) {
-        throw error;
+      if (response.error) {
+        throw new Error(response.error);
       }
 
-      if (data.error) {
-        throw new Error(data.error);
-      }
-
-      return data;
+      return response.data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['mockTests'] });
