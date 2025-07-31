@@ -78,20 +78,20 @@ const AITutorLanding = () => {
             <div className="text-center mb-8">
               <Badge className="bg-yellow-500 text-black px-6 py-3 text-lg font-bold animate-pulse">
                 <Gift className="w-5 h-5 mr-2" />
-                🎉 FREE MVP Access for Early Users!
+                🎉 FREE Preview Access for Early Users!
               </Badge>
             </div>
 
             {/* Main Headline */}
             <div className="text-center text-white mb-12">
               <h1 className="text-5xl lg:text-7xl font-bold font-brand-primary leading-tight mb-6">
-                Meet{' '}
+                Crack NEET with{' '}
                 <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                  XmPrepNEETGuru
+                  AI-Powered Learning
                 </span>
               </h1>
               <p className="text-2xl lg:text-3xl font-semibold mb-4">
-                Your AI-Powered NEET Preparation Companion
+                Meet XmPrep<sup className="text-sm">NEET</sup>Guru - Your AI Study Companion
               </p>
               <p className="text-xl text-white/90 max-w-4xl mx-auto font-poppins leading-relaxed">
                 Experience the future of NEET preparation with our revolutionary AI tutor. 
@@ -126,7 +126,7 @@ const AITutorLanding = () => {
                   🚀 Be Among the First to Experience Our AI Tutor!
                 </h3>
                 <p className="text-white/90 mb-6">
-                  Join our exclusive demo session and get FREE access to XmPrepNEETGuru. 
+                  Join our exclusive demo session and get FREE access to XmPrep<sup className="text-xs">NEET</sup>Guru. 
                   Limited seats available!
                 </p>
                 
@@ -168,7 +168,7 @@ const AITutorLanding = () => {
               Revolutionary AI Tutor Features
             </h2>
             <p className="text-xl text-brand-light-gray max-w-3xl mx-auto font-poppins">
-              See what makes XmPrepNEETGuru different from traditional learning platforms
+              See what makes XmPrep<sup className="text-xs">NEET</sup>Guru different from traditional learning platforms
             </p>
           </div>
 
@@ -194,7 +194,7 @@ const AITutorLanding = () => {
                       <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                       <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                       <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                      <span className="text-gray-400 ml-4">XmPrepNEETGuru Demo</span>
+                      <span className="text-gray-400 ml-4">XmPrep<sup className="text-xs">NEET</sup>Guru Demo</span>
                     </div>
                     <div className="text-white">
                       {feature.screenshot}
@@ -242,7 +242,7 @@ const AITutorLanding = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center text-brand-purple font-brand-primary">
                     <Gift className="w-6 h-6 mr-3" />
-                    Free Access Benefits
+                    Free Preview Access Benefits
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
