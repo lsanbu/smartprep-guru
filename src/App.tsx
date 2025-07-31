@@ -10,6 +10,7 @@ import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
+import AITutorLanding from "./pages/AITutorLanding";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ function App() {
             <Route path="/" element={<Index />} />
             <Route path="/student" element={<Student />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/ai-tutor-demo" element={<AITutorLanding />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="*" element={<NotFound />} />
