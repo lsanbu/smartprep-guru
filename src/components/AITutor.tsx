@@ -28,6 +28,7 @@ import { toast } from "sonner";
 import QuickQuestions from "./QuickQuestions";
 import QuestionGenerator from "./QuestionGenerator";
 import { useAITutorContext } from "../contexts/AITutorContext";
+import { useAITutorChat } from "../hooks/useAITutorChat";
 import type { Message } from "../hooks/useAITutorState";
 
 const AITutor = () => {
@@ -44,13 +45,11 @@ const AITutor = () => {
     setIsLoading
   } = useAITutorContext();
 
+  const { askQuestion } = useAITutorChat();
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState("chat");
-
-  // Updated API Configuration
-  const API_BASE_URL = 'http://localhost:5000';
-  const CHAT_ENDPOINT = `${API_BASE_URL}/api/chat/ask`;
 
   const recentTopics = [
     { topic: "Thermodynamics", subject: "Physics", time: "2 hours ago" },
@@ -58,92 +57,6 @@ const AITutor = () => {
     { topic: "Cell Division", subject: "Biology", time: "2 days ago" },
     { topic: "Wave Optics", subject: "Physics", time: "3 days ago" },
   ];
-
-  const callAITutorAPI = async (question: string): Promise<string> => {
-    console.log('=== API Call Debug Info ===');
-    console.log('Question:', question);
-    console.log('API Endpoint:', CHAT_ENDPOINT);
-    console.log('Request method: POST');
-    console.log('Content-Type: application/json');
-    
-    try {
-      // First, let's try to check if the server is running
-      console.log('Checking server connectivity...');
-      
-      const response = await fetch(CHAT_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          question: question
-        })
-      });
-
-      console.log('Response received:');
-      console.log('Status:', response.status);
-      console.log('Status Text:', response.statusText);
-      console.log('Headers:', Object.fromEntries(response.headers.entries()));
-
-      if (!response.ok) {
-        let errorMessage = `HTTP ${response.status}: ${response.statusText}`;
-        
-        try {
-          const errorText = await response.text();
-          console.log('Error response body:', errorText);
-          
-          // Try to parse as JSON if possible
-          try {
-            const errorJson = JSON.parse(errorText);
-            errorMessage = errorJson.error || errorMessage;
-          } catch {
-            errorMessage = errorText || errorMessage;
-          }
-        } catch (textError) {
-          console.log('Could not read error response body:', textError);
-        }
-        
-        if (response.status === 404) {
-          throw new Error('API endpoint not found. Please check if the Flask server is running and the route is correctly registered.');
-        } else if (response.status === 500) {
-          throw new Error(`Server error: ${errorMessage}`);
-        } else if (response.status === 400) {
-          throw new Error(`Bad request: ${errorMessage}`);
-        } else {
-          throw new Error(errorMessage);
-        }
-      }
-
-      const data = await response.json();
-      console.log('Success response data:', data);
-      
-      if (data.error) {
-        throw new Error(`API Error: ${data.error}`);
-      }
-
-      return data.answer || "I received your question but couldn't generate a response. Please try again.";
-      
-    } catch (error) {
-      console.error('=== API Error Details ===');
-      console.error('Error type:', error instanceof Error ? error.constructor.name : typeof error);
-      console.error('Error message:', error instanceof Error ? error.message : String(error));
-      console.error('Full error:', error);
-      
-      if (error instanceof TypeError) {
-        if (error.message.includes('fetch')) {
-          throw new Error(`Network Error: Cannot connect to Flask server at ${API_BASE_URL}. Please ensure:
-1. Flask server is running on port 5000
-2. CORS is properly configured
-3. The /chat/ask endpoint is registered
-4. No firewall is blocking the connection`);
-        }
-      }
-      
-      // Re-throw the error to be handled by the calling function
-      throw error;
-    }
-  };
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim() && !selectedImage) return;
@@ -172,33 +85,27 @@ const AITutor = () => {
     try {
       console.log('Sending message to AI Tutor:', questionText);
       
-      const aiResponse = await callAITutorAPI(questionText);
+      const aiResponse = await askQuestion(questionText);
       
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: aiResponse,
-        sender: 'ai',
-        timestamp: new Date(),
-        type: 'solution'
-      };
-      
-      addMessage(aiMessage);
-      toast.success("AI Tutor responded successfully!");
+      if (aiResponse) {
+        const aiMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          content: aiResponse,
+          sender: 'ai',
+          timestamp: new Date(),
+          type: 'solution'
+        };
+        
+        addMessage(aiMessage);
+        toast.success("AI Tutor responded successfully!");
+      }
       
     } catch (error) {
       console.error('Failed to get AI response:', error);
       
-      let errorMessage = "I'm having trouble connecting to the server right now. ";
-      
-      if (error instanceof Error) {
-        errorMessage += error.message;
-      } else {
-        errorMessage += "An unknown error occurred. Please try again.";
-      }
-      
       const aiErrorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: errorMessage,
+        content: "I'm having trouble connecting to the server right now. Please try again later.",
         sender: 'ai',
         timestamp: new Date(),
         type: 'error'
@@ -467,11 +374,7 @@ const AITutor = () => {
           </TabsContent>
 
           <TabsContent value="practice" className="flex-1 flex flex-col mt-0 p-4">
-            <QuestionGenerator 
-              onAddToChat={handleAddToChat}
-              isLoading={isLoading}
-              setIsLoading={setIsLoading}
-            />
+            <QuestionGenerator />
           </TabsContent>
         </Tabs>
       </div>
