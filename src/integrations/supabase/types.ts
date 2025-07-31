@@ -14,6 +14,104 @@ export type Database = {
   }
   public: {
     Tables: {
+      generated_questions: {
+        Row: {
+          correct_answer: string
+          created_at: string | null
+          difficulty_level: number | null
+          explanation: string | null
+          id: string
+          mock_test_id: string | null
+          option_a: string
+          option_b: string
+          option_c: string
+          option_d: string
+          question_number: number
+          question_text: string
+          source_context: string | null
+          subject: string
+        }
+        Insert: {
+          correct_answer: string
+          created_at?: string | null
+          difficulty_level?: number | null
+          explanation?: string | null
+          id?: string
+          mock_test_id?: string | null
+          option_a: string
+          option_b: string
+          option_c: string
+          option_d: string
+          question_number: number
+          question_text: string
+          source_context?: string | null
+          subject: string
+        }
+        Update: {
+          correct_answer?: string
+          created_at?: string | null
+          difficulty_level?: number | null
+          explanation?: string | null
+          id?: string
+          mock_test_id?: string | null
+          option_a?: string
+          option_b?: string
+          option_c?: string
+          option_d?: string
+          question_number?: number
+          question_text?: string
+          source_context?: string | null
+          subject?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "generated_questions_mock_test_id_fkey"
+            columns: ["mock_test_id"]
+            isOneToOne: false
+            referencedRelation: "mock_tests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mock_tests: {
+        Row: {
+          biology_questions: number | null
+          chemistry_questions: number | null
+          generated_at: string | null
+          id: string
+          is_active: boolean | null
+          metadata: Json | null
+          physics_questions: number | null
+          test_name: string
+          test_type: string | null
+          total_questions: number | null
+        }
+        Insert: {
+          biology_questions?: number | null
+          chemistry_questions?: number | null
+          generated_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          metadata?: Json | null
+          physics_questions?: number | null
+          test_name: string
+          test_type?: string | null
+          total_questions?: number | null
+        }
+        Update: {
+          biology_questions?: number | null
+          chemistry_questions?: number | null
+          generated_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          metadata?: Json | null
+          physics_questions?: number | null
+          test_name?: string
+          test_type?: string | null
+          total_questions?: number | null
+        }
+        Relationships: []
+      }
       page_analytics: {
         Row: {
           created_at: string | null
@@ -97,6 +195,108 @@ export type Database = {
           updated_at?: string | null
         }
         Relationships: []
+      }
+      question_responses: {
+        Row: {
+          attempt_id: string | null
+          created_at: string | null
+          id: string
+          is_correct: boolean | null
+          question_id: string | null
+          selected_answer: string | null
+          time_spent_seconds: number | null
+        }
+        Insert: {
+          attempt_id?: string | null
+          created_at?: string | null
+          id?: string
+          is_correct?: boolean | null
+          question_id?: string | null
+          selected_answer?: string | null
+          time_spent_seconds?: number | null
+        }
+        Update: {
+          attempt_id?: string | null
+          created_at?: string | null
+          id?: string
+          is_correct?: boolean | null
+          question_id?: string | null
+          selected_answer?: string | null
+          time_spent_seconds?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "question_responses_attempt_id_fkey"
+            columns: ["attempt_id"]
+            isOneToOne: false
+            referencedRelation: "test_attempts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "question_responses_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "generated_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      test_attempts: {
+        Row: {
+          biology_score: number | null
+          chemistry_score: number | null
+          id: string
+          mock_test_id: string | null
+          physics_score: number | null
+          started_at: string | null
+          status: string | null
+          submitted_at: string | null
+          time_spent_minutes: number | null
+          total_score: number | null
+          user_id: string | null
+        }
+        Insert: {
+          biology_score?: number | null
+          chemistry_score?: number | null
+          id?: string
+          mock_test_id?: string | null
+          physics_score?: number | null
+          started_at?: string | null
+          status?: string | null
+          submitted_at?: string | null
+          time_spent_minutes?: number | null
+          total_score?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          biology_score?: number | null
+          chemistry_score?: number | null
+          id?: string
+          mock_test_id?: string | null
+          physics_score?: number | null
+          started_at?: string | null
+          status?: string | null
+          submitted_at?: string | null
+          time_spent_minutes?: number | null
+          total_score?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "test_attempts_mock_test_id_fkey"
+            columns: ["mock_test_id"]
+            isOneToOne: false
+            referencedRelation: "mock_tests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "test_attempts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       url_configurations: {
         Row: {

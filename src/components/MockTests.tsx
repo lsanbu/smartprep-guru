@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,90 +23,20 @@ import {
   TrendingUp,
   Users,
   Award,
-  Zap
+  Zap,
+  Plus
 } from "lucide-react";
 import { toast } from "sonner";
-
-interface MockTest {
-  id: string;
-  title: string;
-  type: 'full' | 'subject' | 'chapter';
-  subject?: string;
-  chapter?: string;
-  duration: number;
-  questions: number;
-  attempted?: boolean;
-  score?: number;
-  rank?: number;
-  date?: string;
-  difficulty: 'easy' | 'medium' | 'hard';
-  status: 'upcoming' | 'active' | 'completed';
-}
+import { useMockTests, MockTest, TestAttempt } from "@/hooks/useMockTests";
+import MockTestGenerator from "./MockTestGenerator";
+import MockTestInterface from "./MockTestInterface";
 
 const MockTests = () => {
-  const [selectedTab, setSelectedTab] = useState<'available' | 'completed' | 'analysis'>('available');
+  const [selectedTab, setSelectedTab] = useState<'available' | 'completed' | 'analysis' | 'generate'>('available');
+  const [selectedTest, setSelectedTest] = useState<string | null>(null);
+  const [showTestInterface, setShowTestInterface] = useState(false);
 
-  const mockTests: MockTest[] = [
-    {
-      id: '1',
-      title: 'NEET Mock Test 16',
-      type: 'full',
-      duration: 180,
-      questions: 180,
-      difficulty: 'medium',
-      status: 'upcoming',
-      date: 'Today, 6:00 PM'
-    },
-    {
-      id: '2',
-      title: 'Physics - Mechanics',
-      type: 'subject',
-      subject: 'Physics',
-      duration: 60,
-      questions: 45,
-      difficulty: 'hard',
-      status: 'upcoming'
-    },
-    {
-      id: '3',
-      title: 'Chemistry - Organic Reactions',
-      type: 'chapter',
-      subject: 'Chemistry',
-      chapter: 'Organic Chemistry',
-      duration: 45,
-      questions: 30,
-      difficulty: 'medium',
-      status: 'upcoming'
-    },
-    {
-      id: '4',
-      title: 'NEET Mock Test 15',
-      type: 'full',
-      duration: 180,
-      questions: 180,
-      difficulty: 'medium',
-      status: 'completed',
-      attempted: true,
-      score: 145,
-      rank: 1247,
-      date: '2 days ago'
-    },
-    {
-      id: '5',
-      title: 'Biology - Cell Structure',
-      type: 'chapter',
-      subject: 'Biology',
-      chapter: 'Cell Biology',
-      duration: 30,
-      questions: 25,
-      difficulty: 'easy',
-      status: 'completed',
-      attempted: true,
-      score: 22,
-      rank: 89,
-      date: '1 week ago'
-    }
-  ];
+  const { mockTests, isLoadingTests } = useMockTests();
 
   const testAnalytics = {
     totalAttempted: 42,
@@ -125,16 +54,21 @@ const MockTests = () => {
     { test: 'Biology Mock', score: 47, rank: 123, percentile: 95.8, date: '1 week ago' }
   ];
 
-  const upcomingTests = mockTests.filter(test => test.status === 'upcoming');
-  const completedTests = mockTests.filter(test => test.status === 'completed');
-
   const startTest = (testId: string) => {
-    toast.success("Starting test... Good luck!");
-    // In real app, navigate to test interface
+    setSelectedTest(testId);
+    setShowTestInterface(true);
   };
 
-  const viewAnalysis = (testId: string) => {
-    toast.info("Opening detailed analysis...");
+  const handleTestComplete = (attempt: TestAttempt) => {
+    setShowTestInterface(false);
+    setSelectedTest(null);
+    toast.success(`Test completed! Score: ${attempt.total_score}`);
+    setSelectedTab('completed');
+  };
+
+  const handleTestExit = () => {
+    setShowTestInterface(false);
+    setSelectedTest(null);
   };
 
   const getDifficultyColor = (difficulty: string) => {
@@ -148,12 +82,23 @@ const MockTests = () => {
 
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case 'full': return Trophy;
-      case 'subject': return Target;
-      case 'chapter': return FileText;
+      case 'full_mock': return Trophy;
+      case 'subject_wise': return Target;
+      case 'chapter_wise': return FileText;
       default: return FileText;
     }
   };
+
+  // Show test interface if a test is selected
+  if (showTestInterface && selectedTest) {
+    return (
+      <MockTestInterface
+        mockTestId={selectedTest}
+        onComplete={handleTestComplete}
+        onExit={handleTestExit}
+      />
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -162,7 +107,7 @@ const MockTests = () => {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold mb-2">Mock Tests & Assessments</h2>
-            <p className="text-purple-100">Practice with NEET-pattern tests and track your progress</p>
+            <p className="text-purple-100">Practice with AI-generated NEET-pattern tests</p>
           </div>
           <div className="text-right">
             <div className="text-3xl font-bold">{testAnalytics.totalAttempted}</div>
@@ -242,6 +187,17 @@ const MockTests = () => {
           Available Tests
         </button>
         <button
+          onClick={() => setSelectedTab('generate')}
+          className={`px-6 py-2 rounded-md font-medium transition-colors ${
+            selectedTab === 'generate' 
+              ? 'bg-white text-purple-600 shadow-sm' 
+              : 'text-gray-600 hover:text-purple-600'
+          }`}
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          Generate Test
+        </button>
+        <button
           onClick={() => setSelectedTab('completed')}
           className={`px-6 py-2 rounded-md font-medium transition-colors ${
             selectedTab === 'completed' 
@@ -280,66 +236,95 @@ const MockTests = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {upcomingTests.map((test) => {
-              const IconComponent = getTypeIcon(test.type);
-              return (
-                <Card key={test.id} className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-shadow">
-                  <CardHeader>
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center space-x-2">
-                        <div className="p-2 bg-purple-100 rounded-lg">
-                          <IconComponent className="w-5 h-5 text-purple-600" />
-                        </div>
-                        <Badge className={getDifficultyColor(test.difficulty)}>
-                          {test.difficulty}
-                        </Badge>
-                      </div>
-                      {test.status === 'upcoming' && (
-                        <Badge className="bg-orange-100 text-orange-700">
-                          <Calendar className="w-3 h-3 mr-1" />
-                          Scheduled
-                        </Badge>
-                      )}
-                    </div>
-                    <CardTitle className="text-lg">{test.title}</CardTitle>
-                    <CardDescription>
-                      {test.subject && `Subject: ${test.subject}`}
-                      {test.chapter && ` - ${test.chapter}`}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between text-sm text-gray-600">
-                        <div className="flex items-center space-x-1">
-                          <Clock className="w-4 h-4" />
-                          <span>{test.duration} mins</span>
-                        </div>
-                        <div className="flex items-center space-x-1">
-                          <FileText className="w-4 h-4" />
-                          <span>{test.questions} questions</span>
+          {isLoadingTests ? (
+            <div className="text-center py-8">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+              <p>Loading tests...</p>
+            </div>
+          ) : mockTests.length === 0 ? (
+            <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
+              <CardContent className="text-center py-12">
+                <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-xl font-medium text-gray-600 mb-2">No Tests Available</h3>
+                <p className="text-gray-500 mb-4">Generate your first AI-powered mock test to get started</p>
+                <Button 
+                  onClick={() => setSelectedTab('generate')}
+                  className="bg-gradient-to-r from-purple-600 to-green-500 hover:from-purple-700 hover:to-green-600"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Generate Test
+                </Button>
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {mockTests.map((test: MockTest) => {
+                const IconComponent = getTypeIcon(test.test_type);
+                return (
+                  <Card key={test.id} className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-shadow">
+                    <CardHeader>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center space-x-2">
+                          <div className="p-2 bg-purple-100 rounded-lg">
+                            <IconComponent className="w-5 h-5 text-purple-600" />
+                          </div>
+                          <Badge className="bg-green-100 text-green-700">
+                            <Zap className="w-3 h-3 mr-1" />
+                            AI Generated
+                          </Badge>
                         </div>
                       </div>
-                      
-                      {test.date && (
-                        <div className="text-sm text-orange-600 font-medium">
-                          📅 {test.date}
+                      <CardTitle className="text-lg">{test.test_name}</CardTitle>
+                      <CardDescription>
+                        {test.test_type === 'full_mock' ? 'Full NEET Mock Test' : 
+                         test.test_type === 'subject_wise' ? 'Subject-wise Test' : 'Chapter-wise Test'}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between text-sm text-gray-600">
+                          <div className="flex items-center space-x-1">
+                            <Clock className="w-4 h-4" />
+                            <span>180 mins</span>
+                          </div>
+                          <div className="flex items-center space-x-1">
+                            <FileText className="w-4 h-4" />
+                            <span>{test.total_questions} questions</span>
+                          </div>
                         </div>
-                      )}
-                      
-                      <Button 
-                        onClick={() => startTest(test.id)}
-                        className="w-full bg-gradient-to-r from-purple-600 to-green-500 hover:from-purple-700 hover:to-green-600 text-white"
-                      >
-                        <Play className="w-4 h-4 mr-2" />
-                        {test.status === 'upcoming' ? 'Start at Scheduled Time' : 'Start Test'}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
+                        
+                        <div className="text-sm text-gray-600">
+                          <div className="flex justify-between">
+                            <span>Physics: {test.physics_questions}</span>
+                            <span>Chemistry: {test.chemistry_questions}</span>
+                            <span>Biology: {test.biology_questions}</span>
+                          </div>
+                        </div>
+                        
+                        <Button 
+                          onClick={() => startTest(test.id)}
+                          className="w-full bg-gradient-to-r from-purple-600 to-green-500 hover:from-purple-700 hover:to-green-600 text-white"
+                        >
+                          <Play className="w-4 h-4 mr-2" />
+                          Start Test
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Generate Test Tab */}
+      {selectedTab === 'generate' && (
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xl font-bold text-gray-800">Generate New Test</h3>
           </div>
+          <MockTestGenerator />
         </div>
       )}
 
@@ -354,51 +339,10 @@ const MockTests = () => {
             </Button>
           </div>
 
-          <div className="space-y-4">
-            {completedTests.map((test) => {
-              const IconComponent = getTypeIcon(test.type);
-              return (
-                <Card key={test.id} className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-4">
-                        <div className="p-3 bg-green-100 rounded-xl">
-                          <IconComponent className="w-6 h-6 text-green-600" />
-                        </div>
-                        <div>
-                          <h4 className="font-bold text-lg text-gray-800">{test.title}</h4>
-                          <div className="flex items-center space-x-4 text-sm text-gray-600 mt-1">
-                            <span>{test.date}</span>
-                            <span>•</span>
-                            <span>{test.duration} mins</span>
-                            <span>•</span>
-                            <span>{test.questions} questions</span>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center space-x-6">
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-green-600">{test.score}</div>
-                          <div className="text-xs text-gray-500">Score</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-purple-600">#{test.rank}</div>
-                          <div className="text-xs text-gray-500">Rank</div>
-                        </div>
-                        <Button 
-                          onClick={() => viewAnalysis(test.id)}
-                          variant="outline"
-                        >
-                          <Eye className="w-4 h-4 mr-2" />
-                          View Analysis
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
+          <div className="text-center py-8">
+            <Trophy className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-xl font-medium text-gray-600 mb-2">No Completed Tests</h3>
+            <p className="text-gray-500">Complete your first test to see results here</p>
           </div>
         </div>
       )}
@@ -409,7 +353,6 @@ const MockTests = () => {
           <h3 className="text-xl font-bold text-gray-800">Performance Analysis</h3>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Recent Test Results */}
             <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
@@ -447,7 +390,6 @@ const MockTests = () => {
               </CardContent>
             </Card>
 
-            {/* Performance Insights */}
             <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
