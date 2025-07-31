@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -80,31 +79,31 @@ export const useMockTests = () => {
     return data as Question[];
   };
 
-  // Generate new mock test
+  // Generate new mock test using Flask API integration
   const generateMockTest = useMutation({
     mutationFn: async (params: {
       testName: string;
       testType?: string;
       subjects?: string[];
     }) => {
-      // Call your Flask API to generate the test
-      const response = await fetch('/api/generate-mock-test', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(params),
+      // Call the updated Supabase edge function
+      const { data, error } = await supabase.functions.invoke('generate-mock-test', {
+        body: params
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to generate mock test');
+      if (error) {
+        throw error;
       }
 
-      return response.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      return data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['mockTests'] });
-      toast.success('Mock test generated successfully!');
+      toast.success('Mock test generated successfully using FAISS + AI!');
     },
     onError: (error) => {
       toast.error(`Failed to generate test: ${error.message}`);

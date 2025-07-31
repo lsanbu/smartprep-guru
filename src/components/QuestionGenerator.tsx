@@ -16,6 +16,7 @@ import {
   Lightbulb
 } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Question {
   question: string;
@@ -58,9 +59,6 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
     { id: '12', name: 'Class 12' },
   ];
 
-  const API_BASE_URL = 'http://localhost:5000';
-  const GENERATE_QUESTION_ENDPOINT = `${API_BASE_URL}/api/chat/generate-question`;
-
   const generateQuestion = async () => {
     setIsLoading(true);
     setCurrentQuestion(null);
@@ -69,37 +67,30 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
     setSelectedOption('');
 
     try {
-      const prompt = `Generate a ${questionType} question for NEET preparation.
-        Subject: ${selectedSubject === 'all' ? 'any NEET subject (Physics, Chemistry, Biology)' : selectedSubject}
-        Class: ${selectedClass === 'all' ? 'Class 11 or 12' : `Class ${selectedClass}`}
-        
-        ${questionType === 'mcq' 
-          ? 'Provide: 1) Question text 2) 4 options (A, B, C, D) 3) Correct option 4) Brief explanation' 
-          : 'Provide: 1) Question requiring detailed explanation 2) Expected answer points 3) Detailed explanation'
+      // Call the Supabase edge function instead of direct Flask API
+      const { data, error } = await supabase.functions.invoke('generate-question-api', {
+        body: { 
+          type: questionType,
+          subject: selectedSubject,
+          class: selectedClass
         }
-        
-        Format the response as JSON with fields: question, ${questionType === 'mcq' ? 'options (array), correctAnswer,' : 'correctAnswer,'} explanation, subject, class`;
-
-      const response = await fetch(GENERATE_QUESTION_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ prompt, type: questionType })
       });
 
-      if (!response.ok) {
-        throw new Error(`Failed to generate question: ${response.status}`);
+      if (error) {
+        throw error;
       }
 
-      const data = await response.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
       const questionData: Question = {
         question: data.question,
         options: data.options,
         correctAnswer: data.correctAnswer,
         explanation: data.explanation,
-        subject: data.subject,
-        class: data.class,
+        subject: data.subject || selectedSubject,
+        class: data.class || selectedClass,
         type: questionType
       };
 
@@ -135,7 +126,7 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
       const correct = selectedOption === currentQuestion.correctAnswer;
       setIsCorrect(correct);
       setShowResult(true);
-      setValidationFeedback(''); // No additional feedback needed for MCQ
+      setValidationFeedback('');
       
       // Add result to chat
       const resultMessage = `${correct ? '✅' : '❌'} **${correct ? 'Correct!' : 'Incorrect'}**\n\n**Correct Answer:** ${currentQuestion.correctAnswer}\n\n**Explanation:** ${currentQuestion.explanation}`;
@@ -145,7 +136,7 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
       return;
     }
     
-    // Handle explanation validation via direct function call
+    // Handle explanation validation via Supabase edge function
     if (!userAnswer.trim()) {
       toast.error("Please provide your answer first.");
       return;
@@ -154,45 +145,26 @@ const QuestionGenerator = ({ onAddToChat, isLoading, setIsLoading }: QuestionGen
     setIsLoading(true);
 
     try {
-      // Call the Flask server's process_query endpoint directly for validation
-      const response = await fetch(`${API_BASE_URL}/api/chat/ask`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          question: `Please evaluate this student answer for the following question:
-
-Question: ${currentQuestion.question}
-
-Expected Answer: ${currentQuestion.correctAnswer}
-
-Student Answer: ${userAnswer}
-
-Please provide:
-1. A score out of 5
-2. Detailed feedback addressed directly to the student using "you" instead of "the student"
-3. What you did well and what you could improve
-4. Use encouraging and supportive tone
-
-Format your response as: Score: X out of 5. Feedback: [detailed feedback here using "you" to address the student directly]`
-        })
+      // Call the Supabase edge function for validation
+      const { data, error } = await supabase.functions.invoke('validate-answer-api', {
+        body: {
+          userAnswer: userAnswer,
+          modelAnswer: currentQuestion.correctAnswer
+        }
       });
 
-      if (!response.ok) {
-        throw new Error(`Failed to validate answer: ${response.status}`);
+      if (error) {
+        throw error;
       }
 
-      const data = await response.json();
-      const aiResponse = data.answer || data.response || "Unable to validate answer";
-      
-      // Parse the score and feedback from AI response
-      const scoreMatch = aiResponse.match(/Score:\s*(\d+)\s*out\s*of\s*5/i);
-      const feedbackMatch = aiResponse.match(/Feedback:\s*(.+)/is);
-      
-      const score = scoreMatch ? parseInt(scoreMatch[1]) : 0;
-      const feedback = feedbackMatch ? feedbackMatch[1].trim() : aiResponse;
-      const isGoodScore = score >= 3; // Consider 3/5 and above as correct
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      // Parse the score and feedback from response
+      const score = parseInt(data.score) || 0;
+      const feedback = data.feedback || "No feedback provided";
+      const isGoodScore = score >= 3;
       
       setIsCorrect(isGoodScore);
       setValidationFeedback(feedback);
