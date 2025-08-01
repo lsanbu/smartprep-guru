@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -48,6 +47,7 @@ const AboutKDxAI = () => {
       name: "XmPrep<sup>CBSE</sup>",
       description: "AI-first revision companion for Class 9–12 students across all CBSE subjects",
       status: "In Development",
+      highlight: false,
       icon: BookOpen,
       features: ["Multi-subject coverage", "NCERT integration", "Personalized learning", "Exam preparation"]
     },
@@ -55,6 +55,7 @@ const AboutKDxAI = () => {
       name: "XmPrep<sup>UPSC</sup>",
       description: "AI-powered civil services mentor with layered reasoning and current affairs integration",
       status: "Planned",
+      highlight: false,
       icon: Landmark,
       features: ["Current affairs AI", "Essay writing aid", "Interview prep", "Mains strategy"]
     },
@@ -62,6 +63,7 @@ const AboutKDxAI = () => {
       name: "KDˣITGym",
       description: "Technical upskilling gym for students and freshers with hands-on AI project modules",
       status: "Beta Testing",
+      highlight: false,
       icon: Cpu,
       features: ["Coding practice", "AI project modules", "Career guidance", "Industry readiness"]
     },
@@ -69,6 +71,7 @@ const AboutKDxAI = () => {
       name: "KDˣWikiSenior",
       description: "Care companion app for senior citizens with health reminders and caregiver support",
       status: "Research Phase",
+      highlight: false,
       icon: Stethoscope,
       features: ["Health monitoring", "Medication reminders", "Emergency contacts", "Wellness tracking"]
     },
@@ -76,6 +79,7 @@ const AboutKDxAI = () => {
       name: "KDˣLaw",
       description: "RAG-powered legal intelligence for case search, clause extraction, and precedent comparison",
       status: "In Development",
+      highlight: false,
       icon: Scale,
       features: ["Case law search", "Document analysis", "Legal research", "Precedent matching"]
     },
@@ -83,6 +87,7 @@ const AboutKDxAI = () => {
       name: "KDˣDocs",
       description: "AI search agent for company SOPs, HR docs, and internal knowledge management",
       status: "Enterprise Ready",
+      highlight: false,
       icon: FileSearch,
       features: ["Document indexing", "Smart search", "Knowledge extraction", "Team collaboration"]
     },
@@ -90,6 +95,7 @@ const AboutKDxAI = () => {
       name: "KDˣGuru",
       description: "Enterprise knowledge assistant - your organization's private ChatGPT for internal workflows",
       status: "Beta Testing",
+      highlight: false,
       icon: Brain,
       features: ["Internal knowledge base", "Workflow automation", "Team assistance", "Custom training"]
     }
@@ -100,6 +106,7 @@ const AboutKDxAI = () => {
       name: "KDˣRobotize",
       description: "No-code AI task agents for repetitive actions like email replies, file movement, and data processing",
       status: "Alpha Testing",
+      highlight: false,
       icon: Bot,
       features: ["No-code interface", "Email automation", "File management", "Data processing"]
     },
@@ -107,6 +114,7 @@ const AboutKDxAI = () => {
       name: "KDˣWorkflow",
       description: "Cross-platform process automation connecting CRM, Sheets, WhatsApp, and more",
       status: "In Development",
+      highlight: false,
       icon: Workflow,
       features: ["Multi-platform sync", "API integrations", "Custom workflows", "Real-time triggers"]
     },
@@ -114,6 +122,7 @@ const AboutKDxAI = () => {
       name: "KDˣOps",
       description: "Operations automation dashboard with reports, checklists, and intelligent alerts",
       status: "Beta Testing",
+      highlight: false,
       icon: BarChart3,
       features: ["Real-time dashboards", "Automated reports", "Alert systems", "Performance metrics"]
     },
@@ -121,6 +130,7 @@ const AboutKDxAI = () => {
       name: "KDˣHR",
       description: "Employee onboarding, timesheet, leave management, and document workflow automation",
       status: "Enterprise Ready",
+      highlight: false,
       icon: UserCheck,
       features: ["Onboarding automation", "Leave management", "Document workflows", "Compliance tracking"]
     }
