@@ -37,11 +37,11 @@ const AboutKDxAI = () => {
   const intelligenceProducts = [
     {
       name: "XmPrep<sup>NEET</sup>",
-      description: "Focused AI tutor for NEET aspirants, built with RAG, multilingual support, and adaptive feedback",
+      description: "Focused AI tutor for NEET aspirants, built with RAG and adaptive feedback",
       status: "Pioneer Product",
       highlight: true,
       icon: GraduationCap,
-      features: ["RAG-powered tutoring", "Tamil + English support", "Adaptive feedback", "Past paper analysis"]
+      features: ["RAG-powered tutoring", "Adaptive feedback", "Past paper analysis", "Smart doubt solving"]
     },
     {
       name: "XmPrep<sup>CBSE</sup>",
@@ -204,7 +204,7 @@ const AboutKDxAI = () => {
             <div className="mb-8">
               <h1 className="text-5xl lg:text-7xl font-bold font-brand-primary leading-tight mb-6">
                 <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                  KDx<sup className="text-3xl lg:text-4xl text-yellow-200 font-bold">AI</sup>
+                  KDx<sup className="text-4xl lg:text-5xl text-yellow-200 font-extrabold">AI</sup>
                 </span>
               </h1>
               <p className="text-2xl lg:text-3xl text-white/95 font-poppins leading-relaxed mb-4 font-semibold">
