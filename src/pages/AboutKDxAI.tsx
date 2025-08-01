@@ -52,12 +52,12 @@ const AboutKDxAI = () => {
       features: ["Multi-subject coverage", "NCERT integration", "Personalized learning", "Exam preparation"]
     },
     {
-      name: "XmPrep<sup>UPSC</sup>",
-      description: "AI-powered civil services mentor with layered reasoning and current affairs integration",
+      name: "XmPrep<sup>CUET</sup>",
+      description: "AI-powered CUET preparation assistant based on NCERT/CBSE syllabus for central university admissions",
       status: "Planned",
       highlight: false,
-      icon: Landmark,
-      features: ["Current affairs AI", "Essay writing aid", "Interview prep", "Mains strategy"]
+      icon: Building2,
+      features: ["NCERT/CBSE aligned", "Domain-wise prep", "Mock tests", "University guidance"]
     },
     {
       name: "KDx<sup>ITGym</sup>",
