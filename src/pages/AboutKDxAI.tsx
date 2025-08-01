@@ -211,7 +211,7 @@ const AboutKDxAI = () => {
                 Tasks Digitised. Knowledge Amplified.
               </p>
               <p className="text-lg lg:text-xl text-white/85 font-poppins leading-relaxed mb-8 max-w-4xl mx-auto">
-                A visionary product studio dedicated to building intelligent, retrieval-augmented, and automation-first solutions for the real world.
+                KDx<sup>AI</sup> (Kaaryaa Digital Transformation AI) is a visionary product studio dedicated to building intelligent, retrieval-augmented, and automation-first solutions for the real world.
               </p>
             </div>
             
