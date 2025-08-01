@@ -204,7 +204,7 @@ const AboutKDxAI = () => {
             <div className="mb-8">
               <h1 className="text-5xl lg:text-7xl font-bold font-brand-primary leading-tight mb-6">
                 <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                  KDx<sup className="text-3xl lg:text-4xl">AI</sup>
+                  KDx<sup className="text-3xl lg:text-4xl text-yellow-200 font-bold">AI</sup>
                 </span>
               </h1>
               <p className="text-2xl lg:text-3xl text-white/95 font-poppins leading-relaxed mb-4 font-semibold">
@@ -392,49 +392,49 @@ const AboutKDxAI = () => {
         </div>
       </section>
 
-      {/* Founder Section */}
+      {/* Team & Technology Background */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold font-brand-primary text-brand-dark-gray mb-4">
-                Meet Our Founder
+                Our Technology Foundation
               </h2>
               <p className="text-xl text-brand-light-gray font-poppins">
-                Purposeful technology meets quiet innovation.
+                Built by experts in GenAI architecture and automation solutions.
               </p>
             </div>
 
             <Card className="border-0 shadow-xl bg-white">
               <CardHeader className="text-center pb-8">
                 <div className="w-32 h-32 bg-gradient-to-br from-brand-purple to-brand-green rounded-full mx-auto mb-6 flex items-center justify-center">
-                  <span className="text-4xl font-bold text-white">A</span>
+                  <Brain className="w-16 h-16 text-white" />
                 </div>
                 <CardTitle className="text-2xl font-bold text-brand-dark-gray font-brand-primary mb-2">
-                  அன்புச்செழியன் (Anbu)
+                  Expert Technology Team
                 </CardTitle>
                 <CardDescription className="text-brand-purple font-semibold text-lg">
-                  Founder & GenAI Architect
+                  GenAI Architecture & Automation Specialists
                 </CardDescription>
               </CardHeader>
               <CardContent className="text-center">
                 <p className="text-gray-600 font-poppins leading-relaxed mb-6">
-                  A seasoned technologist and GenAI architect with a vision to democratize artificial intelligence across industries. 
-                  Anbu brings deep expertise in retrieval-augmented generation (RAG), multilingual AI systems, and automation-first solutions. 
-                  His founder-led, build-in-public approach ensures every KDx<sup>AI</sup> product is transparent, purpose-driven, and community-centric.
+                  Our team comprises seasoned technologists and GenAI architects with deep expertise in retrieval-augmented generation (RAG), 
+                  automation-first solutions, and scalable AI systems. We follow a transparent, build-in-public approach that ensures 
+                  every KDx<sup>AI</sup> product is purpose-driven, community-centric, and technically robust.
                 </p>
                 <div className="grid md:grid-cols-3 gap-4 text-sm">
                   <div className="bg-purple-50 rounded-lg p-4">
-                    <div className="font-semibold text-brand-purple mb-1">Expertise</div>
+                    <div className="font-semibold text-brand-purple mb-1">Core Expertise</div>
                     <div className="text-gray-600">GenAI Architecture, RAG Systems</div>
                   </div>
                   <div className="bg-green-50 rounded-lg p-4">
-                    <div className="font-semibold text-brand-green mb-1">Philosophy</div>
-                    <div className="text-gray-600">Build in Public, Purpose-driven Innovation</div>
+                    <div className="font-semibold text-brand-green mb-1">Development Philosophy</div>
+                    <div className="text-gray-600">Build in Public, Transparent Innovation</div>
                   </div>
                   <div className="bg-blue-50 rounded-lg p-4">
-                    <div className="font-semibold text-blue-600 mb-1">Mission</div>
-                    <div className="text-gray-600">Democratizing AI for India</div>
+                    <div className="font-semibold text-blue-600 mb-1">Vision</div>
+                    <div className="text-gray-600">Democratizing AI Solutions</div>
                   </div>
                 </div>
               </CardContent>
