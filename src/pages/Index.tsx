@@ -51,8 +51,13 @@ const Index = () => {
             </div>
             
             <div>
-              <h4 className="font-semibold mb-4 font-brand-primary">Support</h4>
+              <h4 className="font-semibold mb-4 font-brand-primary">Company</h4>
               <ul className="space-y-2 font-poppins">
+                <li>
+                  <Link to="/about-kdxai" className="text-gray-400 hover:text-white transition-colors">
+                    About KDxAI
+                  </Link>
+                </li>
                 <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
                 <li>

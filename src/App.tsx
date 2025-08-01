@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import AITutorLanding from "./pages/AITutorLanding";
+import AboutKDxAI from "./pages/AboutKDxAI";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/student" element={<Student />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/ai-tutor-demo" element={<AITutorLanding />} />
+            <Route path="/about-kdxai" element={<AboutKDxAI />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="*" element={<NotFound />} />
