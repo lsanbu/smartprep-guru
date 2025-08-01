@@ -40,12 +40,12 @@ const AboutKDxAI = () => {
   const currentProducts = [
     {
       name: "XmPrep<sup>NEET</sup>",
-      description: "Our pioneer AI tutor for NEET aspirants, built with RAG and adaptive feedback systems",
-      status: "Live & Growing",
+      description: "AI Tutor MVP - Our first functional RAG-powered tutoring system for NEET preparation",
+      status: "MVP Ready",
       highlight: true,
       icon: GraduationCap,
-      features: ["RAG-powered tutoring", "Adaptive feedback", "Past paper analysis", "Smart doubt solving"],
-      users: "1000+ active students"
+      features: ["RAG-powered AI Tutor", "Doubt solving", "Interactive chat", "Beta testing phase"],
+      users: "MVP Phase"
     }
   ];
 
@@ -53,7 +53,7 @@ const AboutKDxAI = () => {
     {
       name: "XmPrep<sup>CBSE</sup>",
       description: "AI-first revision companion for Class 9–12 students across all CBSE subjects",
-      status: "In Research",
+      status: "Future Vision",
       highlight: false,
       icon: BookOpen,
       features: ["Multi-subject coverage", "NCERT integration", "Personalized learning", "Exam preparation"]
@@ -61,7 +61,7 @@ const AboutKDxAI = () => {
     {
       name: "XmPrep<sup>CUET</sup>",
       description: "AI-powered CUET preparation assistant based on NCERT/CBSE syllabus for central university admissions",
-      status: "Roadmap 2025",
+      status: "Future Vision",
       highlight: false,
       icon: Building2,
       features: ["NCERT/CBSE aligned", "Domain-wise prep", "Mock tests", "University guidance"]
@@ -69,7 +69,7 @@ const AboutKDxAI = () => {
     {
       name: "KDx<sup>ITGym</sup>",
       description: "Technical upskilling gym for students and freshers with hands-on AI project modules",
-      status: "Concept Development",
+      status: "Brainstorming",
       highlight: false,
       icon: Cpu,
       features: ["Coding practice", "AI project modules", "Career guidance", "Industry readiness"]
@@ -77,7 +77,7 @@ const AboutKDxAI = () => {
     {
       name: "KDx<sup>WikiSenior</sup>",
       description: "Care companion app for senior citizens with health reminders and caregiver support",
-      status: "Innovation Lab",
+      status: "Brainstorming",
       highlight: false,
       icon: Stethoscope,
       features: ["Health monitoring", "Medication reminders", "Emergency contacts", "Wellness tracking"]
@@ -85,7 +85,7 @@ const AboutKDxAI = () => {
     {
       name: "KDx<sup>Law</sup>",
       description: "RAG-powered legal intelligence for case search, clause extraction, and precedent comparison",
-      status: "Market Research",
+      status: "Brainstorming",
       highlight: false,
       icon: Scale,
       features: ["Case law search", "Document analysis", "Legal research", "Precedent matching"]
@@ -93,7 +93,7 @@ const AboutKDxAI = () => {
     {
       name: "KDx<sup>Docs</sup>",
       description: "AI search agent for company SOPs, HR docs, and internal knowledge management",
-      status: "Pilot Ready",
+      status: "Brainstorming",
       highlight: false,
       icon: FileSearch,
       features: ["Document indexing", "Smart search", "Knowledge extraction", "Team collaboration"]
@@ -101,7 +101,7 @@ const AboutKDxAI = () => {
     {
       name: "KDx<sup>Guru</sup>",
       description: "Enterprise knowledge assistant - your organization's private ChatGPT for internal workflows",
-      status: "Prototype",
+      status: "Brainstorming",
       highlight: false,
       icon: Brain,
       features: ["Internal knowledge base", "Workflow automation", "Team assistance", "Custom training"]
@@ -112,7 +112,7 @@ const AboutKDxAI = () => {
     {
       name: "KDx<sup>Robotize</sup>",
       description: "No-code AI task agents for repetitive actions like email replies, file movement, and data processing",
-      status: "Alpha Concept",
+      status: "Brainstorming",
       highlight: false,
       icon: Bot,
       features: ["No-code interface", "Email automation", "File management", "Data processing"]
@@ -120,7 +120,7 @@ const AboutKDxAI = () => {
     {
       name: "KDx<sup>Workflow</sup>",
       description: "Cross-platform process automation connecting CRM, Sheets, WhatsApp, and more",
-      status: "Design Phase",
+      status: "Brainstorming",
       highlight: false,
       icon: Workflow,
       features: ["Multi-platform sync", "API integrations", "Custom workflows", "Real-time triggers"]
@@ -128,7 +128,7 @@ const AboutKDxAI = () => {
     {
       name: "KDx<sup>Ops</sup>",
       description: "Operations automation dashboard with reports, checklists, and intelligent alerts",
-      status: "Planning",
+      status: "Brainstorming",
       highlight: false,
       icon: BarChart3,
       features: ["Real-time dashboards", "Automated reports", "Alert systems", "Performance metrics"]
@@ -136,7 +136,7 @@ const AboutKDxAI = () => {
     {
       name: "KDx<sup>HR</sup>",
       description: "Employee onboarding, timesheet, leave management, and document workflow automation",
-      status: "Market Validation",
+      status: "Brainstorming",
       highlight: false,
       icon: UserCheck,
       features: ["Onboarding automation", "Leave management", "Document workflows", "Compliance tracking"]
@@ -148,7 +148,7 @@ const AboutKDxAI = () => {
       icon: Brain,
       title: "KDx<sup>Intelligence</sup>",
       subtitle: "Smarter Decisions from Your Data",
-      description: "A planned suite of RAG-powered, AI-guided learning and knowledge agents that will revolutionize how students, professionals, and teams access and interact with information.",
+      description: "A planned suite of RAG-powered, AI-guided learning and knowledge agents. Starting with our XmPrepNEET AI Tutor MVP, we're exploring how to revolutionize information access and interaction across education and professional domains.",
       features: ["RAG Architecture", "Contextual Intelligence", "Source-backed Responses"],
       color: "text-purple-600",
       bgColor: "bg-purple-50",
@@ -159,7 +159,7 @@ const AboutKDxAI = () => {
       icon: Zap,
       title: "KDx<sup>Automate</sup>",
       subtitle: "Do More by Doing Less",
-      description: "Planned task-level AI agents and cross-platform automation to help individuals and teams eliminate repetitive effort and optimize operations.",
+      description: "Future vision for task-level AI agents and cross-platform automation. These are brainstorming ideas to help individuals and teams eliminate repetitive effort and optimize operations.",
       features: ["No-code Automation", "Cross-platform Integration", "Intelligent Agents", "Process Optimization"],
       color: "text-blue-600",
       bgColor: "bg-blue-50",
@@ -178,26 +178,26 @@ const AboutKDxAI = () => {
     },
     {
       icon: Globe,
-      title: "Freemium Access",
-      description: "Built for underserved users with accessible pricing and white-label pilot models.",
+      title: "Transparent Development",
+      description: "Building in public with honest communication about our current capabilities and future aspirations.",
       color: "text-red-600",
       bgColor: "bg-red-50"
     },
     {
       icon: Target,
-      title: "Build in Public",
-      description: "Founder-led, transparent development with every release being purpose-driven and community-centric.",
+      title: "MVP-First Approach",
+      description: "Founder-led, focused development starting with one working product before expanding to other ideas.",
       color: "text-blue-600",
       bgColor: "bg-blue-50"
     }
   ];
 
   const achievements = [
-    { metric: "1000+", label: "Students Impacted (XmPrep NEET)" },
-    { metric: "95%", label: "User Satisfaction" },
-    { metric: "24/7", label: "AI Support" },
-    { metric: "10+", label: "Innovation Ideas" },
-    { metric: "2025", label: "Expansion Timeline" }
+    { metric: "MVP", label: "AI Tutor Ready" },
+    { metric: "RAG", label: "Architecture Proven" },
+    { metric: "Beta", label: "Testing Phase" },
+    { metric: "10+", label: "Future Ideas" },
+    { metric: "2025", label: "Growth Plan" }
   ];
 
   return (
@@ -220,7 +220,7 @@ const AboutKDxAI = () => {
                 Tasks Digitised. Knowledge Amplified.
               </p>
               <p className="text-lg lg:text-xl text-white/85 font-poppins leading-relaxed mb-8 max-w-4xl mx-auto">
-                KDx<sup>AI</sup> (Kaaryaa Digital Transformation AI) is a visionary product studio building intelligent, retrieval-augmented solutions. <strong>Starting with XmPrep<sup>NEET</sup></strong> as our pioneer product, we're developing a comprehensive ecosystem of AI-powered educational and automation tools.
+                KDx<sup>AI</sup> (Kaaryaa Digital Transformation AI) is building intelligent, retrieval-augmented solutions. <strong>We're starting with XmPrep<sup>NEET</sup> AI Tutor as our MVP</strong>, proving our RAG technology before expanding into a broader ecosystem of educational and automation ideas.
               </p>
             </div>
             
@@ -237,7 +237,7 @@ const AboutKDxAI = () => {
               <Link to="/ai-tutor-demo">
                 <Button size="lg" className="bg-white text-brand-purple hover:bg-gray-100 font-semibold px-8 py-4 text-lg shadow-2xl">
                   <GraduationCap className="mr-2 w-5 h-5" />
-                  Try XmPrep<sup>NEET</sup>
+                  Try Our MVP
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </Link>
@@ -261,10 +261,10 @@ const AboutKDxAI = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <blockquote className="text-2xl lg:text-3xl font-light text-brand-dark-gray leading-relaxed font-poppins mb-8 italic">
-              "We're not building yet another chatbot or automation tool — we're crafting a suite of platforms that <span className="font-semibold text-brand-purple">understand</span>, <span className="font-semibold text-brand-green">respond</span>, and <span className="font-semibold text-brand-purple">transform</span> human effort into smarter, scalable outcomes."
+              "We're not building yet another chatbot — we're starting with <span className="font-semibold text-brand-purple">one working AI Tutor</span> to prove our RAG technology, then <span className="font-semibold text-brand-green">expanding thoughtfully</span> into a suite of intelligent solutions."
             </blockquote>
             <p className="text-lg text-brand-light-gray font-poppins">
-              <strong>Based in Chennai. Starting with NEET. Expanding globally.</strong>
+              <strong>Based in Chennai. Starting with NEET MVP. Building for the future.</strong>
             </p>
           </div>
         </div>
@@ -276,10 +276,10 @@ const AboutKDxAI = () => {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold font-brand-primary text-brand-dark-gray mb-4">
-                Our Journey: From Success to Vision
+                Our Journey: MVP First, Vision Next
               </h2>
               <p className="text-xl text-brand-light-gray max-w-3xl mx-auto font-poppins">
-                Starting with XmPrep<sup>NEET</sup> as our proven success story, we're expanding into two powerful verticals of AI innovation.
+                Starting with a working XmPrep<sup>NEET</sup> AI Tutor MVP, we're building toward two powerful verticals of AI innovation based on proven RAG experience.
               </p>
             </div>
 
@@ -313,13 +313,13 @@ const AboutKDxAI = () => {
                   <div className="mb-12">
                     <h4 className="text-2xl font-bold text-green-600 mb-6 text-center flex items-center justify-center">
                       <CheckCircle className="w-6 h-6 mr-2" />
-                      Live & Growing
+                      MVP Ready
                     </h4>
                     <div className="grid lg:grid-cols-4 gap-6">
                       {vertical.currentProducts.map((product, productIndex) => (
                         <Card key={productIndex} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white ring-4 ring-green-200">
                           <div className="bg-gradient-to-r from-green-500 to-brand-green text-white text-center py-2 text-sm font-semibold">
-                            🚀 Live Product
+                            🚀 MVP Ready
                           </div>
                           <CardHeader className="pb-4">
                             <div className="flex items-center justify-between mb-3">
@@ -351,7 +351,7 @@ const AboutKDxAI = () => {
                             <div className="pt-4 border-t">
                               <Link to="/ai-tutor-demo">
                                 <Button size="sm" className="w-full bg-green-600 hover:bg-green-700 text-white">
-                                  Try Now
+                                  Try MVP
                                   <ArrowRight className="ml-2 w-4 h-4" />
                                 </Button>
                               </Link>
@@ -363,15 +363,15 @@ const AboutKDxAI = () => {
                   </div>
                 )}
 
-                {/* Innovation Pipeline */}
+                {/* Future Vision */}
                 <div>
                   <h4 className="text-2xl font-bold text-blue-600 mb-6 text-center flex items-center justify-center">
                     <Rocket className="w-6 h-6 mr-2" />
-                    Innovation Pipeline
+                    Future Vision & Brainstorming
                   </h4>
                   <div className="bg-blue-50 rounded-lg p-4 mb-6 text-center">
                     <p className="text-blue-800 font-medium">
-                      🔬 These are our planned innovations and research ideas - not current commitments but our vision for the future
+                      🧠 These are our ideas and vision for the future - not current commitments but possibilities we're exploring based on our RAG experience
                     </p>
                   </div>
                   <div className="grid lg:grid-cols-4 gap-6">
@@ -381,10 +381,8 @@ const AboutKDxAI = () => {
                           <div className="flex items-center justify-between mb-3">
                             <product.icon className="w-8 h-8 text-blue-500" />
                             <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                              product.status === 'In Research' ? 'bg-yellow-100 text-yellow-800' :
-                              product.status === 'Roadmap 2025' ? 'bg-purple-100 text-purple-800' :
-                              product.status === 'Concept Development' ? 'bg-orange-100 text-orange-800' :
-                              product.status === 'Pilot Ready' ? 'bg-green-100 text-green-800' :
+                              product.status === 'Future Vision' ? 'bg-purple-100 text-purple-800' :
+                              product.status === 'Brainstorming' ? 'bg-orange-100 text-orange-800' :
                               'bg-blue-100 text-blue-800'
                             }`}>
                               {product.status}
@@ -425,7 +423,7 @@ const AboutKDxAI = () => {
                 Our Foundation & Approach
               </h2>
               <p className="text-xl text-brand-light-gray max-w-3xl mx-auto font-poppins">
-                Unlike generic AI tools, every KDx<sup>AI</sup> solution is built with purpose, transparency, and proven methodology.
+                Unlike generic AI tools, our KDx<sup>AI</sup> approach is built with proven methodology, transparency, and a working MVP first.
               </p>
             </div>
 
@@ -480,8 +478,8 @@ const AboutKDxAI = () => {
               <CardContent className="text-center">
                 <p className="text-gray-600 font-poppins leading-relaxed mb-6">
                   Our team comprises seasoned technologists and GenAI architects with deep expertise in retrieval-augmented generation (RAG), 
-                  automation-first solutions, and scalable AI systems. We follow a transparent, build-in-public approach that ensures 
-                  every KDx<sup>AI</sup> product is purpose-driven, community-centric, and technically robust.
+                  automation-first solutions, and scalable AI systems. We follow a transparent, build-in-public approach with an MVP-first strategy 
+                  to ensure every KDx<sup>AI</sup> product is purpose-driven, community-centric, and technically robust.
                 </p>
                 <div className="grid md:grid-cols-3 gap-4 text-sm">
                   <div className="bg-purple-50 rounded-lg p-4">
@@ -490,11 +488,11 @@ const AboutKDxAI = () => {
                   </div>
                   <div className="bg-green-50 rounded-lg p-4">
                     <div className="font-semibold text-brand-green mb-1">Development Philosophy</div>
-                    <div className="text-gray-600">Build in Public, Transparent Innovation</div>
+                    <div className="text-gray-600">MVP First, Transparent Innovation</div>
                   </div>
                   <div className="bg-blue-50 rounded-lg p-4">
                     <div className="font-semibold text-blue-600 mb-1">Vision</div>
-                    <div className="text-gray-600">Democratizing AI Solutions</div>
+                    <div className="text-gray-600">Proven Tech, Scalable Solutions</div>
                   </div>
                 </div>
               </CardContent>
@@ -508,20 +506,20 @@ const AboutKDxAI = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center text-white">
             <h2 className="text-4xl font-bold font-brand-primary mb-6">
-              Join Our Journey from Success to Innovation
+              Experience Our MVP, Shape Our Future
             </h2>
             <p className="text-xl text-white/90 font-poppins mb-4 leading-relaxed">
-              Experience our proven success with XmPrep<sup>NEET</sup> and be part of shaping the future of AI-powered education and automation. 
+              Try our working XmPrep<sup>NEET</sup> AI Tutor MVP and be part of shaping our journey from proven technology to expanded vision. 
               <strong> Your feedback helps us build what truly matters.</strong>
             </p>
             <p className="text-lg text-white/80 font-poppins mb-8 leading-relaxed">
-              From NEET preparation to enterprise automation - let's co-create intelligent solutions together.
+              From NEET MVP to future automation ideas - let's build intelligent solutions together, one step at a time.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/ai-tutor-demo">
                 <Button size="lg" className="bg-white text-brand-purple hover:bg-gray-100 font-semibold px-8 py-4 text-lg shadow-2xl">
                   <GraduationCap className="mr-2 w-5 h-5" />
-                  Try XmPrep<sup>NEET</sup> Live
+                  Try Our MVP Now
                 </Button>
               </Link>
               <Link to="/signup">
