@@ -60,7 +60,7 @@ const AboutKDxAI = () => {
       features: ["Current affairs AI", "Essay writing aid", "Interview prep", "Mains strategy"]
     },
     {
-      name: "KDˣITGym",
+      name: "KDx<sup>ITGym</sup>",
       description: "Technical upskilling gym for students and freshers with hands-on AI project modules",
       status: "Beta Testing",
       highlight: false,
@@ -68,7 +68,7 @@ const AboutKDxAI = () => {
       features: ["Coding practice", "AI project modules", "Career guidance", "Industry readiness"]
     },
     {
-      name: "KDˣWikiSenior",
+      name: "KDx<sup>WikiSenior</sup>",
       description: "Care companion app for senior citizens with health reminders and caregiver support",
       status: "Research Phase",
       highlight: false,
@@ -76,7 +76,7 @@ const AboutKDxAI = () => {
       features: ["Health monitoring", "Medication reminders", "Emergency contacts", "Wellness tracking"]
     },
     {
-      name: "KDˣLaw",
+      name: "KDx<sup>Law</sup>",
       description: "RAG-powered legal intelligence for case search, clause extraction, and precedent comparison",
       status: "In Development",
       highlight: false,
@@ -84,7 +84,7 @@ const AboutKDxAI = () => {
       features: ["Case law search", "Document analysis", "Legal research", "Precedent matching"]
     },
     {
-      name: "KDˣDocs",
+      name: "KDx<sup>Docs</sup>",
       description: "AI search agent for company SOPs, HR docs, and internal knowledge management",
       status: "Enterprise Ready",
       highlight: false,
@@ -92,7 +92,7 @@ const AboutKDxAI = () => {
       features: ["Document indexing", "Smart search", "Knowledge extraction", "Team collaboration"]
     },
     {
-      name: "KDˣGuru",
+      name: "KDx<sup>Guru</sup>",
       description: "Enterprise knowledge assistant - your organization's private ChatGPT for internal workflows",
       status: "Beta Testing",
       highlight: false,
@@ -103,7 +103,7 @@ const AboutKDxAI = () => {
 
   const automateProducts = [
     {
-      name: "KDˣRobotize",
+      name: "KDx<sup>Robotize</sup>",
       description: "No-code AI task agents for repetitive actions like email replies, file movement, and data processing",
       status: "Alpha Testing",
       highlight: false,
@@ -111,7 +111,7 @@ const AboutKDxAI = () => {
       features: ["No-code interface", "Email automation", "File management", "Data processing"]
     },
     {
-      name: "KDˣWorkflow",
+      name: "KDx<sup>Workflow</sup>",
       description: "Cross-platform process automation connecting CRM, Sheets, WhatsApp, and more",
       status: "In Development",
       highlight: false,
@@ -119,7 +119,7 @@ const AboutKDxAI = () => {
       features: ["Multi-platform sync", "API integrations", "Custom workflows", "Real-time triggers"]
     },
     {
-      name: "KDˣOps",
+      name: "KDx<sup>Ops</sup>",
       description: "Operations automation dashboard with reports, checklists, and intelligent alerts",
       status: "Beta Testing",
       highlight: false,
@@ -127,7 +127,7 @@ const AboutKDxAI = () => {
       features: ["Real-time dashboards", "Automated reports", "Alert systems", "Performance metrics"]
     },
     {
-      name: "KDˣHR",
+      name: "KDx<sup>HR</sup>",
       description: "Employee onboarding, timesheet, leave management, and document workflow automation",
       status: "Enterprise Ready",
       highlight: false,
@@ -139,17 +139,17 @@ const AboutKDxAI = () => {
   const verticals = [
     {
       icon: Brain,
-      title: "KDˣIntelligence",
+      title: "KDx<sup>Intelligence</sup>",
       subtitle: "Smarter Decisions from Your Data",
       description: "A suite of RAG-powered, AI-guided learning and knowledge agents that revolutionize how students, professionals, and teams access and interact with information.",
-      features: ["RAG Architecture", "Multilingual Support", "Contextual Intelligence", "Source-backed Responses"],
+      features: ["RAG Architecture", "Contextual Intelligence", "Source-backed Responses"],
       color: "text-purple-600",
       bgColor: "bg-purple-50",
       products: intelligenceProducts
     },
     {
       icon: Zap,
-      title: "KDˣAutomate",
+      title: "KDx<sup>Automate</sup>",
       subtitle: "Do More by Doing Less",
       description: "Task-level AI agents and cross-platform automation helping individuals and teams eliminate repetitive effort and optimize operations.",
       features: ["No-code Automation", "Cross-platform Integration", "Intelligent Agents", "Process Optimization"],
@@ -169,13 +169,6 @@ const AboutKDxAI = () => {
     },
     {
       icon: Globe,
-      title: "Multilingual First",
-      description: "Tamil + English for real inclusion, making world-class AI accessible to Tier 2/3 learners.",
-      color: "text-brand-green",
-      bgColor: "bg-brand-green/10"
-    },
-    {
-      icon: Heart,
       title: "Freemium Access",
       description: "Built for underserved users with accessible pricing and white-label pilot models.",
       color: "text-red-600",
@@ -195,8 +188,7 @@ const AboutKDxAI = () => {
     { metric: "95%", label: "Success Rate" },
     { metric: "24/7", label: "AI Support" },
     { metric: "13+", label: "AI Products" },
-    { metric: "2", label: "Core Verticals" },
-    { metric: "Tamil+English", label: "Multilingual" }
+    { metric: "2", label: "Core Verticals" }
   ];
 
   return (
@@ -212,21 +204,18 @@ const AboutKDxAI = () => {
             <div className="mb-8">
               <h1 className="text-5xl lg:text-7xl font-bold font-brand-primary leading-tight mb-6">
                 <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                  KD<sup className="text-3xl lg:text-4xl">x</sup>AI
+                  KDx<sup className="text-3xl lg:text-4xl">AI</sup>
                 </span>
               </h1>
               <p className="text-2xl lg:text-3xl text-white/95 font-poppins leading-relaxed mb-4 font-semibold">
                 Tasks Digitised. Knowledge Amplified.
               </p>
-              <p className="text-lg lg:text-xl text-white/85 font-poppins leading-relaxed mb-6 max-w-4xl mx-auto">
+              <p className="text-lg lg:text-xl text-white/85 font-poppins leading-relaxed mb-8 max-w-4xl mx-auto">
                 A visionary product studio dedicated to building intelligent, retrieval-augmented, and automation-first solutions for the real world.
-              </p>
-              <p className="text-md text-white/75 font-poppins italic mb-8">
-                Founded by <strong>அன்புச்செழியன் (Anbu)</strong> - GenAI Architect & Technologist
               </p>
             </div>
             
-            <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
+            <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4 mb-12">
               {achievements.map((achievement, index) => (
                 <div key={index} className="bg-white/20 backdrop-blur-sm rounded-lg p-4 border border-white/30">
                   <div className="text-2xl lg:text-3xl font-bold text-yellow-300 mb-2">{achievement.metric}</div>
@@ -236,7 +225,7 @@ const AboutKDxAI = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/student">
+              <Link to="/ai-tutor-demo">
                 <Button size="lg" className="bg-white text-brand-purple hover:bg-gray-100 font-semibold px-8 py-4 text-lg shadow-2xl">
                   <GraduationCap className="mr-2 w-5 h-5" />
                   Try XmPrep<sup>NEET</sup>
@@ -266,7 +255,7 @@ const AboutKDxAI = () => {
               "We are not building yet another chatbot or automation tool — we are crafting a suite of platforms that <span className="font-semibold text-brand-purple">understand</span>, <span className="font-semibold text-brand-green">respond</span>, and <span className="font-semibold text-brand-purple">transform</span> human effort into smarter, scalable outcomes."
             </blockquote>
             <p className="text-lg text-brand-light-gray font-poppins">
-              <strong>Based in Chennai. Built for the world.</strong> — From preparing NEET students in Madurai to automating HR for startups in Mumbai.
+              <strong>Based in Chennai. Built for the world.</strong>
             </p>
           </div>
         </div>
@@ -291,15 +280,14 @@ const AboutKDxAI = () => {
                   <div className={`w-20 h-20 rounded-full ${vertical.bgColor} mx-auto mb-6 flex items-center justify-center`}>
                     <vertical.icon className={`w-10 h-10 ${vertical.color}`} />
                   </div>
-                  <h3 className={`text-3xl font-bold ${vertical.color} font-brand-primary mb-2`}>
-                    {vertical.title}
+                  <h3 className={`text-3xl font-bold ${vertical.color} font-brand-primary mb-2`} dangerouslySetInnerHTML={{ __html: vertical.title }}>
                   </h3>
                   <h4 className="text-xl font-semibold text-gray-600 mb-4">{vertical.subtitle}</h4>
                   <p className="text-lg text-gray-600 font-poppins leading-relaxed max-w-4xl mx-auto mb-8">
                     {vertical.description}
                   </p>
                   
-                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto">
+                  <div className="grid md:grid-cols-3 lg:grid-cols-3 gap-4 mb-12 max-w-3xl mx-auto">
                     {vertical.features.map((feature, featureIndex) => (
                       <div key={featureIndex} className={`${vertical.bgColor} rounded-lg p-4 border border-gray-200`}>
                         <div className="flex items-center space-x-2">
@@ -350,7 +338,7 @@ const AboutKDxAI = () => {
                         </div>
                         {product.highlight && (
                           <div className="mt-4 pt-4 border-t">
-                            <Link to="/student">
+                            <Link to="/ai-tutor-demo">
                               <Button size="sm" className="w-full bg-brand-purple hover:bg-brand-purple/90 text-white">
                                 Try Now
                                 <ArrowRight className="ml-2 w-4 h-4" />
@@ -377,11 +365,11 @@ const AboutKDxAI = () => {
                 Our Differentiation
               </h2>
               <p className="text-xl text-brand-light-gray max-w-3xl mx-auto font-poppins">
-                Unlike generic AI tools or prompt-based GPTs, every KD<sup>x</sup>AI product is built with purpose and precision.
+                Unlike generic AI tools or prompt-based GPTs, every KDx<sup>AI</sup> product is built with purpose and precision.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid md:grid-cols-3 gap-8">
               {values.map((value, index) => (
                 <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white">
                   <CardHeader className="text-center pb-4">
@@ -433,12 +421,12 @@ const AboutKDxAI = () => {
                 <p className="text-gray-600 font-poppins leading-relaxed mb-6">
                   A seasoned technologist and GenAI architect with a vision to democratize artificial intelligence across industries. 
                   Anbu brings deep expertise in retrieval-augmented generation (RAG), multilingual AI systems, and automation-first solutions. 
-                  His founder-led, build-in-public approach ensures every KD<sup>x</sup>AI product is transparent, purpose-driven, and community-centric.
+                  His founder-led, build-in-public approach ensures every KDx<sup>AI</sup> product is transparent, purpose-driven, and community-centric.
                 </p>
                 <div className="grid md:grid-cols-3 gap-4 text-sm">
                   <div className="bg-purple-50 rounded-lg p-4">
                     <div className="font-semibold text-brand-purple mb-1">Expertise</div>
-                    <div className="text-gray-600">GenAI Architecture, RAG Systems, Multilingual AI</div>
+                    <div className="text-gray-600">GenAI Architecture, RAG Systems</div>
                   </div>
                   <div className="bg-green-50 rounded-lg p-4">
                     <div className="font-semibold text-brand-green mb-1">Philosophy</div>
@@ -446,7 +434,7 @@ const AboutKDxAI = () => {
                   </div>
                   <div className="bg-blue-50 rounded-lg p-4">
                     <div className="font-semibold text-blue-600 mb-1">Mission</div>
-                    <div className="text-gray-600">Democratizing AI for Tier 2/3 India</div>
+                    <div className="text-gray-600">Democratizing AI for India</div>
                   </div>
                 </div>
               </CardContent>
@@ -463,14 +451,14 @@ const AboutKDxAI = () => {
               Co-build What Matters
             </h2>
             <p className="text-xl text-white/90 font-poppins mb-4 leading-relaxed">
-              Whether it's preparing a NEET student in Madurai, assisting a lawyer in Delhi, or automating HR for a startup in Mumbai — 
-              <strong> KD<sup>x</sup>AI is quietly powering the future of intelligence and automation in India.</strong>
+              Whether it's preparing a NEET student or automating enterprise workflows — 
+              <strong> KDx<sup>AI</sup> is quietly powering the future of intelligence and automation in India.</strong>
             </p>
             <p className="text-lg text-white/80 font-poppins mb-8 leading-relaxed">
               Curious to partner, pilot, or contribute? Let's co-build what matters.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/student">
+              <Link to="/ai-tutor-demo">
                 <Button size="lg" className="bg-white text-brand-purple hover:bg-gray-100 font-semibold px-8 py-4 text-lg shadow-2xl">
                   <GraduationCap className="mr-2 w-5 h-5" />
                   Experience XmPrep<sup>NEET</sup>
