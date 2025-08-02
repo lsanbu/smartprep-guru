@@ -193,7 +193,7 @@ const AboutKDxAI = () => {
   ];
 
   const achievements = [
-    { metric: "MVP", label: "AI Tutor Ready" },
+    { metric: "AI Tutor", label: "MVP Ready" },
     { metric: "RAG", label: "Architecture Proven" },
     { metric: "Beta", label: "Testing Phase" },
     { metric: "10+", label: "Future Ideas" },
