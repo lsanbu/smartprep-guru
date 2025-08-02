@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -149,8 +150,8 @@ const AboutKDxAI = () => {
       subtitle: "Smarter Decisions from Your Data",
       description: "A planned suite of RAG-powered, AI-guided learning and knowledge agents. Starting with our XmPrepNEET AI Tutor MVP, we're exploring how to revolutionize information access and interaction across education and professional domains.",
       features: ["RAG Architecture", "Contextual Intelligence", "Source-backed Responses"],
-      color: "text-brand-purple",
-      bgColor: "bg-brand-purple/10",
+      color: "text-purple-600",
+      bgColor: "bg-purple-50",
       currentProducts: currentProducts,
       plannedProducts: plannedIntelligenceProducts
     },
@@ -160,8 +161,8 @@ const AboutKDxAI = () => {
       subtitle: "Do More by Doing Less",
       description: "Future vision for task-level AI agents and cross-platform automation. These are brainstorming ideas to help individuals and teams eliminate repetitive effort and optimize operations.",
       features: ["No-code Automation", "Cross-platform Integration", "Intelligent Agents", "Process Optimization"],
-      color: "text-brand-green",
-      bgColor: "bg-brand-green/10",
+      color: "text-blue-600",
+      bgColor: "bg-blue-50",
       currentProducts: [],
       plannedProducts: plannedAutomateProducts
     }
@@ -179,15 +180,15 @@ const AboutKDxAI = () => {
       icon: Globe,
       title: "Transparent Development",
       description: "Building in public with honest communication about our current capabilities and future aspirations.",
-      color: "text-brand-green",
-      bgColor: "bg-brand-green/10"
+      color: "text-red-600",
+      bgColor: "bg-red-50"
     },
     {
       icon: Target,
       title: "MVP-First Approach",
       description: "Founder-led, focused development starting with one working product before expanding to other ideas.",
-      color: "text-brand-purple",
-      bgColor: "bg-brand-purple/10"
+      color: "text-blue-600",
+      bgColor: "bg-blue-50"
     }
   ];
 
@@ -219,7 +220,7 @@ const AboutKDxAI = () => {
                 Tasks Digitised. Knowledge Amplified.
               </p>
               <p className="text-lg lg:text-xl text-white/85 font-poppins leading-relaxed mb-8 max-w-4xl mx-auto">
-                <span className="text-brand-green font-semibold">KDx<sup>AI</sup></span> (Kaaryaa Digital Transformation AI) is building intelligent, retrieval-augmented solutions. <strong>We're starting with <span className="text-yellow-300">XmPrep<sup>NEET</sup></span> AI Tutor as our MVP</strong>, proving our RAG technology before expanding into a broader ecosystem of educational and automation ideas.
+                KDx<sup>AI</sup> (Kaaryaa Digital Transformation AI) is building intelligent, retrieval-augmented solutions. <strong>We're starting with XmPrep<sup>NEET</sup> AI Tutor as our MVP</strong>, proving our RAG technology before expanding into a broader ecosystem of educational and automation ideas.
               </p>
             </div>
             
@@ -263,7 +264,7 @@ const AboutKDxAI = () => {
               "We're not building yet another chatbot — we're starting with <span className="font-semibold text-brand-purple">one working AI Tutor</span> to prove our RAG technology, then <span className="font-semibold text-brand-green">expanding thoughtfully</span> into a suite of intelligent solutions."
             </blockquote>
             <p className="text-lg text-brand-light-gray font-poppins">
-              <strong>Based in Chennai. Starting with <span className="text-brand-purple">NEET MVP</span>. Building for the future.</strong>
+              <strong>Based in Chennai. Starting with NEET MVP. Building for the future.</strong>
             </p>
           </div>
         </div>
@@ -275,10 +276,10 @@ const AboutKDxAI = () => {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold font-brand-primary text-brand-dark-gray mb-4">
-                Our Journey: <span className="text-brand-purple">MVP First</span>, <span className="text-brand-green">Vision Next</span>
+                Our Journey: MVP First, Vision Next
               </h2>
               <p className="text-xl text-brand-light-gray max-w-3xl mx-auto font-poppins">
-                Starting with a working <span className="text-brand-purple font-semibold">XmPrep<sup>NEET</sup></span> AI Tutor MVP, we're building toward two powerful verticals of AI innovation based on proven RAG experience.
+                Starting with a working XmPrep<sup>NEET</sup> AI Tutor MVP, we're building toward two powerful verticals of AI innovation based on proven RAG experience.
               </p>
             </div>
 
@@ -458,7 +459,7 @@ const AboutKDxAI = () => {
                 Our Technology Foundation
               </h2>
               <p className="text-xl text-brand-light-gray font-poppins">
-                Built by experts in <span className="text-brand-purple font-semibold">GenAI architecture</span> and <span className="text-brand-green font-semibold">automation solutions</span>.
+                Built by experts in GenAI architecture and automation solutions.
               </p>
             </div>
 
@@ -478,14 +479,14 @@ const AboutKDxAI = () => {
                 <p className="text-gray-600 font-poppins leading-relaxed mb-6">
                   Our team comprises seasoned technologists and GenAI architects with deep expertise in retrieval-augmented generation (RAG), 
                   automation-first solutions, and scalable AI systems. We follow a transparent, build-in-public approach with an MVP-first strategy 
-                  to ensure every <span className="text-brand-purple font-semibold">KDx<sup>AI</sup></span> product is purpose-driven, community-centric, and technically robust.
+                  to ensure every KDx<sup>AI</sup> product is purpose-driven, community-centric, and technically robust.
                 </p>
                 <div className="grid md:grid-cols-3 gap-4 text-sm">
-                  <div className="bg-brand-purple/10 rounded-lg p-4">
+                  <div className="bg-purple-50 rounded-lg p-4">
                     <div className="font-semibold text-brand-purple mb-1">Core Expertise</div>
                     <div className="text-gray-600">GenAI Architecture, RAG Systems</div>
                   </div>
-                  <div className="bg-brand-green/10 rounded-lg p-4">
+                  <div className="bg-green-50 rounded-lg p-4">
                     <div className="font-semibold text-brand-green mb-1">Development Philosophy</div>
                     <div className="text-gray-600">MVP First, Transparent Innovation</div>
                   </div>
@@ -508,11 +509,11 @@ const AboutKDxAI = () => {
               Experience Our MVP, Shape Our Future
             </h2>
             <p className="text-xl text-white/90 font-poppins mb-4 leading-relaxed">
-              Try our working <span className="text-yellow-300 font-semibold">XmPrep<sup>NEET</sup></span> AI Tutor MVP and be part of shaping our journey from proven technology to expanded vision. 
+              Try our working XmPrep<sup>NEET</sup> AI Tutor MVP and be part of shaping our journey from proven technology to expanded vision. 
               <strong> Your feedback helps us build what truly matters.</strong>
             </p>
             <p className="text-lg text-white/80 font-poppins mb-8 leading-relaxed">
-              From <span className="text-yellow-300">NEET MVP</span> to future automation ideas - let's build intelligent solutions together, one step at a time.
+              From NEET MVP to future automation ideas - let's build intelligent solutions together, one step at a time.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/ai-tutor-demo">
