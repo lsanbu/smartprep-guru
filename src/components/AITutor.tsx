@@ -1,4 +1,3 @@
-
 import { useRef, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -349,7 +348,8 @@ const AITutor = () => {
                             </button>
                             <FeedbackButtons 
                               messageId={message.id}
-                              onFeedback={(feedback, details) => submitFeedback(message.id, feedback, details)}
+                              messageContent={message.content}
+                              onFeedbackSubmit={(feedback) => submitFeedback(message.id, feedback)}
                             />
                           </div>
                         )}
