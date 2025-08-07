@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +15,13 @@ interface SyllabusSelectorProps {
   onTopicSelect: (context: SyllabusContext) => void;
   currentContext?: SyllabusContext;
 }
+
+// Available subjects
+const subjects = [
+  { id: "biology", name: "Biology", color: "bg-green-100 text-green-800" },
+  { id: "physics", name: "Physics", color: "bg-blue-100 text-blue-800" },
+  { id: "chemistry", name: "Chemistry", color: "bg-purple-100 text-purple-800" }
+];
 
 // Mock syllabus data
 const mockSyllabusData: SyllabusTopic[] = [
@@ -85,37 +91,47 @@ const mockSyllabusData: SyllabusTopic[] = [
 
 const SyllabusSelector: React.FC<SyllabusSelectorProps> = ({ onTopicSelect, currentContext }) => {
   const [syllabusData] = useState<SyllabusTopic[]>(mockSyllabusData);
+  const [selectedSubject, setSelectedSubject] = useState<string>("biology");
   const [selectedClass, setSelectedClass] = useState<"11" | "12">("11");
   const [selectedChapter, setSelectedChapter] = useState<string>("");
   const [selectedTopic, setSelectedTopic] = useState<string>("");
 
+  const currentSubject = subjects.find(subject => subject.id === selectedSubject);
   const currentClassData = syllabusData.find(data => data.class === selectedClass);
   const currentChapter = currentClassData?.chapters.find(ch => ch.title === selectedChapter);
+
+  const handleSubjectChange = (subject: string) => {
+    setSelectedSubject(subject);
+    setSelectedChapter("");
+    setSelectedTopic("");
+    updateContext(subject, selectedClass, "", "");
+  };
 
   const handleClassChange = (classLevel: "11" | "12") => {
     setSelectedClass(classLevel);
     setSelectedChapter("");
     setSelectedTopic("");
-    updateContext(classLevel, "", "");
+    updateContext(selectedSubject, classLevel, "", "");
   };
 
   const handleChapterChange = (chapter: string) => {
     setSelectedChapter(chapter);
     setSelectedTopic("");
-    updateContext(selectedClass, chapter, "");
+    updateContext(selectedSubject, selectedClass, chapter, "");
   };
 
   const handleTopicChange = (topic: string) => {
     setSelectedTopic(topic);
-    updateContext(selectedClass, selectedChapter, topic);
+    updateContext(selectedSubject, selectedClass, selectedChapter, topic);
   };
 
-  const updateContext = (classLevel: "11" | "12", chapter: string, topic: string) => {
+  const updateContext = (subject: string, classLevel: "11" | "12", chapter: string, topic: string) => {
     const context: SyllabusContext = {
       current_class: classLevel,
       selected_chapter: chapter || undefined,
       active_topic: topic || undefined,
       breadcrumb: [
+        subjects.find(s => s.id === subject)?.name || 'Biology',
         `Class ${classLevel}`,
         ...(chapter ? [chapter] : []),
         ...(topic ? [topic] : [])
@@ -127,7 +143,7 @@ const SyllabusSelector: React.FC<SyllabusSelectorProps> = ({ onTopicSelect, curr
   const clearSelection = () => {
     setSelectedChapter("");
     setSelectedTopic("");
-    updateContext(selectedClass, "", "");
+    updateContext(selectedSubject, selectedClass, "", "");
   };
 
   const getTotalChapters = () => {
@@ -166,6 +182,30 @@ const SyllabusSelector: React.FC<SyllabusSelectorProps> = ({ onTopicSelect, curr
 
       {/* Selection Row */}
       <div className="flex items-center space-x-3">
+        {/* Subject Selection */}
+        <div className="flex items-center space-x-2">
+          <span className="text-sm text-gray-600 min-w-[50px]">Subject:</span>
+          <Select value={selectedSubject} onValueChange={handleSubjectChange}>
+            <SelectTrigger className="w-28">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {subjects.map((subject) => (
+                <SelectItem key={subject.id} value={subject.id}>
+                  <div className="flex items-center space-x-2">
+                    <span>{subject.name}</span>
+                    {subject.id === "biology" && (
+                      <Badge variant="outline" className="text-xs bg-green-50">
+                        Default
+                      </Badge>
+                    )}
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
         {/* Class Selection */}
         <div className="flex items-center space-x-2">
           <span className="text-sm text-gray-600 min-w-[40px]">Class:</span>
@@ -220,11 +260,16 @@ const SyllabusSelector: React.FC<SyllabusSelectorProps> = ({ onTopicSelect, curr
         )}
 
         {/* Current Selection Badge */}
-        {(selectedChapter || selectedTopic) && (
-          <Badge className="bg-green-100 text-green-800 flex items-center space-x-1">
+        {(selectedSubject !== "biology" || selectedChapter || selectedTopic) && (
+          <Badge className={`${currentSubject?.color} flex items-center space-x-1`}>
             <Target className="w-3 h-3" />
             <span>
-              {selectedTopic ? `${selectedTopic}` : selectedChapter ? `${selectedChapter}` : ''}
+              {selectedTopic 
+                ? `${selectedTopic}` 
+                : selectedChapter 
+                ? `${selectedChapter}` 
+                : currentSubject?.name
+              }
             </span>
           </Badge>
         )}
