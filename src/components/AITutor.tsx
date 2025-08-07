@@ -23,13 +23,16 @@ import {
   AlertTriangle,
   Target,
   BookOpen,
-  Languages
+  Languages,
+  Settings,
+  BarChart3
 } from "lucide-react";
 import { toast } from "sonner";
 import QuickQuestions from "./QuickQuestions";
 import QuestionGenerator from "./QuestionGenerator";
 import SyllabusSelector from "./SyllabusSelector";
 import FeedbackButtons from "./FeedbackButtons";
+import QualityAssurancePanel from "./QualityAssurancePanel";
 import { useEnhancedAITutorContext } from "../contexts/EnhancedAITutorContext";
 import { useEnhancedAITutorChat } from "../hooks/useEnhancedAITutorChat";
 import type { EnhancedChatMessage } from "../types/syllabus";
@@ -280,6 +283,10 @@ const AITutor = () => {
                 <Target className="w-4 h-4 mr-2" />
                 Practice
               </TabsTrigger>
+              <TabsTrigger value="quality" className="data-[state=active]:bg-white/30 data-[state=active]:text-white">
+                <BarChart3 className="w-4 h-4 mr-2" />
+                Quality
+              </TabsTrigger>
             </TabsList>
           </Tabs>
         </div>
@@ -339,19 +346,11 @@ const AITutor = () => {
                       <div className="flex items-center justify-between mt-2 text-xs opacity-70">
                         <span>{formatTime(message.timestamp)}</span>
                         {message.sender === 'ai' && (
-                          <div className="flex items-center space-x-2">
-                            <button 
-                              onClick={() => copyMessage(message.content)}
-                              className="hover:opacity-100 transition-opacity"
-                            >
-                              <Copy className="w-3 h-3" />
-                            </button>
-                            <FeedbackButtons 
-                              messageId={message.id}
-                              messageContent={message.content}
-                              onFeedbackSubmit={(feedback) => submitFeedback(message.id, feedback)}
-                            />
-                          </div>
+                          <FeedbackButtons 
+                            messageId={message.id}
+                            messageContent={message.content}
+                            onFeedbackSubmit={(feedback) => submitFeedback(message.id, feedback)}
+                          />
                         )}
                       </div>
                     </div>
@@ -445,6 +444,10 @@ const AITutor = () => {
           <TabsContent value="practice" className="flex-1 flex flex-col mt-0 p-4">
             <QuestionGenerator />
           </TabsContent>
+
+          <TabsContent value="quality" className="flex-1 flex flex-col mt-0 p-4">
+            <QualityAssurancePanel />
+          </TabsContent>
         </Tabs>
       </div>
 
@@ -512,6 +515,35 @@ const AITutor = () => {
           </Card>
         )}
 
+        {activeTab === "quality" && (
+          <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2 text-orange-600">
+                <Settings className="w-5 h-5" />
+                <span>Quality Settings</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm text-gray-700">
+              <div className="flex items-start space-x-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full mt-2"></div>
+                <span>All feedback helps improve AI responses</span>
+              </div>
+              <div className="flex items-start space-x-2">
+                <div className="w-2 h-2 bg-blue-400 rounded-full mt-2"></div>
+                <span>Reports are reviewed within 24-48 hours</span>
+              </div>
+              <div className="flex items-start space-x-2">
+                <div className="w-2 h-2 bg-purple-400 rounded-full mt-2"></div>
+                <span>High priority issues get immediate attention</span>
+              </div>
+              <div className="flex items-start space-x-2">
+                <div className="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
+                <span>Your feedback shapes the learning experience</span>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* AI Stats */}
         <Card className="bg-gradient-to-br from-purple-600 to-green-500 text-white">
           <CardHeader>
@@ -538,6 +570,12 @@ const AITutor = () => {
                 <span className="opacity-90">Language</span>
                 <span className="font-bold">{language === 'en' ? 'English' : 'Tamil'}</span>
               </div>
+              {activeTab === "quality" && (
+                <div className="flex justify-between">
+                  <span className="opacity-90">Feedback Given</span>
+                  <span className="font-bold">23</span>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>
