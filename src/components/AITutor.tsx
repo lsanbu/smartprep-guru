@@ -1,3 +1,4 @@
+
 import { useRef, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -22,14 +23,17 @@ import {
   Clock,
   AlertTriangle,
   Target,
-  BookOpen
+  BookOpen,
+  Languages
 } from "lucide-react";
 import { toast } from "sonner";
 import QuickQuestions from "./QuickQuestions";
 import QuestionGenerator from "./QuestionGenerator";
-import { useAITutorContext } from "../contexts/AITutorContext";
-import { useAITutorChat } from "../hooks/useAITutorChat";
-import type { Message } from "../hooks/useAITutorState";
+import SyllabusNavigation from "./SyllabusNavigation";
+import FeedbackButtons from "./FeedbackButtons";
+import { useEnhancedAITutorContext } from "../contexts/EnhancedAITutorContext";
+import { useEnhancedAITutorChat } from "../hooks/useEnhancedAITutorChat";
+import type { EnhancedChatMessage } from "../types/syllabus";
 
 const AITutor = () => {
   const {
@@ -42,10 +46,14 @@ const AITutor = () => {
     selectedImage,
     setSelectedImage,
     isLoading,
-    setIsLoading
-  } = useAITutorContext();
+    setIsLoading,
+    syllabusContext,
+    setSyllabusContext,
+    language,
+    setLanguage
+  } = useEnhancedAITutorContext();
 
-  const { askQuestion } = useAITutorChat();
+  const { askQuestion, submitFeedback } = useEnhancedAITutorChat();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -61,58 +69,85 @@ const AITutor = () => {
   const handleSendMessage = async () => {
     if (!inputMessage.trim() && !selectedImage) return;
 
-    let questionText = inputMessage.trim();
-    
-    // If there's an image, add context about it
-    if (selectedImage) {
-      questionText = `${questionText} [Image uploaded: ${selectedImage.name}]`;
-    }
-
-    const userMessage: Message = {
+    const userMessage: EnhancedChatMessage = {
       id: Date.now().toString(),
       content: inputMessage,
       sender: 'user',
       timestamp: new Date(),
+      language,
       image: selectedImage ? URL.createObjectURL(selectedImage) : undefined,
-      type: selectedImage ? 'image' : 'text'
+      type: selectedImage ? 'image' : 'text',
+      syllabus_context: syllabusContext.selected_chapter ? {
+        class: syllabusContext.current_class,
+        chapter: syllabusContext.selected_chapter,
+        topic: syllabusContext.active_topic || ''
+      } : undefined
     };
 
     addMessage(userMessage);
     setInputMessage('');
+    const imageToSend = selectedImage;
     setSelectedImage(null);
     setIsLoading(true);
 
     try {
-      console.log('Sending message to AI Tutor:', questionText);
-      
-      const aiResponse = await askQuestion(questionText);
-      
-      if (aiResponse) {
-        const aiMessage: Message = {
+      const response = await askQuestion(inputMessage, {
+        language,
+        syllabus_context: syllabusContext.selected_chapter ? {
+          class: syllabusContext.current_class,
+          chapter: syllabusContext.selected_chapter,
+          topic: syllabusContext.active_topic
+        } : undefined,
+        image: imageToSend
+      });
+
+      if (response.success && response.data) {
+        const aiMessage: EnhancedChatMessage = {
           id: (Date.now() + 1).toString(),
-          content: aiResponse,
+          content: response.data.answer,
           sender: 'ai',
           timestamp: new Date(),
+          language: response.data.language || language,
+          confidence_score: response.data.confidence,
+          sources: response.data.sources,
+          syllabus_context: response.data.syllabus_ref ? {
+            class: syllabusContext.current_class,
+            chapter: response.data.syllabus_ref.chapter,
+            topic: response.data.syllabus_ref.topic
+          } : undefined,
           type: 'solution'
         };
         
         addMessage(aiMessage);
         toast.success("AI Tutor responded successfully!");
+      } else {
+        const aiErrorMessage: EnhancedChatMessage = {
+          id: (Date.now() + 1).toString(),
+          content: response.error || "I'm having trouble connecting to the server right now. Please try again later.",
+          sender: 'ai',
+          timestamp: new Date(),
+          language,
+          type: 'error'
+        };
+        
+        addMessage(aiErrorMessage);
+        toast.error("Failed to get AI response");
       }
       
     } catch (error) {
       console.error('Failed to get AI response:', error);
       
-      const aiErrorMessage: Message = {
+      const aiErrorMessage: EnhancedChatMessage = {
         id: (Date.now() + 1).toString(),
         content: "I'm having trouble connecting to the server right now. Please try again later.",
         sender: 'ai',
         timestamp: new Date(),
+        language,
         type: 'error'
       };
       
       addMessage(aiErrorMessage);
-      toast.error("Failed to get AI response. Please check the console for details.");
+      toast.error("Failed to get AI response");
     } finally {
       setIsLoading(false);
     }
@@ -121,11 +156,12 @@ const AITutor = () => {
   };
 
   const handleAddToChat = (message: string, type: 'question' | 'result') => {
-    const chatMessage: Message = {
+    const chatMessage: EnhancedChatMessage = {
       id: Date.now().toString(),
       content: message,
       sender: 'ai',
       timestamp: new Date(),
+      language,
       type: type === 'question' ? 'text' : 'solution'
     };
     addMessage(chatMessage);
@@ -187,8 +223,22 @@ const AITutor = () => {
     }
   };
 
+  const toggleLanguage = () => {
+    const newLanguage = language === 'en' ? 'ta' : 'en';
+    setLanguage(newLanguage);
+    toast.success(`Language switched to ${newLanguage === 'en' ? 'English' : 'Tamil'}`);
+  };
+
   return (
     <div className="h-[calc(100vh-200px)] flex space-x-6">
+      {/* Syllabus Navigation Sidebar */}
+      <div className="w-80">
+        <SyllabusNavigation 
+          onTopicSelect={setSyllabusContext}
+          currentContext={syllabusContext}
+        />
+      </div>
+
       {/* Main Content Area with Tabs */}
       <div className="flex-1 flex flex-col bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg">
         {/* Header with Tabs */}
@@ -200,10 +250,19 @@ const AITutor = () => {
               </div>
               <div>
                 <h3 className="font-bold">XmPrepNEETGuru</h3>
-                <p className="text-sm opacity-90">Your AI NEET Tutor - Always Online</p>
+                <p className="text-sm opacity-90">Your Enhanced AI NEET Tutor</p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleLanguage}
+                className="text-white hover:bg-white/20"
+              >
+                <Languages className="w-4 h-4 mr-2" />
+                {language === 'en' ? 'EN' : 'தமிழ்'}
+              </Button>
               <Badge className="bg-green-500 text-white">
                 <div className="w-2 h-2 bg-white rounded-full mr-2"></div>
                 Online
@@ -265,6 +324,18 @@ const AITutor = () => {
                       )}
                       <div className="whitespace-pre-wrap text-sm">{message.content}</div>
                       
+                      {/* Confidence and Sources */}
+                      {message.sender === 'ai' && message.confidence_score && (
+                        <div className="mt-2 text-xs opacity-70">
+                          <div className="flex items-center space-x-2">
+                            <span>Confidence: {Math.round(message.confidence_score * 100)}%</span>
+                            {message.sources && message.sources.length > 0 && (
+                              <span>• Sources: {message.sources.length}</span>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                      
                       {/* Message actions */}
                       <div className="flex items-center justify-between mt-2 text-xs opacity-70">
                         <span>{formatTime(message.timestamp)}</span>
@@ -276,12 +347,10 @@ const AITutor = () => {
                             >
                               <Copy className="w-3 h-3" />
                             </button>
-                            <button className="hover:opacity-100 transition-opacity">
-                              <ThumbsUp className="w-3 h-3" />
-                            </button>
-                            <button className="hover:opacity-100 transition-opacity">
-                              <ThumbsDown className="w-3 h-3" />
-                            </button>
+                            <FeedbackButtons 
+                              messageId={message.id}
+                              onFeedback={(feedback, details) => submitFeedback(message.id, feedback, details)}
+                            />
                           </div>
                         )}
                       </div>
@@ -328,7 +397,7 @@ const AITutor = () => {
                   <Input
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
-                    placeholder="Ask your NEET doubt here..."
+                    placeholder={language === 'en' ? "Ask your NEET doubt here..." : "உங்கள் NEET சந்தேகத்தை இங்கே கேளுங்கள்..."}
                     className="pr-20 border-gray-300 focus:border-purple-400 focus:ring-purple-400"
                     onKeyPress={(e) => e.key === 'Enter' && !isLoading && handleSendMessage()}
                     disabled={isLoading}
@@ -379,7 +448,7 @@ const AITutor = () => {
         </Tabs>
       </div>
 
-      {/* Sidebar */}
+      {/* Right Sidebar */}
       <div className="w-80 space-y-4">
         {activeTab === "chat" && (
           <>
@@ -464,6 +533,10 @@ const AITutor = () => {
               <div className="flex justify-between">
                 <span className="opacity-90">AI Accuracy</span>
                 <span className="font-bold">96.8%</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="opacity-90">Language</span>
+                <span className="font-bold">{language === 'en' ? 'English' : 'Tamil'}</span>
               </div>
             </div>
           </CardContent>

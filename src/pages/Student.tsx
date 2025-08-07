@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -43,7 +44,7 @@ import AITutor from "@/components/AITutor";
 import PerformanceAnalytics from "@/components/PerformanceAnalytics";
 import MockTests from "@/components/MockTests";
 import StudyPlanner from "@/components/StudyPlanner";
-import { AITutorProvider } from "@/contexts/AITutorContext";
+import { EnhancedAITutorProvider } from "@/contexts/EnhancedAITutorContext";
 
 const Student = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -64,7 +65,7 @@ const Student = () => {
   };
 
   return (
-    <AITutorProvider>
+    <EnhancedAITutorProvider>
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-green-50 font-poppins">
         {/* Header */}
         <header className="bg-white/80 backdrop-blur-md border-b border-brand-purple/20 shadow-sm">
@@ -147,7 +148,7 @@ const Student = () => {
             <div className="mt-8 p-4 bg-gradient-to-br from-brand-purple/20 to-brand-green/20 rounded-xl">
               <h4 className="font-semibold font-brand-primary text-brand-dark-gray mb-2">Quick Tip</h4>
               <p className="text-sm text-brand-light-gray mb-3 font-poppins">
-                Use the AI tutor to clear doubts instantly with image support!
+                Use the AI tutor to clear doubts instantly with image support and syllabus navigation!
               </p>
               <Button size="sm" className="w-full bg-brand-purple hover:bg-brand-purple/90 text-white font-poppins">
                 Try Now
@@ -165,7 +166,7 @@ const Student = () => {
           </main>
         </div>
       </div>
-    </AITutorProvider>
+    </EnhancedAITutorProvider>
   );
 };
 
