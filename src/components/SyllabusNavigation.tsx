@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -85,6 +84,20 @@ const mockSyllabusData: SyllabusTopic[] = [
   }
 ];
 
+// Type guard function to validate syllabus data
+const isValidSyllabusData = (data: unknown): data is SyllabusTopic[] => {
+  if (!Array.isArray(data)) return false;
+  
+  return data.every(item => 
+    typeof item === 'object' &&
+    item !== null &&
+    typeof item.id === 'string' &&
+    (item.class === '11' || item.class === '12') &&
+    typeof item.unit === 'string' &&
+    Array.isArray(item.chapters)
+  );
+};
+
 const SyllabusNavigation: React.FC<SyllabusNavigationProps> = ({ onTopicSelect, currentContext }) => {
   const [syllabusData, setSyllabusData] = useState<SyllabusTopic[]>(mockSyllabusData);
   const [expandedClasses, setExpandedClasses] = useState<Set<string>>(new Set(['class-11']));
@@ -99,8 +112,10 @@ const SyllabusNavigation: React.FC<SyllabusNavigationProps> = ({ onTopicSelect, 
     setLoading(true);
     try {
       const response = await enhancedFlaskApi.getSyllabusStructure();
-      if (response.data) {
+      if (response.data && isValidSyllabusData(response.data)) {
         setSyllabusData(response.data);
+      } else {
+        console.warn('Invalid syllabus data received, using mock data');
       }
     } catch (error) {
       console.warn('Using mock syllabus data due to API error:', error);
