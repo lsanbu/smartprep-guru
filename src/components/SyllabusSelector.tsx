@@ -184,7 +184,7 @@ const SyllabusSelector: React.FC<SyllabusSelectorProps> = ({ onTopicSelect, curr
       <div className="flex items-center space-x-3">
         {/* Subject Selection */}
         <div className="flex items-center space-x-2">
-          <span className="text-sm text-gray-600 min-w-[50px]">Subject:</span>
+          <span className="text-sm text-gray-600 min-w-[50px] font-bold">Subject:</span>
           <Select value={selectedSubject} onValueChange={handleSubjectChange}>
             <SelectTrigger className="w-28">
               <SelectValue />
@@ -208,7 +208,7 @@ const SyllabusSelector: React.FC<SyllabusSelectorProps> = ({ onTopicSelect, curr
 
         {/* Class Selection */}
         <div className="flex items-center space-x-2">
-          <span className="text-sm text-gray-600 min-w-[40px]">Class:</span>
+          <span className="text-sm text-gray-600 min-w-[40px] font-bold">Class:</span>
           <Select value={selectedClass} onValueChange={handleClassChange}>
             <SelectTrigger className="w-20">
               <SelectValue />
@@ -222,7 +222,7 @@ const SyllabusSelector: React.FC<SyllabusSelectorProps> = ({ onTopicSelect, curr
 
         {/* Chapter Selection */}
         <div className="flex items-center space-x-2 flex-1">
-          <span className="text-sm text-gray-600 min-w-[55px]">Chapter:</span>
+          <span className="text-sm text-gray-600 min-w-[55px] font-bold">Chapter:</span>
           <Select value={selectedChapter} onValueChange={handleChapterChange}>
             <SelectTrigger className="flex-1">
               <SelectValue placeholder="All chapters" />
@@ -243,7 +243,7 @@ const SyllabusSelector: React.FC<SyllabusSelectorProps> = ({ onTopicSelect, curr
         {/* Topic Selection */}
         {selectedChapter && (
           <div className="flex items-center space-x-2 flex-1">
-            <span className="text-sm text-gray-600 min-w-[40px]">Topic:</span>
+            <span className="text-sm text-gray-600 min-w-[40px] font-bold">Topic:</span>
             <Select value={selectedTopic} onValueChange={handleTopicChange}>
               <SelectTrigger className="flex-1">
                 <SelectValue placeholder="All topics" />
@@ -278,7 +278,7 @@ const SyllabusSelector: React.FC<SyllabusSelectorProps> = ({ onTopicSelect, curr
       {/* Breadcrumb */}
       {currentContext && currentContext.breadcrumb.length > 1 && (
         <div className="mt-2 text-xs text-gray-500">
-          <span>Current focus: </span>
+          <span className="font-bold">Current focus: </span>
           {currentContext.breadcrumb.join(' → ')}
         </div>
       )}
