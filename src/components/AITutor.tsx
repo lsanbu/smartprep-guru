@@ -28,7 +28,7 @@ import {
 import { toast } from "sonner";
 import QuickQuestions from "./QuickQuestions";
 import QuestionGenerator from "./QuestionGenerator";
-import SyllabusNavigation from "./SyllabusNavigation";
+import SyllabusSelector from "./SyllabusSelector";
 import FeedbackButtons from "./FeedbackButtons";
 import { useEnhancedAITutorContext } from "../contexts/EnhancedAITutorContext";
 import { useEnhancedAITutorChat } from "../hooks/useEnhancedAITutorChat";
@@ -230,18 +230,18 @@ const AITutor = () => {
 
   return (
     <div className="h-[calc(100vh-200px)] flex space-x-6">
-      {/* Syllabus Navigation Sidebar */}
-      <div className="w-80">
-        <SyllabusNavigation 
-          onTopicSelect={setSyllabusContext}
-          currentContext={syllabusContext}
-        />
-      </div>
-
-      {/* Main Content Area with Tabs */}
+      {/* Main Content Area */}
       <div className="flex-1 flex flex-col bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg">
+        {/* Syllabus Selector */}
+        <div className="p-4">
+          <SyllabusSelector 
+            onTopicSelect={setSyllabusContext}
+            currentContext={syllabusContext}
+          />
+        </div>
+
         {/* Header with Tabs */}
-        <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-purple-600 to-green-500 text-white rounded-t-2xl">
+        <div className="px-4 pb-4 border-b border-gray-100 bg-gradient-to-r from-purple-600 to-green-500 text-white rounded-t-2xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
