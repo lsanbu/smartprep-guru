@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -36,7 +35,8 @@ import {
   Search,
   Filter,
   Download,
-  Share
+  Share,
+  Monitor
 } from "lucide-react";
 import { toast } from "sonner";
 import StudentDashboard from "@/components/StudentDashboard";
@@ -44,6 +44,7 @@ import AITutor from "@/components/AITutor";
 import PerformanceAnalytics from "@/components/PerformanceAnalytics";
 import MockTests from "@/components/MockTests";
 import StudyPlanner from "@/components/StudyPlanner";
+import MonitoringDashboard from "@/components/MonitoringDashboard";
 import { EnhancedAITutorProvider } from "@/contexts/EnhancedAITutorContext";
 
 const Student = () => {
@@ -57,6 +58,7 @@ const Student = () => {
     { id: "analytics", label: "Analytics", icon: BarChart3 },
     { id: "mock-tests", label: "Mock Tests", icon: FileText },
     { id: "study-plan", label: "Study Plan", icon: Calendar },
+    { id: "monitoring", label: "Monitoring", icon: Monitor },
   ];
 
   const handleTabChange = (tab: string) => {
@@ -163,6 +165,7 @@ const Student = () => {
             {activeTab === "analytics" && <PerformanceAnalytics />}
             {activeTab === "mock-tests" && <MockTests />}
             {activeTab === "study-plan" && <StudyPlanner />}
+            {activeTab === "monitoring" && <MonitoringDashboard />}
           </main>
         </div>
       </div>
