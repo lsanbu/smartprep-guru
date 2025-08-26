@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -242,7 +241,7 @@ const AboutKDxAI = () => {
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </Link>
-              <Link to="/signup">
+              <a href="https://itgym.lovable.app/" target="_blank" rel="noopener noreferrer">
                 <Button 
                   variant="outline" 
                   size="lg" 
@@ -251,7 +250,7 @@ const AboutKDxAI = () => {
                   <Briefcase className="mr-2 w-5 h-5" />
                   Try ITGym Career
                 </Button>
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -358,12 +357,12 @@ const AboutKDxAI = () => {
                                   </Button>
                                 </Link>
                               ) : (
-                                <Link to="/signup">
+                                <a href="https://itgym.lovable.app/" target="_blank" rel="noopener noreferrer">
                                   <Button size="sm" className="w-full bg-green-600 hover:bg-green-700 text-white">
                                     Try MVP
                                     <ArrowRight className="ml-2 w-4 h-4" />
                                   </Button>
-                                </Link>
+                                </a>
                               )}
                             </div>
                           </CardContent>
@@ -532,7 +531,7 @@ const AboutKDxAI = () => {
                   Try NEET Tutor MVP
                 </Button>
               </Link>
-              <Link to="/signup">
+              <a href="https://itgym.lovable.app/" target="_blank" rel="noopener noreferrer">
                 <Button 
                   variant="outline" 
                   size="lg" 
@@ -541,7 +540,7 @@ const AboutKDxAI = () => {
                   <Briefcase className="mr-2 w-5 h-5" />
                   Try ITGym Career
                 </Button>
-              </Link>
+              </a>
             </div>
           </div>
         </div>
