@@ -46,6 +46,15 @@ const AboutKDxAI = () => {
       icon: GraduationCap,
       features: ["RAG-powered AI Tutor", "Doubt solving", "Interactive chat", "Beta testing phase"],
       users: "MVP Phase"
+    },
+    {
+      name: "KDx<sup>ITGym</sup>",
+      description: "AI Career Guidance Platform - Complete career coaching system with resume analysis, roadmaps, and intelligent guidance",
+      status: "MVP Ready",
+      highlight: true,
+      icon: Briefcase,
+      features: ["AI Career Coach", "Resume Advisor", "Learning Roadmaps", "Company Insights", "Interview Prep"],
+      users: "Active Users"
     }
   ];
 
@@ -65,14 +74,6 @@ const AboutKDxAI = () => {
       highlight: false,
       icon: Building2,
       features: ["NCERT/CBSE aligned", "Domain-wise prep", "Mock tests", "University guidance"]
-    },
-    {
-      name: "KDx<sup>ITGym</sup>",
-      description: "Technical upskilling gym for students and freshers with hands-on AI project modules",
-      status: "Brainstorming",
-      highlight: false,
-      icon: Cpu,
-      features: ["Coding practice", "AI project modules", "Career guidance", "Industry readiness"]
     },
     {
       name: "KDx<sup>WikiSenior</sup>",
@@ -148,7 +149,7 @@ const AboutKDxAI = () => {
       icon: Brain,
       title: "KDx<sup>Intelligence</sup>",
       subtitle: "Smarter Decisions from Your Data",
-      description: "A planned suite of RAG-powered, AI-guided learning and knowledge agents. Starting with our XmPrepNEET AI Tutor MVP, we're exploring how to revolutionize information access and interaction across education and professional domains.",
+      description: "A suite of RAG-powered, AI-guided learning and knowledge agents. Starting with our XmPrepNEET AI Tutor MVP and expanding with KDxITGym career platform, we're revolutionizing how people access and interact with specialized knowledge across education and professional domains.",
       features: ["RAG Architecture", "Contextual Intelligence", "Source-backed Responses"],
       color: "text-purple-600",
       bgColor: "bg-purple-50",
@@ -186,16 +187,16 @@ const AboutKDxAI = () => {
     {
       icon: Target,
       title: "MVP-First Approach",
-      description: "Founder-led, focused development starting with one working product before expanding to other ideas.",
+      description: "Founder-led, focused development starting with working products before expanding to other ideas.",
       color: "text-blue-600",
       bgColor: "bg-blue-50"
     }
   ];
 
   const achievements = [
-    { metric: "AI Tutor", label: "MVP Ready" },
+    { metric: "2 MVP", label: "Products Ready" },
     { metric: "RAG", label: "Architecture Proven" },
-    { metric: "Beta", label: "Testing Phase" },
+    { metric: "Active", label: "User Base" },
     { metric: "10+", label: "Future Ideas" },
     { metric: "2025", label: "Growth Plan" }
   ];
@@ -220,7 +221,7 @@ const AboutKDxAI = () => {
                 Tasks Digitised. Knowledge Amplified.
               </p>
               <p className="text-lg lg:text-xl text-white/85 font-poppins leading-relaxed mb-8 max-w-4xl mx-auto">
-                KDx<sup>AI</sup> (Kaaryaa Digital Transformation AI) is building intelligent, retrieval-augmented solutions. <strong>We're starting with XmPrep<sup>NEET</sup> AI Tutor as our MVP</strong>, proving our RAG technology before expanding into a broader ecosystem of educational and automation ideas.
+                KDx<sup>AI</sup> (Kaaryaa Digital Transformation AI) is building intelligent, retrieval-augmented solutions. <strong>We now have 2 MVP products: XmPrep<sup>NEET</sup> AI Tutor and KDx<sup>ITGym</sup> Career Platform</strong>, proving our RAG technology before expanding into a broader ecosystem of educational and automation ideas.
               </p>
             </div>
             
@@ -237,7 +238,7 @@ const AboutKDxAI = () => {
               <Link to="/ai-tutor-demo">
                 <Button size="lg" className="bg-white text-brand-purple hover:bg-gray-100 font-semibold px-8 py-4 text-lg shadow-2xl">
                   <GraduationCap className="mr-2 w-5 h-5" />
-                  Try Our MVP
+                  Try NEET Tutor
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </Link>
@@ -247,8 +248,8 @@ const AboutKDxAI = () => {
                   size="lg" 
                   className="border-2 border-white text-white hover:bg-white hover:text-brand-purple font-semibold px-8 py-4 text-lg"
                 >
-                  <Users className="mr-2 w-5 h-5" />
-                  Join Our Journey
+                  <Briefcase className="mr-2 w-5 h-5" />
+                  Try ITGym Career
                 </Button>
               </Link>
             </div>
@@ -261,10 +262,10 @@ const AboutKDxAI = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <blockquote className="text-2xl lg:text-3xl font-light text-brand-dark-gray leading-relaxed font-poppins mb-8 italic">
-              "We're not building yet another chatbot — we're starting with <span className="font-semibold text-brand-purple">one working AI Tutor</span> to prove our RAG technology, then <span className="font-semibold text-brand-green">expanding thoughtfully</span> into a suite of intelligent solutions."
+              "We're building <span className="font-semibold text-brand-purple">working AI solutions</span> to prove our RAG technology, then <span className="font-semibold text-brand-green">expanding thoughtfully</span> into a suite of intelligent solutions that truly serve users' needs."
             </blockquote>
             <p className="text-lg text-brand-light-gray font-poppins">
-              <strong>Based in Chennai. Starting with NEET MVP. Building for the future.</strong>
+              <strong>Based in Chennai. 2 MVPs Ready. Building for the future.</strong>
             </p>
           </div>
         </div>
@@ -276,10 +277,10 @@ const AboutKDxAI = () => {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold font-brand-primary text-brand-dark-gray mb-4">
-                Our Journey: MVP First, Vision Next
+                Our Journey: Proven MVPs, Expanding Vision
               </h2>
               <p className="text-xl text-brand-light-gray max-w-3xl mx-auto font-poppins">
-                Starting with a working XmPrep<sup>NEET</sup> AI Tutor MVP, we're building toward two powerful verticals of AI innovation based on proven RAG experience.
+                Starting with working XmPrep<sup>NEET</sup> AI Tutor and KDx<sup>ITGym</sup> Career Platform MVPs, we're building toward two powerful verticals of AI innovation based on proven RAG experience.
               </p>
             </div>
 
@@ -315,7 +316,7 @@ const AboutKDxAI = () => {
                       <CheckCircle className="w-6 h-6 mr-2" />
                       MVP Ready
                     </h4>
-                    <div className="grid lg:grid-cols-4 gap-6">
+                    <div className="grid lg:grid-cols-2 gap-6">
                       {vertical.currentProducts.map((product, productIndex) => (
                         <Card key={productIndex} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-white ring-4 ring-green-200">
                           <div className="bg-gradient-to-r from-green-500 to-brand-green text-white text-center py-2 text-sm font-semibold">
@@ -349,12 +350,21 @@ const AboutKDxAI = () => {
                               </div>
                             )}
                             <div className="pt-4 border-t">
-                              <Link to="/ai-tutor-demo">
-                                <Button size="sm" className="w-full bg-green-600 hover:bg-green-700 text-white">
-                                  Try MVP
-                                  <ArrowRight className="ml-2 w-4 h-4" />
-                                </Button>
-                              </Link>
+                              {product.name.includes('XmPrep') ? (
+                                <Link to="/ai-tutor-demo">
+                                  <Button size="sm" className="w-full bg-green-600 hover:bg-green-700 text-white">
+                                    Try MVP
+                                    <ArrowRight className="ml-2 w-4 h-4" />
+                                  </Button>
+                                </Link>
+                              ) : (
+                                <Link to="/signup">
+                                  <Button size="sm" className="w-full bg-green-600 hover:bg-green-700 text-white">
+                                    Try MVP
+                                    <ArrowRight className="ml-2 w-4 h-4" />
+                                  </Button>
+                                </Link>
+                              )}
                             </div>
                           </CardContent>
                         </Card>
@@ -374,7 +384,7 @@ const AboutKDxAI = () => {
                       🧠 These are our ideas and vision for the future - not current commitments but possibilities we're exploring based on our RAG experience
                     </p>
                   </div>
-                  <div className="grid lg:grid-cols-4 gap-6">
+                  <div className="grid lg:grid-cols-3 gap-6">
                     {vertical.plannedProducts.map((product, productIndex) => (
                       <Card key={productIndex} className="border-2 border-dashed border-blue-200 bg-blue-50/50 hover:bg-blue-50 transition-all duration-300">
                         <CardHeader className="pb-4">
@@ -423,7 +433,7 @@ const AboutKDxAI = () => {
                 Our Foundation & Approach
               </h2>
               <p className="text-xl text-brand-light-gray max-w-3xl mx-auto font-poppins">
-                Unlike generic AI tools, our KDx<sup>AI</sup> approach is built with proven methodology, transparency, and a working MVP first.
+                Unlike generic AI tools, our KDx<sup>AI</sup> approach is built with proven methodology, transparency, and working MVPs first.
               </p>
             </div>
 
@@ -506,20 +516,20 @@ const AboutKDxAI = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center text-white">
             <h2 className="text-4xl font-bold font-brand-primary mb-6">
-              Experience Our MVP, Shape Our Future
+              Experience Our MVPs, Shape Our Future
             </h2>
             <p className="text-xl text-white/90 font-poppins mb-4 leading-relaxed">
-              Try our working XmPrep<sup>NEET</sup> AI Tutor MVP and be part of shaping our journey from proven technology to expanded vision. 
+              Try our working XmPrep<sup>NEET</sup> AI Tutor and KDx<sup>ITGym</sup> Career Platform MVPs and be part of shaping our journey from proven technology to expanded vision. 
               <strong> Your feedback helps us build what truly matters.</strong>
             </p>
             <p className="text-lg text-white/80 font-poppins mb-8 leading-relaxed">
-              From NEET MVP to future automation ideas - let's build intelligent solutions together, one step at a time.
+              From 2 working MVPs to future automation ideas - let's build intelligent solutions together, one step at a time.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/ai-tutor-demo">
                 <Button size="lg" className="bg-white text-brand-purple hover:bg-gray-100 font-semibold px-8 py-4 text-lg shadow-2xl">
                   <GraduationCap className="mr-2 w-5 h-5" />
-                  Try Our MVP Now
+                  Try NEET Tutor MVP
                 </Button>
               </Link>
               <Link to="/signup">
@@ -528,8 +538,8 @@ const AboutKDxAI = () => {
                   size="lg" 
                   className="border-2 border-white text-white hover:bg-white hover:text-brand-purple font-semibold px-8 py-4 text-lg"
                 >
-                  <Users className="mr-2 w-5 h-5" />
-                  Join Our Community
+                  <Briefcase className="mr-2 w-5 h-5" />
+                  Try ITGym Career
                 </Button>
               </Link>
             </div>
