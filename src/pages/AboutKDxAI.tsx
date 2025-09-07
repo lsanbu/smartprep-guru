@@ -58,12 +58,12 @@ const AboutKDxAI = () => {
       url: "itgym.in"
     },
     {
-      name: "KDxVerse",
-      description: "Comprehensive platform for immersive digital experiences and virtual environments",
+      name: "KDx<sup>Collate</sup>",
+      description: "Go-to platform for individuals and teams to collect, organize, share, and discover valuable web content through intuitive playlists and smart categorization",
       status: "MVP Ready",
       highlight: true,
       icon: Globe,
-      features: ["Virtual environments", "Digital experiences", "Interactive platforms", "User engagement"],
+      features: ["Universal Link Capture", "Smart Auto-Categorization", "Playlists & Collections", "Rich Sharing & Collaboration", "Advanced Search & Discovery", "Social & Viral Network Effects"],
       users: "MVP Phase",
       url: "https://preview--kdxverse.lovable.app/"
     },
@@ -116,12 +116,12 @@ const AboutKDxAI = () => {
       features: ["NCERT/CBSE aligned", "Domain-wise prep", "Mock tests", "University guidance"]
     },
     {
-      name: "KDx<sup>WikiSenior</sup>",
-      description: "Care companion app for senior citizens with health reminders and caregiver support",
-      status: "Brainstorming",
+      name: "KDx<sup>Kelviya</sup>",
+      description: "Senior-Friendly AI Conversational Assistant with Proactive Intelligence - A comprehensive AI conversational assistant specifically designed for senior citizens (40+) that combines reactive chat capabilities with proactive intelligence and personalized daily content. Features Tamil cultural integration, multi-LLM support, life event extraction, and sophisticated contextual intelligence engine.",
+      status: "Production Ready",
       highlight: false,
       icon: Stethoscope,
-      features: ["Health monitoring", "Medication reminders", "Emergency contacts", "Wellness tracking"]
+      features: ["Proactive Intelligence", "Personalized Content Hub", "Tamil Cultural Integration", "Multi-LLM Support", "Life Event Extraction", "Contextual Intelligence Engine"]
     },
     {
       name: "KDx<sup>Law</sup>",
@@ -254,14 +254,14 @@ const AboutKDxAI = () => {
             <div className="mb-8">
               <h1 className="text-5xl lg:text-7xl font-bold font-brand-primary leading-tight mb-6">
                 <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                  KDxAI Dynamics
+                  KDx<sup className="text-3xl lg:text-5xl">AI</sup> Dynamics
                 </span>
               </h1>
               <p className="text-2xl lg:text-3xl text-white/95 font-poppins leading-relaxed mb-4 font-semibold">
-                Tasks Digitised. Knowledge Amplified.
+                Automation. Intelligence. Amplified.
               </p>
               <p className="text-lg lg:text-xl text-white/85 font-poppins leading-relaxed mb-8 max-w-4xl mx-auto">
-                KDxAI Dynamics (Kaaryaa Digital Transformation AI) is building intelligent, retrieval-augmented solutions. <strong>We now have 4 MVP products: XmPrep<sup>NEET</sup> AI Tutor, KDx<sup>ITGym</sup> Career Platform, KDxVerse, and KDxClaims</strong>, proving our RAG technology before expanding into a broader ecosystem of educational and automation ideas.
+                KDx<sup>AI</sup> Dynamics (Kaaryaa Digital Transformation AI) is building intelligent, retrieval-augmented solutions. <strong>We now have 4 MVP products: XmPrep<sup>NEET</sup> AI Tutor, KDx<sup>ITGym</sup> Career Platform, KDx<sup>Verse</sup>, and KDxClaims</strong>, proving our RAG technology before expanding into a broader ecosystem of educational and automation ideas.
               </p>
             </div>
             
@@ -320,7 +320,7 @@ const AboutKDxAI = () => {
                 Our Journey: Proven MVPs, Expanding Vision
               </h2>
               <p className="text-xl text-brand-light-gray max-w-3xl mx-auto font-poppins">
-                Starting with working XmPrep<sup>NEET</sup> AI Tutor, KDx<sup>ITGym</sup> Career Platform, KDxVerse, and KDxClaims MVPs, we're building toward two powerful verticals of AI innovation based on proven RAG experience.
+                Starting with working XmPrep<sup>NEET</sup> AI Tutor, KDx<sup>ITGym</sup> Career Platform, KDx<sup>Verse</sup>, and KDxClaims MVPs, we're building toward two powerful verticals of AI innovation based on proven RAG experience.
               </p>
             </div>
 
