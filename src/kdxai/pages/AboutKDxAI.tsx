@@ -392,7 +392,7 @@ const AboutKDxAI = () => {
                   </h4>
                   <div className="bg-blue-50 rounded-lg p-4 mb-6 text-center">
                     <p className="text-blue-800 font-medium">
-                      🧠 These are our ideas and vision for the future - not current commitments but possibilities we're exploring based on our RAG experience
+                      🧠 These are our ideas and vision for the future - not current commitments but possibilities we're exploring based on our AI Automation experience
                     </p>
                   </div>
                   <div className="grid lg:grid-cols-3 gap-6">
