@@ -38,15 +38,6 @@ import { Link } from "react-router-dom";
 const AboutKDxAI = () => {
   const currentProducts = [
     {
-      name: "XmPrep<sup>NEET</sup>",
-      description: "AI Tutor MVP - Our first functional RAG-powered tutoring system for NEET preparation",
-      status: "MVP Ready",
-      highlight: true,
-      icon: GraduationCap,
-      features: ["RAG-powered AI Tutor", "Doubt solving", "Interactive chat", "Beta testing phase"],
-      url: "xmprep.in"
-    },
-    {
       name: "KDx<sup>ITGym</sup>",
       description: "AI Career Guidance Platform - Complete career coaching system with resume analysis, roadmaps, and intelligent guidance",
       status: "MVP Ready",
@@ -81,6 +72,15 @@ const AboutKDxAI = () => {
       icon: Stethoscope,
       features: ["Proactive Intelligence", "Personalized Content Hub", "Tamil Cultural Integration", "Multi-LLM Support", "Life Event Extraction", "Contextual Intelligence Engine"],
       url: "https://preview--kelvi-saha-companion.lovable.app/"
+    },
+    {
+      name: "XmPrep<sup>NEET</sup>",
+      description: "AI Tutor MVP - Our first functional RAG-powered tutoring system for NEET preparation",
+      status: "MVP Ready",
+      highlight: true,
+      icon: GraduationCap,
+      features: ["RAG-powered AI Tutor", "Doubt solving", "Interactive chat", "Beta testing phase"],
+      url: "xmprep.in"
     }
   ];
 
@@ -270,7 +270,7 @@ const AboutKDxAI = () => {
               "We're building <span className="font-semibold text-brand-purple">working AI solutions</span> to prove our RAG technology, then <span className="font-semibold text-brand-green">expanding thoughtfully</span> into a suite of intelligent solutions that truly serve users' needs."
             </blockquote>
             <p className="text-lg text-brand-light-gray font-poppins">
-              <strong>Based in Chennai. Products Ready. Building for the future.</strong>
+              <strong>Based in Chennai. Products Ready. From working MVPs to future automation ideas - let's build intelligent solutions together, one step at a time.</strong>
             </p>
           </div>
         </div>
