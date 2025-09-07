@@ -571,6 +571,23 @@ const AboutKDxAI = () => {
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-brand-dark-gray text-white py-12">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <h3 className="text-3xl font-bold font-brand-primary mb-2">
+              KDx<sup className="text-lg">AI</sup>
+            </h3>
+            <p className="text-lg text-gray-300 mb-4 font-poppins">
+              Tasks Digitised. Knowledge Amplified.
+            </p>
+            <p className="text-gray-400 font-poppins">
+              © 2025 KDxAI. Based in Chennai, India. Building the future of AI-powered solutions.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
