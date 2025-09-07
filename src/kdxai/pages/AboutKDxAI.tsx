@@ -223,7 +223,7 @@ const AboutKDxAI = () => {
                   </span>
                 </h1>
               <p className="text-2xl lg:text-3xl text-white/95 font-poppins leading-relaxed mb-4 font-semibold">
-                Automation. Intelligence. Amplified.
+                Automate. Intelligence. Amplified.
               </p>
               <p className="text-lg lg:text-xl text-white/85 font-poppins leading-relaxed mb-8 max-w-4xl mx-auto">
                 KDx<sup>AI</sup> Dynamics (Kaaryaa Digital Transformation powered by AI) is building intelligent, retrieval-augmented solutions. <strong>Our products showcase our expertise in RAG technology, building intelligent chat assistants, and developing AI/LLM-based applications: XmPrep<sup>NEET</sup> AI Tutor, KDx<sup>ITGym</sup> Career Platform, KDx<sup>Verse</sup>, KDx<sup>Claims</sup>, and KDx<sup>Kelviya</sup></strong> - proving our capabilities before expanding into a broader ecosystem of educational and automation solutions.
@@ -580,7 +580,7 @@ const AboutKDxAI = () => {
               KDx<sup className="text-lg">AI</sup> Dynamics
             </h3>
             <p className="text-lg text-gray-300 mb-4 font-poppins">
-              Automation. Intelligence. Amplified.
+              Automate. Intelligence. Amplified.
             </p>
             <p className="text-gray-400 font-poppins">
               © 2025 KDxAI. Based in Chennai, India. Building the future of AI-powered solutions.
