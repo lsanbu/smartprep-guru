@@ -44,7 +44,8 @@ const AboutKDxAI = () => {
       highlight: true,
       icon: GraduationCap,
       features: ["RAG-powered AI Tutor", "Doubt solving", "Interactive chat", "Beta testing phase"],
-      users: "MVP Phase"
+      users: "MVP Phase",
+      url: "xmprep.in"
     },
     {
       name: "KDx<sup>ITGym</sup>",
@@ -53,11 +54,51 @@ const AboutKDxAI = () => {
       highlight: true,
       icon: Briefcase,
       features: ["AI Career Coach", "Resume Advisor", "Learning Roadmaps", "Company Insights", "Interview Prep"],
-      users: "Active Users"
+      users: "Active Users",
+      url: "itgym.in"
+    },
+    {
+      name: "KDxVerse",
+      description: "Comprehensive platform for immersive digital experiences and virtual environments",
+      status: "MVP Ready",
+      highlight: true,
+      icon: Globe,
+      features: ["Virtual environments", "Digital experiences", "Interactive platforms", "User engagement"],
+      users: "MVP Phase",
+      url: "https://preview--kdxverse.lovable.app/"
+    },
+    {
+      name: "KDxClaims",
+      description: "Intelligent claims processing and management system powered by AI",
+      status: "MVP Ready",
+      highlight: true,
+      icon: FileSearch,
+      features: ["Claims processing", "AI-powered analysis", "Document management", "Automated workflows"],
+      users: "MVP Phase",
+      url: "https://preview--kdxclaims.lovable.app/"
     }
   ];
 
   const plannedIntelligenceProducts = [
+    {
+      name: "KDxVantage",
+      description: "A MicroSaaS product designed to simplify the development and deployment of Generative AI applications. Provides a unified interface for testing, routing, and monitoring LLM API calls across multiple providers.",
+      status: "Brainstorming",
+      highlight: false,
+      icon: Zap,
+      features: [
+        "Unified API for multiple LLM providers",
+        "Model Playground for comparison",
+        "Production Observability & Analytics",
+        "Hard Spending Limits & Cost Control",
+        "Centralized Key Management",
+        "Eliminates vendor lock-in"
+      ],
+      details: {
+        problem: "GenAI developers face complexity and risk due to fragmented tooling, evaluation paralysis, financial risk from unexpected costs, and lack of observability.",
+        solution: "A single platform that abstracts away complexity through unified API, centralized key management, model playground for side-by-side comparison, production observability with analytics, and hard spending limits."
+      }
+    },
     {
       name: "XmPrep<sup>CBSE</sup>",
       description: "AI-first revision companion for Class 9–12 students across all CBSE subjects",
@@ -193,7 +234,7 @@ const AboutKDxAI = () => {
   ];
 
   const achievements = [
-    { metric: "2 MVP", label: "Products Ready" },
+    { metric: "4 MVP", label: "Products Ready" },
     { metric: "RAG", label: "Architecture Proven" },
     { metric: "Active", label: "User Base" },
     { metric: "10+", label: "Future Ideas" },
@@ -213,14 +254,14 @@ const AboutKDxAI = () => {
             <div className="mb-8">
               <h1 className="text-5xl lg:text-7xl font-bold font-brand-primary leading-tight mb-6">
                 <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                  KDx<sup className="text-4xl lg:text-5xl text-yellow-200 font-extrabold">AI</sup>
+                  KDxAI Dynamics
                 </span>
               </h1>
               <p className="text-2xl lg:text-3xl text-white/95 font-poppins leading-relaxed mb-4 font-semibold">
                 Tasks Digitised. Knowledge Amplified.
               </p>
               <p className="text-lg lg:text-xl text-white/85 font-poppins leading-relaxed mb-8 max-w-4xl mx-auto">
-                KDx<sup>AI</sup> (Kaaryaa Digital Transformation AI) is building intelligent, retrieval-augmented solutions. <strong>We now have 2 MVP products: XmPrep<sup>NEET</sup> AI Tutor and KDx<sup>ITGym</sup> Career Platform</strong>, proving our RAG technology before expanding into a broader ecosystem of educational and automation ideas.
+                KDxAI Dynamics (Kaaryaa Digital Transformation AI) is building intelligent, retrieval-augmented solutions. <strong>We now have 4 MVP products: XmPrep<sup>NEET</sup> AI Tutor, KDx<sup>ITGym</sup> Career Platform, KDxVerse, and KDxClaims</strong>, proving our RAG technology before expanding into a broader ecosystem of educational and automation ideas.
               </p>
             </div>
             
@@ -279,7 +320,7 @@ const AboutKDxAI = () => {
                 Our Journey: Proven MVPs, Expanding Vision
               </h2>
               <p className="text-xl text-brand-light-gray max-w-3xl mx-auto font-poppins">
-                Starting with working XmPrep<sup>NEET</sup> AI Tutor and KDx<sup>ITGym</sup> Career Platform MVPs, we're building toward two powerful verticals of AI innovation based on proven RAG experience.
+                Starting with working XmPrep<sup>NEET</sup> AI Tutor, KDx<sup>ITGym</sup> Career Platform, KDxVerse, and KDxClaims MVPs, we're building toward two powerful verticals of AI innovation based on proven RAG experience.
               </p>
             </div>
 
@@ -356,13 +397,17 @@ const AboutKDxAI = () => {
                                     <ArrowRight className="ml-2 w-4 h-4" />
                                   </Button>
                                 </Link>
-                              ) : (
+                              ) : product.name.includes('ITGym') ? (
                                 <a href="https://itgym.lovable.app/" target="_blank" rel="noopener noreferrer">
                                   <Button size="sm" className="w-full bg-green-600 hover:bg-green-700 text-white">
                                     Try MVP
                                     <ArrowRight className="ml-2 w-4 h-4" />
                                   </Button>
                                 </a>
+                              ) : (
+                                <Button size="sm" className="w-full bg-green-600 hover:bg-green-700 text-white" disabled>
+                                  Coming Soon
+                                </Button>
                               )}
                             </div>
                           </CardContent>
@@ -403,16 +448,30 @@ const AboutKDxAI = () => {
                             {product.description}
                           </CardDescription>
                         </CardHeader>
-                        <CardContent>
-                          <div className="space-y-2">
-                            {product.features.map((feature, featureIndex) => (
-                              <div key={featureIndex} className="flex items-center space-x-2">
-                                <Innovation className="w-3 h-3 text-blue-500" />
-                                <span className="text-gray-600 font-poppins text-xs">{feature}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </CardContent>
+                         <CardContent>
+                           <div className="space-y-2 mb-4">
+                             {product.features.map((feature, featureIndex) => (
+                               <div key={featureIndex} className="flex items-center space-x-2">
+                                 <Innovation className="w-3 h-3 text-blue-500" />
+                                 <span className="text-gray-600 font-poppins text-xs">{feature}</span>
+                               </div>
+                             ))}
+                           </div>
+                           
+                           {/* Special detailed section for KDxVantage */}
+                           {product.name === 'KDxVantage' && product.details && (
+                             <div className="mt-4 space-y-4">
+                               <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                                 <h5 className="font-semibold text-orange-800 mb-2">Core Problem</h5>
+                                 <p className="text-orange-700 text-xs leading-relaxed">{product.details.problem}</p>
+                               </div>
+                               <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                                 <h5 className="font-semibold text-green-800 mb-2">Our Solution</h5>
+                                 <p className="text-green-700 text-xs leading-relaxed">{product.details.solution}</p>
+                               </div>
+                             </div>
+                           )}
+                         </CardContent>
                       </Card>
                     ))}
                   </div>
