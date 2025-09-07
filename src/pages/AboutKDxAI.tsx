@@ -44,7 +44,6 @@ const AboutKDxAI = () => {
       highlight: true,
       icon: GraduationCap,
       features: ["RAG-powered AI Tutor", "Doubt solving", "Interactive chat", "Beta testing phase"],
-      users: "MVP Phase",
       url: "xmprep.in"
     },
     {
@@ -54,7 +53,6 @@ const AboutKDxAI = () => {
       highlight: true,
       icon: Briefcase,
       features: ["AI Career Coach", "Resume Advisor", "Learning Roadmaps", "Company Insights", "Interview Prep"],
-      users: "Active Users",
       url: "itgym.in"
     },
     {
@@ -64,7 +62,6 @@ const AboutKDxAI = () => {
       highlight: true,
       icon: Globe,
       features: ["Universal Link Capture", "Smart Auto-Categorization", "Playlists & Collections", "Rich Sharing & Collaboration", "Advanced Search & Discovery", "Social & Viral Network Effects"],
-      users: "MVP Phase",
       url: "https://preview--kdxverse.lovable.app/"
     },
     {
@@ -74,7 +71,6 @@ const AboutKDxAI = () => {
       highlight: true,
       icon: FileSearch,
       features: ["Intelligent OCR Extraction", "Multi-Type Claims Support", "Period-Based Reporting", "PDF/CSV Export", "Corporate Integration", "Mobile Responsive"],
-      users: "MVP Phase",
       url: "https://preview--kdxclaims.lovable.app/"
     },
     {
@@ -84,13 +80,13 @@ const AboutKDxAI = () => {
       highlight: true,
       icon: Stethoscope,
       features: ["Proactive Intelligence", "Personalized Content Hub", "Tamil Cultural Integration", "Multi-LLM Support", "Life Event Extraction", "Contextual Intelligence Engine"],
-      users: "MVP Phase"
+      url: "https://preview--kelvi-saha-companion.lovable.app/"
     }
   ];
 
   const plannedIntelligenceProducts = [
     {
-      name: "KDxVantage",
+      name: "KDx<sup>Vantage</sup>",
       description: "A MicroSaaS product designed to simplify the development and deployment of Generative AI applications. Provides a unified interface for testing, routing, and monitoring LLM API calls across multiple providers.",
       status: "Brainstorming",
       highlight: false,
@@ -221,11 +217,11 @@ const AboutKDxAI = () => {
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-5xl mx-auto text-center text-white">
             <div className="mb-8">
-              <h1 className="text-5xl lg:text-7xl font-bold font-brand-primary leading-tight mb-6">
-                <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                  KDx<sup className="text-2xl lg:text-4xl align-super">AI</sup> Dynamics
-                </span>
-              </h1>
+                <h1 className="text-5xl lg:text-7xl font-bold font-brand-primary leading-tight mb-6">
+                  <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
+                    KDx<sup className="text-2xl lg:text-4xl align-super text-yellow-300">AI</sup> Dynamics
+                  </span>
+                </h1>
               <p className="text-2xl lg:text-3xl text-white/95 font-poppins leading-relaxed mb-4 font-semibold">
                 Automation. Intelligence. Amplified.
               </p>
@@ -353,11 +349,6 @@ const AboutKDxAI = () => {
                                 </div>
                               ))}
                             </div>
-                            {product.users && (
-                              <div className="mb-4 p-2 bg-green-50 rounded-lg text-center">
-                                <span className="text-green-700 font-semibold text-xs">{product.users}</span>
-                              </div>
-                            )}
                             <div className="pt-4 border-t">
                               {product.name.includes('XmPrep') ? (
                                 <Link to="/ai-tutor-demo">
@@ -368,6 +359,13 @@ const AboutKDxAI = () => {
                                 </Link>
                               ) : product.name.includes('ITGym') ? (
                                 <a href="https://itgym.lovable.app/" target="_blank" rel="noopener noreferrer">
+                                  <Button size="sm" className="w-full bg-green-600 hover:bg-green-700 text-white">
+                                    Try MVP
+                                    <ArrowRight className="ml-2 w-4 h-4" />
+                                  </Button>
+                                </a>
+                              ) : product.url ? (
+                                <a href={product.url} target="_blank" rel="noopener noreferrer">
                                   <Button size="sm" className="w-full bg-green-600 hover:bg-green-700 text-white">
                                     Try MVP
                                     <ArrowRight className="ml-2 w-4 h-4" />
