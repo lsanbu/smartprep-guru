@@ -58,7 +58,7 @@ const AboutKDxAI = () => {
       url: "itgym.in"
     },
     {
-      name: "KDx<sup>Collate</sup>",
+      name: "KDx<sup>Verse</sup>",
       description: "Go-to platform for individuals and teams to collect, organize, share, and discover valuable web content through intuitive playlists and smart categorization",
       status: "MVP Ready",
       highlight: true,
@@ -68,14 +68,23 @@ const AboutKDxAI = () => {
       url: "https://preview--kdxverse.lovable.app/"
     },
     {
-      name: "KDxClaims",
-      description: "Intelligent claims processing and management system powered by AI",
+      name: "KDx<sup>Claims</sup>",
+      description: "Comprehensive digital solution for expense claims management, designed to streamline the process from receipt capture to employer submission through OCR technology, automated data extraction, and intelligent reporting",
       status: "MVP Ready",
       highlight: true,
       icon: FileSearch,
-      features: ["Claims processing", "AI-powered analysis", "Document management", "Automated workflows"],
+      features: ["Intelligent OCR Extraction", "Multi-Type Claims Support", "Period-Based Reporting", "PDF/CSV Export", "Corporate Integration", "Mobile Responsive"],
       users: "MVP Phase",
       url: "https://preview--kdxclaims.lovable.app/"
+    },
+    {
+      name: "KDx<sup>Kelviya</sup>",
+      description: "Senior-Friendly AI Conversational Assistant with Proactive Intelligence - A comprehensive AI conversational assistant specifically designed for senior citizens (40+) that combines reactive chat capabilities with proactive intelligence and personalized daily content. Features Tamil cultural integration, multi-LLM support, life event extraction, and sophisticated contextual intelligence engine.",
+      status: "MVP Ready",
+      highlight: true,
+      icon: Stethoscope,
+      features: ["Proactive Intelligence", "Personalized Content Hub", "Tamil Cultural Integration", "Multi-LLM Support", "Life Event Extraction", "Contextual Intelligence Engine"],
+      users: "MVP Phase"
     }
   ];
 
@@ -115,38 +124,6 @@ const AboutKDxAI = () => {
       icon: Building2,
       features: ["NCERT/CBSE aligned", "Domain-wise prep", "Mock tests", "University guidance"]
     },
-    {
-      name: "KDx<sup>Kelviya</sup>",
-      description: "Senior-Friendly AI Conversational Assistant with Proactive Intelligence - A comprehensive AI conversational assistant specifically designed for senior citizens (40+) that combines reactive chat capabilities with proactive intelligence and personalized daily content. Features Tamil cultural integration, multi-LLM support, life event extraction, and sophisticated contextual intelligence engine.",
-      status: "Production Ready",
-      highlight: false,
-      icon: Stethoscope,
-      features: ["Proactive Intelligence", "Personalized Content Hub", "Tamil Cultural Integration", "Multi-LLM Support", "Life Event Extraction", "Contextual Intelligence Engine"]
-    },
-    {
-      name: "KDx<sup>Law</sup>",
-      description: "RAG-powered legal intelligence for case search, clause extraction, and precedent comparison",
-      status: "Brainstorming",
-      highlight: false,
-      icon: Scale,
-      features: ["Case law search", "Document analysis", "Legal research", "Precedent matching"]
-    },
-    {
-      name: "KDx<sup>Docs</sup>",
-      description: "AI search agent for company SOPs, HR docs, and internal knowledge management",
-      status: "Brainstorming",
-      highlight: false,
-      icon: FileSearch,
-      features: ["Document indexing", "Smart search", "Knowledge extraction", "Team collaboration"]
-    },
-    {
-      name: "KDx<sup>Guru</sup>",
-      description: "Enterprise knowledge assistant - your organization's private ChatGPT for internal workflows",
-      status: "Brainstorming",
-      highlight: false,
-      icon: Brain,
-      features: ["Internal knowledge base", "Workflow automation", "Team assistance", "Custom training"]
-    }
   ];
 
   const plannedAutomateProducts = [
@@ -174,14 +151,6 @@ const AboutKDxAI = () => {
       icon: BarChart3,
       features: ["Real-time dashboards", "Automated reports", "Alert systems", "Performance metrics"]
     },
-    {
-      name: "KDx<sup>HR</sup>",
-      description: "Employee onboarding, timesheet, leave management, and document workflow automation",
-      status: "Brainstorming",
-      highlight: false,
-      icon: UserCheck,
-      features: ["Onboarding automation", "Leave management", "Document workflows", "Compliance tracking"]
-    }
   ];
 
   const verticals = [
@@ -234,7 +203,7 @@ const AboutKDxAI = () => {
   ];
 
   const achievements = [
-    { metric: "4 MVP", label: "Products Ready" },
+    { metric: "Products", label: "Ready" },
     { metric: "RAG", label: "Architecture Proven" },
     { metric: "Active", label: "User Base" },
     { metric: "10+", label: "Future Ideas" },
@@ -254,14 +223,14 @@ const AboutKDxAI = () => {
             <div className="mb-8">
               <h1 className="text-5xl lg:text-7xl font-bold font-brand-primary leading-tight mb-6">
                 <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
-                  KDx<sup className="text-3xl lg:text-5xl">AI</sup> Dynamics
+                  KDx<sup className="text-2xl lg:text-4xl align-super">AI</sup> Dynamics
                 </span>
               </h1>
               <p className="text-2xl lg:text-3xl text-white/95 font-poppins leading-relaxed mb-4 font-semibold">
                 Automation. Intelligence. Amplified.
               </p>
               <p className="text-lg lg:text-xl text-white/85 font-poppins leading-relaxed mb-8 max-w-4xl mx-auto">
-                KDx<sup>AI</sup> Dynamics (Kaaryaa Digital Transformation AI) is building intelligent, retrieval-augmented solutions. <strong>We now have 4 MVP products: XmPrep<sup>NEET</sup> AI Tutor, KDx<sup>ITGym</sup> Career Platform, KDx<sup>Verse</sup>, and KDxClaims</strong>, proving our RAG technology before expanding into a broader ecosystem of educational and automation ideas.
+                KDx<sup>AI</sup> Dynamics (Kaaryaa Digital Transformation powered by AI) is building intelligent, retrieval-augmented solutions. <strong>Our products showcase our expertise in RAG technology, building intelligent chat assistants, and developing AI/LLM-based applications: XmPrep<sup>NEET</sup> AI Tutor, KDx<sup>ITGym</sup> Career Platform, KDx<sup>Verse</sup>, KDx<sup>Claims</sup>, and KDx<sup>Kelviya</sup></strong> - proving our capabilities before expanding into a broader ecosystem of educational and automation solutions.
               </p>
             </div>
             
@@ -305,7 +274,7 @@ const AboutKDxAI = () => {
               "We're building <span className="font-semibold text-brand-purple">working AI solutions</span> to prove our RAG technology, then <span className="font-semibold text-brand-green">expanding thoughtfully</span> into a suite of intelligent solutions that truly serve users' needs."
             </blockquote>
             <p className="text-lg text-brand-light-gray font-poppins">
-              <strong>Based in Chennai. 2 MVPs Ready. Building for the future.</strong>
+              <strong>Based in Chennai. Products Ready. Building for the future.</strong>
             </p>
           </div>
         </div>
@@ -320,7 +289,7 @@ const AboutKDxAI = () => {
                 Our Journey: Proven MVPs, Expanding Vision
               </h2>
               <p className="text-xl text-brand-light-gray max-w-3xl mx-auto font-poppins">
-                Starting with working XmPrep<sup>NEET</sup> AI Tutor, KDx<sup>ITGym</sup> Career Platform, KDx<sup>Verse</sup>, and KDxClaims MVPs, we're building toward two powerful verticals of AI innovation based on proven RAG experience.
+                Starting with our products ready for market - XmPrep<sup>NEET</sup> AI Tutor, KDx<sup>ITGym</sup> Career Platform, KDx<sup>Verse</sup>, KDx<sup>Claims</sup>, and KDx<sup>Kelviya</sup> - we're building toward powerful verticals of AI innovation based on proven RAG experience.
               </p>
             </div>
 
