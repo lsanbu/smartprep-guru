@@ -11,7 +11,7 @@ import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import AITutorLanding from "./pages/AITutorLanding";
-import AboutKDxAI from "./pages/AboutKDxAI";
+import AboutKDxAI from "./kdxai/pages/AboutKDxAI";
 
 const queryClient = new QueryClient();
 
