@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import KDxAIHome from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import AboutKDxAI from "./pages/AboutKDxAI";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ function KDxAIApp() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<KDxAIHome />} />
+            <Route path="/about" element={<AboutKDxAI />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
