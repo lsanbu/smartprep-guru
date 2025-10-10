@@ -26,15 +26,15 @@ const Features = () => {
       icon: Brain,
       title: "AI-Powered Tutor",
       description: "Get instant answers to your doubts with text, image, and voice input support. Our AI understands NEET concepts deeply.",
-      color: "text-brand-purple",
-      bgColor: "bg-brand-purple/10"
+      color: "text-brand-navy",
+      bgColor: "bg-brand-navy/10"
     },
     {
       icon: BookOpen,
       title: "NCERT RAG Access",
       description: "Query directly from NCERT textbooks with advanced retrieval-augmented generation for accurate, contextual answers.",
-      color: "text-brand-green",
-      bgColor: "bg-brand-green/10"
+      color: "text-brand-teal",
+      bgColor: "bg-brand-teal/10"
     },
     {
       icon: Target,

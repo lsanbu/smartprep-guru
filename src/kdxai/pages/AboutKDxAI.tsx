@@ -209,7 +209,7 @@ const AboutKDxAI = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-brand-purple via-brand-green to-brand-purple overflow-hidden">
+      <section className="relative py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #062F5A 0%, #20B2AA 50%, #A4D65E 100%)' }}>
         <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
         }}></div>
@@ -241,7 +241,7 @@ const AboutKDxAI = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/ai-tutor-demo">
-                <Button size="lg" className="bg-white text-brand-purple hover:bg-gray-100 font-semibold px-8 py-4 text-lg shadow-2xl">
+                <Button size="lg" className="bg-white text-brand-navy hover:bg-gray-100 font-semibold px-8 py-4 text-lg shadow-2xl">
                   <GraduationCap className="mr-2 w-5 h-5" />
                   Try NEET Tutor
                   <ArrowRight className="ml-2 w-5 h-5" />
@@ -251,7 +251,7 @@ const AboutKDxAI = () => {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-2 border-white text-white hover:bg-white hover:text-brand-purple font-semibold px-8 py-4 text-lg"
+                  className="border-2 border-white text-white hover:bg-white hover:text-brand-navy font-semibold px-8 py-4 text-lg"
                 >
                   <Briefcase className="mr-2 w-5 h-5" />
                   Try ITGym Career

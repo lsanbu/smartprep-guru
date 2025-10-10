@@ -50,12 +50,12 @@ const Pricing = () => {
     {
       name: "Accelerate",
       hours: "90 hours",
-      color: "text-brand-purple",
-      bgColor: "bg-purple-50",
-      borderColor: "border-purple-200",
-      buttonColor: "bg-brand-purple hover:bg-brand-purple/90",
+      color: "text-brand-navy",
+      bgColor: "bg-blue-50",
+      borderColor: "border-blue-300",
+      buttonColor: "bg-brand-navy hover:bg-brand-navy/90",
       icon: Zap,
-      iconColor: "text-brand-purple",
+      iconColor: "text-brand-navy",
       popular: true,
       features: [
         "All Ignite features",
@@ -68,12 +68,12 @@ const Pricing = () => {
     {
       name: "Achieve",
       hours: "300 hours",
-      color: "text-brand-green",
-      bgColor: "bg-green-50",
-      borderColor: "border-green-200",
-      buttonColor: "bg-brand-green hover:bg-brand-green/90",
+      color: "text-brand-teal",
+      bgColor: "bg-teal-50",
+      borderColor: "border-teal-200",
+      buttonColor: "bg-brand-teal hover:bg-brand-teal/90",
       icon: Crown,
-      iconColor: "text-brand-green",
+      iconColor: "text-brand-teal",
       features: [
         "All Accelerate features",
         "College Predictor Tool (NEET-based)",
@@ -95,13 +95,13 @@ const Pricing = () => {
     <section id="pricing" className="py-20 px-4 bg-white">
       <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-brand-purple mb-4">
+          <h2 className="text-4xl font-bold text-brand-navy mb-4">
             Choose Your Learning Journey
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
             Feature-based access with XmPrep hours usage limits. Open to all users and institutions.
           </p>
-          <Badge className="bg-brand-green/10 text-brand-green border-brand-green/20 text-sm px-4 py-2">
+          <Badge className="bg-brand-lime/10 text-brand-lime border-brand-lime/20 text-sm px-4 py-2">
             <Zap className="w-4 h-4 mr-2" />
             2025 Pricing Model
           </Badge>
@@ -113,7 +113,7 @@ const Pricing = () => {
             <Card key={tier.name} className={`relative border-2 ${tier.borderColor} ${tier.bgColor} hover:shadow-xl transition-all duration-300`}>
               {tier.popular && (
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <Badge className="bg-brand-purple text-white px-4 py-1">
+                  <Badge className="bg-brand-navy text-white px-4 py-1">
                     <Star className="w-3 h-3 mr-1" />
                     Most Popular
                   </Badge>
@@ -139,7 +139,7 @@ const Pricing = () => {
                 <ul className="space-y-3">
                   {tier.features.map((feature, index) => (
                     <li key={index} className="flex items-start space-x-3">
-                      <Check className="w-5 h-5 text-brand-green mt-0.5 flex-shrink-0" />
+                      <Check className="w-5 h-5 text-brand-lime mt-0.5 flex-shrink-0" />
                       <span className="text-gray-700">{feature}</span>
                     </li>
                   ))}
@@ -158,7 +158,7 @@ const Pricing = () => {
         {/* XmPrep Hours Explanation */}
         <div className="bg-gray-50 rounded-2xl p-8">
           <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-brand-purple mb-4">
+            <h3 className="text-2xl font-bold text-brand-navy mb-4">
               What Counts as "XmPrep Hours"?
             </h3>
             <p className="text-gray-600 max-w-3xl mx-auto">
@@ -169,18 +169,18 @@ const Pricing = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {xmPrepHoursFeatures.map((feature, index) => (
               <div key={index} className="flex items-center space-x-3 p-4 bg-white rounded-lg shadow-sm">
-                <div className="w-10 h-10 bg-brand-purple/10 rounded-full flex items-center justify-center">
-                  <feature.icon className="w-5 h-5 text-brand-purple" />
+                <div className="w-10 h-10 bg-brand-navy/10 rounded-full flex items-center justify-center">
+                  <feature.icon className="w-5 h-5 text-brand-navy" />
                 </div>
                 <span className="text-gray-700 font-medium">{feature.text}</span>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 p-6 bg-white rounded-lg border border-brand-green/20">
+          <div className="mt-8 p-6 bg-white rounded-lg border border-brand-lime/20">
             <div className="flex items-center space-x-3 mb-3">
-              <Trophy className="w-6 h-6 text-brand-green" />
-              <h4 className="text-lg font-semibold text-brand-green">Fair Usage Policy</h4>
+              <Trophy className="w-6 h-6 text-brand-lime" />
+              <h4 className="text-lg font-semibold text-brand-lime">Fair Usage Policy</h4>
             </div>
             <p className="text-gray-600 leading-relaxed">
               We track usage to help you optimize your learning time, not to restrict your progress. 
@@ -192,12 +192,12 @@ const Pricing = () => {
 
         {/* Contact for Institutions */}
         <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-brand-purple to-brand-green rounded-2xl p-8 text-white">
+          <div className="rounded-2xl p-8 text-white" style={{ background: 'linear-gradient(135deg, #062F5A 0%, #20B2AA 50%, #A4D65E 100%)' }}>
             <h3 className="text-2xl font-bold mb-4">For Schools & Coaching Institutes</h3>
             <p className="text-lg text-gray-200 mb-6 max-w-2xl mx-auto">
               Special bulk pricing and institutional features available. Contact us for custom solutions.
             </p>
-            <Button className="bg-white text-brand-purple hover:bg-gray-50 px-8 py-3 text-lg shadow-lg">
+            <Button className="bg-white text-brand-navy hover:bg-gray-50 px-8 py-3 text-lg shadow-lg">
               <MessageCircle className="w-5 h-5 mr-2" />
               Contact for Bulk Pricing
             </Button>

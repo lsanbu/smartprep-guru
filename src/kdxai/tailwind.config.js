@@ -57,10 +57,13 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))'
         },
-        'brand-purple': 'hsl(var(--brand-purple))',
-        'brand-green': 'hsl(var(--brand-green))',
-        'brand-dark-gray': 'hsl(var(--brand-dark-gray))',
-        'brand-light-gray': 'hsl(var(--brand-light-gray))',
+				'brand-navy': 'hsl(208 87% 19%)', // #062F5A
+				'brand-teal': 'hsl(177 70% 41%)', // #20B2AA
+				'brand-lime': 'hsl(81 59% 60%)', // #A4D65E
+				'brand-purple': 'hsl(var(--brand-navy))', // Alias for compatibility
+				'brand-green': 'hsl(var(--brand-teal))', // Alias for compatibility
+				'brand-dark-gray': 'hsl(var(--brand-dark-gray))',
+				'brand-light-gray': 'hsl(var(--brand-light-gray))',
       },
       borderRadius: {
         lg: 'var(--radius)',

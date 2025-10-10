@@ -63,7 +63,7 @@ const AITutorLanding = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-brand-purple via-brand-green to-brand-purple">
+    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #062F5A 0%, #20B2AA 50%, #A4D65E 100%)' }}>
       {/* Hero Section */}
       <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Pattern */}
@@ -177,8 +177,8 @@ const AITutorLanding = () => {
               <Card key={index} className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300">
                 <CardHeader>
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-brand-purple/10 rounded-lg flex items-center justify-center">
-                      <feature.icon className="w-6 h-6 text-brand-purple" />
+                  <div className="w-12 h-12 bg-brand-navy/10 rounded-lg flex items-center justify-center">
+                      <feature.icon className="w-6 h-6 text-brand-navy" />
                     </div>
                     <CardTitle className="text-xl font-bold text-brand-dark-gray font-brand-primary">
                       {feature.title}
@@ -219,9 +219,9 @@ const AITutorLanding = () => {
             </p>
 
             <div className="grid md:grid-cols-2 gap-8 mb-12">
-              <Card className="border-2 border-brand-green/20 bg-brand-green/5">
+              <Card className="border-2 border-brand-teal/20 bg-brand-teal/5">
                 <CardHeader>
-                  <CardTitle className="flex items-center text-brand-green font-brand-primary">
+                  <CardTitle className="flex items-center text-brand-teal font-brand-primary">
                     <Play className="w-6 h-6 mr-3" />
                     Live AI Tutor Demo
                   </CardTitle>
@@ -230,7 +230,7 @@ const AITutorLanding = () => {
                   <ul className="space-y-3 text-left">
                     {benefits.slice(0, 3).map((benefit, index) => (
                       <li key={index} className="flex items-center">
-                        <CheckCircle className="w-5 h-5 text-brand-green mr-3" />
+                        <CheckCircle className="w-5 h-5 text-brand-teal mr-3" />
                         <span className="font-poppins">{benefit}</span>
                       </li>
                     ))}
@@ -238,9 +238,9 @@ const AITutorLanding = () => {
                 </CardContent>
               </Card>
 
-              <Card className="border-2 border-brand-purple/20 bg-brand-purple/5">
+              <Card className="border-2 border-brand-navy/20 bg-brand-navy/5">
                 <CardHeader>
-                  <CardTitle className="flex items-center text-brand-purple font-brand-primary">
+                  <CardTitle className="flex items-center text-brand-navy font-brand-primary">
                     <Gift className="w-6 h-6 mr-3" />
                     Free Preview Access Benefits
                   </CardTitle>
@@ -249,7 +249,7 @@ const AITutorLanding = () => {
                   <ul className="space-y-3 text-left">
                     {benefits.slice(3).map((benefit, index) => (
                       <li key={index} className="flex items-center">
-                        <CheckCircle className="w-5 h-5 text-brand-purple mr-3" />
+                        <CheckCircle className="w-5 h-5 text-brand-navy mr-3" />
                         <span className="font-poppins">{benefit}</span>
                       </li>
                     ))}
@@ -259,7 +259,7 @@ const AITutorLanding = () => {
             </div>
 
             {/* Final CTA */}
-            <div className="bg-gradient-to-r from-brand-purple to-brand-green rounded-3xl p-8 text-white">
+            <div className="rounded-3xl p-8 text-white" style={{ background: 'linear-gradient(135deg, #062F5A 0%, #20B2AA 50%, #A4D65E 100%)' }}>
               <h3 className="text-3xl font-bold mb-4 font-brand-primary">
                 Ready to Transform Your NEET Preparation?
               </h3>
@@ -270,7 +270,7 @@ const AITutorLanding = () => {
               <Button 
                 onClick={handleGoogleFormRedirect}
                 size="lg"
-                className="bg-white text-brand-purple hover:bg-gray-100 font-bold px-12 py-4 text-xl shadow-2xl"
+                className="bg-white text-brand-navy hover:bg-gray-100 font-bold px-12 py-4 text-xl shadow-2xl"
               >
                 <Calendar className="w-6 h-6 mr-3" />
                 Book Your Free Demo Seat

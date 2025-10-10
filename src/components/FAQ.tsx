@@ -56,7 +56,7 @@ const FAQ = () => {
     <section id="faq" className="py-20 px-4 bg-white">
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-16">
-          <Badge className="bg-brand-purple/10 text-brand-purple border-brand-purple/20 mb-4 px-4 py-2">
+          <Badge className="bg-brand-navy/10 text-brand-navy border-brand-navy/20 mb-4 px-4 py-2">
             <HelpCircle className="w-4 h-4 mr-2" />
             Frequently Asked Questions
           </Badge>
@@ -77,7 +77,7 @@ const FAQ = () => {
               value={`item-${index}`}
               className="border border-gray-200 rounded-lg px-6 shadow-sm hover:shadow-md transition-shadow"
             >
-              <AccordionTrigger className="text-left font-semibold font-brand-primary text-brand-dark-gray hover:text-brand-purple">
+              <AccordionTrigger className="text-left font-semibold font-brand-primary text-brand-dark-gray hover:text-brand-navy">
                 {faq.question}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600 font-poppins leading-relaxed">
@@ -88,7 +88,7 @@ const FAQ = () => {
         </Accordion>
 
         <div className="mt-12 text-center">
-          <div className="bg-gradient-to-r from-brand-purple/10 to-brand-green/10 rounded-xl p-6">
+          <div className="rounded-xl p-6" style={{ background: 'linear-gradient(135deg, rgba(6, 47, 90, 0.1) 0%, rgba(32, 178, 170, 0.1) 50%, rgba(164, 214, 94, 0.1) 100%)' }}>
             <h3 className="text-xl font-bold font-brand-primary text-brand-dark-gray mb-3">
               Still have questions?
             </h3>
@@ -98,13 +98,13 @@ const FAQ = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
                 href="mailto:support@xmprep.com" 
-                className="text-brand-purple hover:text-brand-purple/80 font-medium font-poppins"
+                className="text-brand-navy hover:text-brand-navy/80 font-medium font-poppins"
               >
                 📧 support@xmprep.com
               </a>
               <a 
                 href="tel:+911234567890" 
-                className="text-brand-purple hover:text-brand-purple/80 font-medium font-poppins"
+                className="text-brand-navy hover:text-brand-navy/80 font-medium font-poppins"
               >
                 📞 +91 12345 67890
               </a>
