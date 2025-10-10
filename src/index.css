@@ -6,7 +6,7 @@
 /* Import KDxAI Brand Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
 
-/* KDxAI Brand Colors - Purple and Green Theme */
+/* Kaaryaa Brand Colors - Navy Blue, Teal, and Lime Green Theme */
 
 @layer base {
   :root {
@@ -19,7 +19,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 265 93% 36%; /* Purple #6A0DAD */
+    --primary: 208 87% 19%; /* Navy Blue #062F5A */
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -28,7 +28,7 @@
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 73 76% 39%; /* Green #B2C600 */
+    --accent: 81 59% 60%; /* Lime Green #A4D65E */
     --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
@@ -36,18 +36,24 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 265 93% 36%;
+    --ring: 208 87% 19%;
 
     --radius: 0.75rem;
 
+    /* Brand-specific colors */
+    --brand-navy: 208 87% 19%; /* Navy Blue #062F5A */
+    --brand-teal: 177 70% 41%; /* Teal #20B2AA */
+    --brand-lime: 81 59% 60%; /* Lime Green #A4D65E */
+    --brand-gradient: linear-gradient(135deg, hsl(208 87% 19%) 0%, hsl(177 70% 41%) 50%, hsl(81 59% 60%) 100%);
+
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 265 93% 36%;
+    --sidebar-primary: 208 87% 19%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 265 93% 36%;
+    --sidebar-ring: 208 87% 19%;
   }
 
   .dark {
@@ -61,7 +67,7 @@
     --popover-foreground: 210 40% 98%;
 
     --primary: 210 40% 98%;
-    --primary-foreground: 265 93% 36%;
+    --primary-foreground: 208 87% 19%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -69,7 +75,7 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 73 76% 39%;
+    --accent: 81 59% 60%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
@@ -77,16 +83,21 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 265 93% 36%;
+    --ring: 208 87% 19%;
+
+    /* Brand-specific colors for dark mode */
+    --brand-navy: 208 87% 19%;
+    --brand-teal: 177 70% 41%;
+    --brand-lime: 81 59% 60%;
     
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 265 93% 36%;
+    --sidebar-primary: 208 87% 19%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 265 93% 36%;
+    --sidebar-ring: 208 87% 19%;
   }
 }
 
@@ -141,7 +152,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Custom scrollbar with KDxAI brand colors */
+/* Custom scrollbar with Kaaryaa brand colors */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -152,10 +163,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #6A0DAD, #B2C600);
+  background: linear-gradient(135deg, #062F5A, #20B2AA, #A4D65E);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #5a0b91, #9ab300);
+  background: linear-gradient(135deg, #051f3a, #1a9690, #8fc044);
 }

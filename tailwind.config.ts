@@ -32,7 +32,7 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: 'hsl(265 93% 36%)', // Purple #6A0DAD for KDxAI branding
+					DEFAULT: 'hsl(208 87% 19%)', // Navy Blue #062F5A for Kaaryaa branding
 					foreground: 'hsl(var(--primary-foreground))'
 				},
 				secondary: {
@@ -48,7 +48,7 @@ export default {
 					foreground: 'hsl(var(--muted-foreground))'
 				},
 				accent: {
-					DEFAULT: 'hsl(73 76% 39%)', // Green #B2C600 for KDxAI branding
+					DEFAULT: 'hsl(81 59% 60%)', // Lime Green #A4D65E for Kaaryaa branding
 					foreground: 'hsl(var(--accent-foreground))'
 				},
 				popover: {
@@ -69,8 +69,9 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				'brand-purple': 'hsl(265 93% 36%)', // #6A0DAD
-				'brand-green': 'hsl(73 76% 39%)', // #B2C600
+				'brand-navy': 'hsl(208 87% 19%)', // #062F5A
+				'brand-teal': 'hsl(177 70% 41%)', // #20B2AA
+				'brand-lime': 'hsl(81 59% 60%)', // #A4D65E
 				'brand-dark-gray': 'hsl(0 0% 20%)', // #333333
 				'brand-light-gray': 'hsl(0 0% 53%)', // #888888
 			},
